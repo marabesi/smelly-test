@@ -4,6 +4,8 @@
   "description": "Find out the smells in your tests, suggestions for correction and the theory behind them",
   "icon": "./images/icon.png",
   "version": "0.0.1",
+  "publisher": "marabesi",
+  "browser": "./out/src/extension.js",
   "engines": {
     "vscode": "^1.76.0"
   },
@@ -32,7 +34,10 @@
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
-    "test:all": "mocha -r ts-node/register src/modules/**/**.test.ts"
+    "test:vscode": "vscode-test",
+    "test:all": "mocha -r ts-node/register src/modules/**/**.test.ts",
+    "test:coverage": "nyc --reporter=text mocha -r ts-node/register src/modules/**/**.test.ts",
+    "coveralls": "npm run test:coveralls:coverage && coveralls --verbose < lcov.info"
   },
   "devDependencies": {
     "@types/esprima": "^4.0.6",
@@ -42,7 +47,10 @@
     "@types/vscode": "^1.76.0",
     "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@typescript-eslint/parser": "^5.53.0",
-    "@vscode/test-electron": "^2.2.3",
+    "@vscode/test-cli": "^0.0.9",
+    "@vscode/test-electron": "^2.4.0",
+    "coveralls": "^3.1.1",
+    "nyc": "^15.1.0",
     "eslint": "^8.34.0",
     "glob": "^8.1.0",
     "mocha": "^10.2.0",

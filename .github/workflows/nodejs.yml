@@ -49,10 +49,10 @@ jobs:
       run: |
         npm run test:all
 
-    - name: npm coverage
-      if: github.ref == 'refs/heads/master'
-      run: |
-        npm run coveralls
+#    - name: npm coverage
+#      if: github.ref == 'refs/heads/master'
+#      run: |
+#        npm run coveralls
 
     - name: npm package standalone extension
       if: github.ref == 'refs/heads/master'

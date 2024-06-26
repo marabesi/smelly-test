@@ -1,0 +1,68 @@
+name: Continuous Integration Workflow
+
+concurrency: 
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on: [push]
+
+env:
+  CI: true
+  DISPLAY: ':99.0'
+  COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
+  COVERALLS_GIT_BRANCH: master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./vscode
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: export display
+      run: |
+        /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+        echo ">>> Started xvfb"
+
+    - name: npm install
+      run: |
+        npm install
+
+    - name: npm build
+      run: |
+        npm run vscode:prepublish
+
+    - name: npm test
+      if: github.ref != 'refs/heads/master'
+      run: |
+        npm run test:all
+
+    - name: npm coverage
+      if: github.ref == 'refs/heads/master'
+      run: |
+        npm run coveralls
+
+    - name: npm package standalone extension
+      if: github.ref == 'refs/heads/master'
+      run: |
+        npm i -g vsce
+        npm run package
+
+    - name: store artifact
+      if: github.ref == 'refs/heads/master'
+      uses: actions/upload-artifact@v2
+      with:
+        name: smelly-test-vscode-extension
+        path: ./*.vsix

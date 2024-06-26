@@ -12,8 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          cd vscode && npm install
-          cd vscode && mv */* ../
+          cd vscode && npm install && mv */* ../
       - uses: lannonbr/vsce-action@3.0.0
         with:
           args: "publish -p $VSCE_TOKEN"

@@ -8,7 +8,7 @@
     "url": "https://github.com/marabesi/smelly-test-extension/tree/main/vscode"
   },
   "publisher": "marabesi",
-  "browser": "./out/src/extension.js",
+  "browser": "./dist/extension.js",
   "engines": {
     "vscode": "^1.76.0"
   },

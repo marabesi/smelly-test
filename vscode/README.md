@@ -1,8 +1,3 @@
-# Smelly test
+# Smelly test for vscode
 
-Smelly test is an extension that helps developers to mitigate test smells in their test suites. Smely tests
-is focused on the javascript ecosystem
-
-## Features
-
-- Identify if statements in the test code
+- vscode market place

@@ -1,7 +1,7 @@
 {
-  "name": "tdd-anti-patterns-catcher",
-  "displayName": "TDD anti-patterns catcher",
-  "description": "",
+  "name": "smelly-test",
+  "displayName": "Smelly tests",
+  "description": "Find out the smells in your tests, suggestions for correction and the theory behind them",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.76.0"
@@ -9,13 +9,15 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguage:javascript"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "tdd-anti-patterns-catcher.helloWorld",
-        "title": "Hello World"
+        "command": "extension.smelly-test.find-smells",
+        "title": "Is my test smelly?"
       }
     ]
   },
@@ -28,22 +30,28 @@
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./out/test/runTest.js",
+    "test:all": "mocha -r ts-node/register src/modules/**/**.test.ts"
   },
   "devDependencies": {
-    "@types/vscode": "^1.76.0",
+    "@types/esprima": "^4.0.6",
     "@types/glob": "^8.1.0",
     "@types/mocha": "^10.0.1",
     "@types/node": "16.x",
+    "@types/vscode": "^1.76.0",
     "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@typescript-eslint/parser": "^5.53.0",
+    "@vscode/test-electron": "^2.2.3",
     "eslint": "^8.34.0",
     "glob": "^8.1.0",
     "mocha": "^10.2.0",
-    "typescript": "^4.9.5",
     "ts-loader": "^9.4.2",
+    "typescript": "^4.9.5",
     "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1",
-    "@vscode/test-electron": "^2.2.3"
+    "webpack-cli": "^5.0.1"
+  },
+  "dependencies": {
+    "esprima": "^4.0.1",
+    "ts-node": "^10.9.2"
   }
 }

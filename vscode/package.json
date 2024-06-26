@@ -2,6 +2,7 @@
   "name": "smelly-test",
   "displayName": "Smelly tests",
   "description": "Find out the smells in your tests, suggestions for correction and the theory behind them",
+  "icon": "./images/icon.png",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.76.0"
@@ -53,5 +54,9 @@
   "dependencies": {
     "esprima": "^4.0.1",
     "ts-node": "^10.9.2"
+  },
+  "pricing": "Free",
+  "sponsor": {
+    "url": "https://github.com/sponsors/marabesi"
   }
 }

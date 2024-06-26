@@ -2,7 +2,7 @@
   "name": "smelly-test",
   "displayName": "Smelly test",
   "description": "Find out the smells in your tests, suggestions for correction and the theory behind them",
-  "icon": "./images/icon.png",
+  "icon": "images/icon.png",
   "version": "0.0.1",
   "repository": {
     "url": "https://github.com/marabesi/smelly-test-extension/tree/main/vscode"

@@ -1,6 +1,6 @@
 {
   "name": "smelly-test",
-  "displayName": "Smelly tests",
+  "displayName": "Smelly test",
   "description": "Find out the smells in your tests, suggestions for correction and the theory behind them",
   "icon": "./images/icon.png",
   "version": "0.0.1",

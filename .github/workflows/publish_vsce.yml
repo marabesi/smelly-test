@@ -9,12 +9,17 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: ./vscode
+
     steps:
       - uses: actions/checkout@v2
-      - run: |
-          cd vscode && npm install && mv */* ../
-      - uses: lannonbr/vsce-action@3.0.0
+      - name: Use Node.js 16x
+        uses: actions/setup-node@v1
         with:
-          args: "publish -p $VSCE_TOKEN"
-        env:
-          VSCE_TOKEN: ${{ secrets.VSCE_TOKEN }}
+          node-version: 16x
+      - run: |
+          npm install
+          npm install -g vsce
+          npx vsce publish -p ${{ secrets.VSCE_TOKEN }}

@@ -18,7 +18,7 @@ jobs:
       - name: Use Node.js 16x
         uses: actions/setup-node@v1
         with:
-          node-version: 16x
+          node-version: 16.x
       - run: |
           npm install
           npm install -g vsce

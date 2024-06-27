@@ -1,12 +1,5 @@
-import { parseScript, Program, Syntax, Token } from 'esprima';
-
-export type Smell = {
-  type: string;
-  lineStart: number;
-  lineEnd: number;
-  startAt: number;
-  endsAt: number;
-};
+import { parseScript, Program, Syntax } from 'esprima';
+import { Smell } from './types';
 
 export class SmellDetector {
 
@@ -27,7 +20,9 @@ export class SmellDetector {
         lineStart: statement.loc.start.line,
         lineEnd: statement.loc.end.line,
         startAt: statement.loc.start.column,
-        endsAt: statement.loc.end.column
+        endsAt: statement.loc.end.column,
+        description: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that
+        requires different context to run. Split the test case to fit one context per test case.`
       });
     }
 

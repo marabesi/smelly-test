@@ -1,7 +1,12 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import { Smell, SmellDetector } from './modules/smells-detector';
+import path from 'path';
+import { SmellDetector } from './modules/smells-detector';
+import { Smell } from './modules/types';
+
+type ComposedSmell = {
+  smell: Smell;
+  range: vscode.Range;
+};
 
 export const unusedNamespaceDecorationType = vscode.window.createTextEditorDecorationType({
   backgroundColor: 'rgba(255,0,0, 0.5)',
@@ -14,13 +19,11 @@ export const unusedNamespaceDecorationType = vscode.window.createTextEditorDecor
 });
 
 let currentDecoration = unusedNamespaceDecorationType;
-let ranges: vscode.Range[] = [];
+let ranges: ComposedSmell[] = [];
+let hovers: vscode.Disposable[] = [];
 
-
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-  console.log('smelly-test is now active!');
+  console.info('[SMELLY] smelly-test is now active!');
 
   vscode.window.onDidChangeActiveTextEditor(() => {
     generateHighlighting();
@@ -31,17 +34,31 @@ export function activate(context: vscode.ExtensionContext) {
   }, null, context.subscriptions);
 
   vscode.workspace.onDidChangeConfiguration(e => {
-    // currentDecoration = setupConfiguration();
   }, null, context.subscriptions);
 
-  let disposable = vscode.commands.registerCommand('extension.smelly-test.find-smells', () => {
+  const disposable = vscode.commands.registerCommand('extension.smelly-test.find-smells', () => {
     generateHighlighting();
   });
 
   context.subscriptions.push(disposable);
 
-  // currentDecoration = setupConfiguration();
   generateHighlighting();
+
+  ranges.forEach(({ range, smell }) => {
+    const disposableHover = vscode.languages.registerHoverProvider(['javascript'], {
+      provideHover(document, position, token) {
+        if (range.contains(position)){
+          return {
+            contents: [smell.description],
+            range
+          };
+        }
+      }
+    });
+
+    hovers.push(disposableHover);
+    context.subscriptions.push(disposableHover);
+  });
 }
 
 
@@ -50,6 +67,13 @@ function generateHighlighting() {
 
   const supportedLanguages = ['javascript'];
   if (!editor || !supportedLanguages.includes(editor.document.languageId)) {
+    return;
+  }
+
+  const fileName = path.basename(editor.document.fileName);
+
+  if (!fileName.includes('test')) {
+    console.info(`[SMELLY] the current file ${fileName} is not a test file, the file must have 'test' in its name`);
     return;
   }
 
@@ -65,20 +89,23 @@ function generateHighlighting() {
 
   resetDecorations(editor);
 
-  findMatch(editor, text);
+  findMatch(text);
 
   highlightSelections(editor);
 }
-
 
 const findSmells = (text: string): Smell[] => {
   const detect = new SmellDetector(text);
   return detect.findAll();
 };
 
-export function findMatch(editor: vscode.TextEditor, text: string): void {
+export function findMatch(text: string): void {
   findSmells(text).forEach(element => {
-    ranges.push(new vscode.Range(element.lineStart -1, element.startAt, element.lineEnd -1, element.endsAt));
+    const range = new vscode.Range(element.lineStart - 1, element.startAt, element.lineEnd - 1, element.endsAt);
+    ranges.push({
+      smell: element,
+      range,
+    });
   });
 }
 
@@ -86,6 +113,8 @@ function resetAllDecorations() {
   vscode.window.visibleTextEditors.forEach(textEditor => {
     resetDecorations(textEditor);
   });
+
+  hovers.forEach(hover => hover.dispose());
 }
 
 function resetDecorations(textEditor: vscode.TextEditor) {

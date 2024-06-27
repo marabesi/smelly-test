@@ -13,7 +13,7 @@ async function execute() {
   try {
     const fileContents = await fs.readFile(fileName, { encoding: 'utf8' });
     const smellDetector = new SmellDetector(fileContents);
-    console.log(smellDetector.findAll());
+    console.info(smellDetector.findAll());
   } catch (err) {
     console.log(`[SMELLY] error: ${err}`);
   }

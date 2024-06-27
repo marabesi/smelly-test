@@ -11,8 +11,9 @@ export class SmellDetector {
 
   findAll(): Smell[] {
     const smells: Smell[] = [];
+    const ifs: any[] = [];
 
-    const ifs = containsIfStatement(this.ast).filter((item: any) => item.type === Syntax.IfStatement);
+    findIfStatements(this.ast, ifs).filter((item: any) => item.type === Syntax.IfStatement);
 
     for (const statement of ifs) {
       smells.push({
@@ -30,16 +31,17 @@ export class SmellDetector {
   }
 }
 
-function containsIfStatement(node: any) {
-  if (node.type === Syntax.IfStatement) {
-    return node;
+function findIfStatements(node: any, ifStatements: any[] = []) {
+  if (node.type === 'IfStatement') {
+    ifStatements.push(node);
   }
-  for (const key in node) {
+
+  // Recursively search in all child nodes
+  for (let key in node) {
     if (node[key] && typeof node[key] === 'object') {
-      if (containsIfStatement(node[key])) {
-        return node[key];
-      }
+      findIfStatements(node[key], ifStatements);
     }
   }
-  return false;
+
+  return ifStatements;
 }

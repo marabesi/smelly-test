@@ -16,4 +16,21 @@ if (a === 1) {}`;
     assert.equal(result[0].startAt, 0);
     assert.equal(result[0].endsAt, 15);
   });
+
+  test('find for in the test code', () => {
+    const code = `const lists = [{}, {}];
+
+for (const i of lists) {
+
+}`;
+
+    const smellDetector = new SmellDetector(code);
+    const result = smellDetector.findAll();
+
+    assert.equal(result[0].type, 'for-of-statement');
+    assert.equal(result[0].lineStart, 3);
+    assert.equal(result[0].lineEnd, 5);
+    assert.equal(result[0].startAt, 0);
+    assert.equal(result[0].endsAt, 1);
+  });
 });

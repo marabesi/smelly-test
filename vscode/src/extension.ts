@@ -8,7 +8,7 @@ type ComposedSmell = {
   range: vscode.Range;
 };
 
-export const unusedNamespaceDecorationType = vscode.window.createTextEditorDecorationType({
+export const warningDecorationType = vscode.window.createTextEditorDecorationType({
   backgroundColor: 'rgba(255,0,0, 0.5)',
   light: {
     borderColor: 'darkblue'
@@ -18,7 +18,7 @@ export const unusedNamespaceDecorationType = vscode.window.createTextEditorDecor
   }
 });
 
-let currentDecoration = unusedNamespaceDecorationType;
+let currentDecoration = warningDecorationType;
 let ranges: ComposedSmell[] = [];
 let hovers: vscode.Disposable[] = [];
 
@@ -27,10 +27,12 @@ export function activate(context: vscode.ExtensionContext) {
 
   vscode.window.onDidChangeActiveTextEditor(() => {
     generateHighlighting();
+    drawHover(context);
   }, null, context.subscriptions);
 
   vscode.workspace.onDidSaveTextDocument(() => {
     generateHighlighting();
+    drawHover(context);
   }, null, context.subscriptions);
 
   vscode.workspace.onDidChangeConfiguration(e => {
@@ -38,16 +40,22 @@ export function activate(context: vscode.ExtensionContext) {
 
   const disposable = vscode.commands.registerCommand('extension.smelly-test.find-smells', () => {
     generateHighlighting();
+    drawHover(context);
   });
 
   context.subscriptions.push(disposable);
 
   generateHighlighting();
 
+  drawHover(context);
+}
+
+function drawHover(context: vscode.ExtensionContext) {
+  disposeHovers();
   ranges.forEach(({ range, smell }) => {
     const disposableHover = vscode.languages.registerHoverProvider(['javascript'], {
       provideHover(document, position, token) {
-        if (range.contains(position)){
+        if (range.contains(position)) {
           return {
             contents: [smell.description],
             range
@@ -60,7 +68,6 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposableHover);
   });
 }
-
 
 function generateHighlighting() {
   const editor = vscode.window.activeTextEditor;
@@ -113,8 +120,6 @@ function resetAllDecorations() {
   vscode.window.visibleTextEditors.forEach(textEditor => {
     resetDecorations(textEditor);
   });
-
-  hovers.forEach(hover => hover.dispose());
 }
 
 function resetDecorations(textEditor: vscode.TextEditor) {
@@ -125,7 +130,11 @@ function highlightSelections(editor: vscode.TextEditor) {
   editor.setDecorations(currentDecoration, ranges);
 }
 
-// This method is called when your extension is deactivated
+function disposeHovers() {
+  hovers.forEach(hover => hover.dispose());
+}
+
 export function deactivate() {
   resetAllDecorations();
+  disposeHovers();
 }

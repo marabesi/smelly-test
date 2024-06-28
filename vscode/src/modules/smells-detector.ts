@@ -23,8 +23,8 @@ export class SmellDetector {
         lineEnd: statement.loc.end.line,
         startAt: statement.loc.start.column,
         endsAt: statement.loc.end.column,
-        description: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that
-        requires different context to run. Split the test case to fit one context per test case.`
+        description: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`,
+        diagnostic: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`,
       });
     }
 
@@ -37,8 +37,8 @@ export class SmellDetector {
         lineEnd: statement.loc.end.line,
         startAt: statement.loc.start.column,
         endsAt: statement.loc.end.column,
-        description: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that
-        requires different context to run. Split the test case to fit one context per test case.`
+        description: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`,
+        diagnostic: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`
       });
     }
 

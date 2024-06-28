@@ -21,9 +21,11 @@ export const warningDecorationType = vscode.window.createTextEditorDecorationTyp
 let currentDecoration = warningDecorationType;
 let ranges: ComposedSmell[] = [];
 let hovers: vscode.Disposable[] = [];
+let collection: vscode.DiagnosticCollection;
 
 export function activate(context: vscode.ExtensionContext) {
   console.info('[SMELLY] smelly-test is now active!');
+  collection =  vscode.languages.createDiagnosticCollection("smelly");
 
   vscode.window.onDidChangeActiveTextEditor(() => {
     generateHighlighting();
@@ -55,9 +57,13 @@ function drawHover(context: vscode.ExtensionContext) {
   ranges.forEach(({ range, smell }) => {
     const disposableHover = vscode.languages.registerHoverProvider(['javascript'], {
       provideHover(document, position, token) {
+        const contents = new vscode.MarkdownString(smell.description);
+        contents.supportHtml = true;
+        contents.isTrusted = true;
+
         if (range.contains(position)) {
           return {
-            contents: [smell.description],
+            contents: [contents],
             range
           };
         }
@@ -67,6 +73,26 @@ function drawHover(context: vscode.ExtensionContext) {
     hovers.push(disposableHover);
     context.subscriptions.push(disposableHover);
   });
+
+  populateDiagnosticPanel();
+}
+
+function populateDiagnosticPanel() {
+  const uri = vscode.window.activeTextEditor?.document.uri;
+  
+  if (uri) {
+    const diagnosticCollection = ranges.map((smell) => {
+      const diagnostic: vscode.Diagnostic = {
+        severity: vscode.DiagnosticSeverity.Warning,
+        range: smell.range,
+        message: smell.smell.diagnostic,
+        source: 'smelly-test'
+      };
+      return diagnostic;
+    });
+    
+    collection.set(uri, diagnosticCollection);
+  }
 }
 
 function generateHighlighting() {

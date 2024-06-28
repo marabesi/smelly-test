@@ -5,4 +5,5 @@ export type Smell = {
   startAt: number;
   endsAt: number;
   description: string; //supports markdown
+  diagnostic: string; //no support for markdown
 };

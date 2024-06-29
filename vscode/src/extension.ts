@@ -110,9 +110,10 @@ function generateHighlighting() {
     return;
   }
 
-  console.log('Finding smells...');
+  console.log('[SMELLY] Finding smells...');
 
   if (!editor) {
+    console.error('[SMELLY] editor not available');
     return;
   }
 
@@ -140,6 +141,7 @@ export function findMatch(text: string): void {
       range,
     });
   });
+  console.log(`[SMELLY] found ${ranges.length}`);
 }
 
 function resetAllDecorations() {

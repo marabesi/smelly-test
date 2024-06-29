@@ -1,15 +1,31 @@
 import * as assert from 'assert';
-
-// You can import and use all API from the 'vscode' module
-// as well as import your extension to test it
+import * as path from 'path';
 import * as vscode from 'vscode';
-// import * as myExtension from '../../extension';
+
+const testFolderLocationForJavascript = '../../../../src/dataset/javascript/';
 
 suite('Extension Test Suite', () => {
-  vscode.window.showInformationMessage('Start all tests.');
+  [
+    { language: 'javascript', file: testFolderLocationForJavascript + 'script_with_if.test.js', expectedTestSmell: 1 },
+    { language: 'javascript', file: testFolderLocationForJavascript + 'real_test_with_if.test.js', expectedTestSmell: 7 },
+    { language: 'javascript', file: testFolderLocationForJavascript + 'script_with_for.test.js', expectedTestSmell: 1 },
+  ].forEach(({ language, file, expectedTestSmell }) => {
+    test(`Shows smelly in diagnostics panel, language :${language}, file: ${file}`, async () => {
+      const uri = vscode.Uri.file(
+        path.join(__dirname + file)
+      );
 
-  test('Sample test', () => {
-    assert.strictEqual(-1, [1, 2, 3].indexOf(5));
-    assert.strictEqual(-1, [1, 2, 3].indexOf(0));
+      const document = await vscode.workspace.openTextDocument(uri);
+      const editor = await vscode.window.showTextDocument(document);
+
+      const result = await vscode.commands.executeCommand('extension.smelly-test.find-smells');
+
+      assert.equal(undefined, result);
+      assert.equal(editor.document.languageId, language);
+
+      const diagnostics = vscode.languages.getDiagnostics(uri);
+
+      assert.deepEqual(expectedTestSmell, diagnostics.length);
+    });
   });
 });

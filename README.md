@@ -4,8 +4,11 @@ Smelly test is an extension that helps developers mitigate test smells in their 
 
 ## Features
 
-- Identify **if** statements in the test code
-- Identify **for of** loops in the test code
+- server side javascript/typescript
+  - Identify **if** statements in the test code
+  - Identify **for of** loops in the test code
+- client side javascript/typescript
+  - TODO
 
 ## Available at
 

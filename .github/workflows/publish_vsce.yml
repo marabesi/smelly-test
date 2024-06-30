@@ -2,9 +2,7 @@ name: Deploy Extension
 
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - '*'
+
 jobs:
   deploy:
     runs-on: ubuntu-latest

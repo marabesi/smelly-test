@@ -8,11 +8,12 @@ Smelly test is an extension that helps developers mitigate test smells in their 
   - Identify **if** statements in the test code
   - Identify **for of** loops in the test code
 - client side javascript/typescript
-  - TODO
+  - jsx/tsx
+    - Identify **if** statements in the test code
 
 ## Available at
 
-- [vscode market place]() or [see source code](./vscode/)
+- [vscode market place](https://marketplace.visualstudio.com/items?itemName=marabesi.smelly-test) or [see source code](./vscode/)
 
 ## Stand alone
 

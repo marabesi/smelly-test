@@ -2,8 +2,8 @@
 
 Smelly test is an extension that helps developers mitigate test smells in their test suites. Smelly test is focused on the javascript ecosystem
 
-<video width="720" controls>
-  <source src="https://github.com/marabesi/smelly-test-extension/assets/2129872/026e36ff-4328-42e6-9155-ddd0c194acce" type="video/mp4">
+<video width="720" src="https://github.com/marabesi/smelly-test-extension/assets/2129872/026e36ff-4328-42e6-9155-ddd0c194acce" type="video/mp4" autoplay loop controls muted title="Smelly in action">
+  Sorry, your browser doesn't support HTML 5 video.
 </video>
 
 ## Features

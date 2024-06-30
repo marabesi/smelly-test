@@ -38,9 +38,9 @@
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js",
+    "test": "node ./out/modules/vscode/test/runTest.js",
     "test:vscode": "vscode-test",
-    "test:all": "mocha -r ts-node/register src/modules/**/**.test.ts",
+    "test:all": "mocha -r ts-node/register src/modules/smells-finder/**/**.test.ts",
     "test:coverage": "nyc --reporter=text mocha -r ts-node/register src/modules/**/**.test.ts",
     "coveralls": "npm run test:coveralls:coverage && coveralls --verbose < lcov.info",
     "cli": "ts-node src/modules/cli/find-smells.ts"

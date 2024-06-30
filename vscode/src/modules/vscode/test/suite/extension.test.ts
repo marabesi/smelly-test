@@ -2,8 +2,8 @@ import * as assert from 'assert';
 import * as path from 'path';
 import * as vscode from 'vscode';
 
-const testFolderLocationForJavascript = '../../../../src/dataset/javascript';
-const testFolderLocationForTypescript = '../../../../src/dataset/typescript';
+const testFolderLocationForJavascript = '../../../../../../src/dataset/javascript';
+const testFolderLocationForTypescript = '../../../../../../src/dataset/typescript';
 
 suite('Smelly Extension Test Suite', () => {
   [
@@ -13,9 +13,8 @@ suite('Smelly Extension Test Suite', () => {
     { language: 'typescript', file: testFolderLocationForTypescript + '/script_with_if.test.ts', expectedTestSmell: 1 },
   ].forEach(({ language, file, expectedTestSmell }) => {
     test(`Shows smelly in diagnostics panel, language: ${language}, file: ${file}, expected smells: ${expectedTestSmell}`, async () => {
-      const uri = vscode.Uri.file(
-        path.join(__dirname + file)
-      );
+      const currentFile = path.join(__dirname + file);
+      const uri = vscode.Uri.file( currentFile);
 
       const document = await vscode.workspace.openTextDocument(uri);
       const editor = await vscode.window.showTextDocument(document);

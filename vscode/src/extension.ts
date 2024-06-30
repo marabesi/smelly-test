@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import path from 'path';
 import { SmellDetector } from './modules/smells-finder/smells-detector';
 import { Smell } from './modules/smells-finder/types';
-import { ComposedSmell, warningDecorationType } from './extension.types';
+import { ComposedSmell, warningDecorationType } from './modules/vscode/extension.types';
 
 let currentDecoration = warningDecorationType;
 let ranges: ComposedSmell[] = [];

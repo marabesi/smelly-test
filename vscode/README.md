@@ -1,3 +1,29 @@
-# Smelly test for vscode
+# Smelly test
 
-- vscode market place
+Smelly test is an extension that helps developers mitigate test smells in their test suites. Smelly test is focused on the javascript ecosystem
+
+
+[https://github.com/marabesi/smelly-test-extension/assets/2129872/026e36ff-4328-42e6-9155-ddd0c194acce](https://github.com/marabesi/smelly-test-extension/assets/2129872/026e36ff-4328-42e6-9155-ddd0c194acce)
+
+
+## Features
+
+- server side javascript/typescript
+  - Identify **if** statements in the test code
+  - Identify **for of** loops in the test code
+- client side javascript/typescript
+  - jsx/tsx
+    - Identify **if** statements in the test code
+    - Identify **for of** loops in the test code
+
+## Available at
+
+- [vscode market place](https://marketplace.visualstudio.com/items?itemName=marabesi.smelly-test) or [see source code](./vscode/)
+
+## Stand alone
+
+This extension comes with a CLI that executes the same smell detector as the extension:
+
+```
+npm run cli -- path/to/file/test.js
+```

@@ -21,5 +21,5 @@ Smelly test is an extension that helps developers mitigate test smells in their 
 This extension comes with a CLI that executes the same smell detector as the extension:
 
 ```
-npm run cli -- path/to/file/test.js
+npm run cli -- path/to/file/test.js typescript
 ```

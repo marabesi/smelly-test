@@ -33,6 +33,7 @@ suite('Smelly Extension Test Suite', () => {
 
   [
     { language: 'javascript', file: fileForJavascript('script_with_if.test.js'), expectedTestSmell: 1 },
+    { language: 'javascript', file: fileForJavascript('script_with_if.spec.js'), expectedTestSmell: 1 },
     { language: 'javascript', file: fileForJavascript('real_test_with_if.test.js'), expectedTestSmell: 7 },
     { language: 'javascript', file: fileForJavascript('script_with_for.test.js'), expectedTestSmell: 1 },
     // typescript

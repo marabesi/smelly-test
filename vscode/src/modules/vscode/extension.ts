@@ -88,6 +88,11 @@ function populateDiagnosticPanel() {
   }
 }
 
+function isFileNameTestFile(fileName: string) {
+  const fileNameAndPath = path.basename(fileName);
+  return !fileNameAndPath.includes('test') && !fileNameAndPath.includes('spec');
+}
+
 function generateHighlighting(context: vscode.ExtensionContext) {
   const editor = vscode.window.activeTextEditor;
 
@@ -101,8 +106,8 @@ function generateHighlighting(context: vscode.ExtensionContext) {
     logger.info(`or language not avaialble: language ${language}`);
   }
 
-  const fileName = path.basename(editor.document.fileName);
-  if (!fileName.includes('test')) {
+  const fileName = editor.document.fileName;
+  if (isFileNameTestFile(fileName)) {
     logger.info(`the current file ${fileName} is not a test file, the file must have 'test' in its name`);
     clearDiagnostics();
     return;

@@ -47,8 +47,8 @@
     "test:smells-finder": "mocha -r ts-node/register src/modules/smells-finder/**/**.test.ts",
     "test:all": "npm run test:smells-finder && npm run test",
     "test:watch:all": "nodemon --exec 'npm run test:smells-finder && npm run test' --watch 'src/modules/**' --ext 'ts' --delay 5",
-    "test:coverage": "nyc --reporter=text mocha -r ts-node/register src/modules/smells-finder/**/**.test.ts",
-    "coveralls": "npm run test:coverage && coveralls --verbose < lcov.info",
+    "test:coverage": "nyc --reporter=lcov mocha -r ts-node/register src/modules/smells-finder/**/**.test.ts",
+    "coveralls": "npm run test:coverage && coveralls --verbose < coverage/lcov.info",
     "cli": "ts-node src/modules/cli/find-smells.ts"
   },
   "devDependencies": {

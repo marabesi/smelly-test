@@ -14,30 +14,18 @@ export function activate(context: vscode.ExtensionContext) {
   console.info('[SMELLY] smelly-test is now active!');
 
   vscode.window.onDidChangeActiveTextEditor(() => {
-    // clearDiagnostics();
-    disposeHovers();
-
-    generateHighlighting();
-    drawHover(context);
+    generateHighlighting(context);
   }, null, context.subscriptions);
 
   vscode.workspace.onDidSaveTextDocument(() => {
-    disposeHovers();
-    // clearDiagnostics();
-
-    generateHighlighting();
-    drawHover(context);
+    generateHighlighting(context);
   }, null, context.subscriptions);
 
   vscode.workspace.onDidChangeConfiguration(e => {
   }, null, context.subscriptions);
 
   const disposable = vscode.commands.registerCommand('extension.smelly-test.find-smells', () => {
-    disposeHovers();
-    // clearDiagnostics();
-
-    generateHighlighting();
-    drawHover(context);
+    generateHighlighting(context);
   });
 
   context.subscriptions.push(disposable);
@@ -94,7 +82,7 @@ function populateDiagnosticPanel() {
   }
 }
 
-function generateHighlighting() {
+function generateHighlighting(context: vscode.ExtensionContext) {
   const editor = vscode.window.activeTextEditor;
 
   const supportedLanguages = ['javascript', 'typescript'];
@@ -106,6 +94,7 @@ function generateHighlighting() {
 
   if (!fileName.includes('test')) {
     console.info(`[SMELLY] the current file ${fileName} is not a test file, the file must have 'test' in its name`);
+    clearDiagnostics();
     return;
   }
 
@@ -121,6 +110,7 @@ function generateHighlighting() {
   const text = editor.document.getText();
 
   resetDecorations(editor);
+  disposeHovers();
 
   const language = editor.document.languageId;
   console.log(`[SMELLY] finding match for ${language}`);
@@ -130,6 +120,8 @@ function generateHighlighting() {
   console.log(`[SMELLY] highlight selection match`);
   highlightSelections(editor);
   console.log(`[SMELLY] highlight selection match done`);
+
+  drawHover(context);
 }
 
 const findSmells = (text: string, language: string): Smell[] => {
@@ -171,8 +163,6 @@ function clearDiagnostics() {
   
   if (uri) {
     console.log(`[SMELLY] cleaning collection`);
-    // collection.delete(uri);
-    // collection.set(uri, undefined);
     collection.clear();
     console.log(`[SMELLY] cleaning collection done`);
   }
@@ -180,9 +170,7 @@ function clearDiagnostics() {
 
 export function deactivate() {
   console.log(`[SMELLY] disposing`);
-  // collection.delete(uri);
   resetAllDecorations();
   disposeHovers();
   collection.dispose();
-  // clearDiagnostics();
 }

@@ -2,21 +2,7 @@ import * as vscode from 'vscode';
 import path from 'path';
 import { SmellDetector } from './modules/smells-detector';
 import { Smell } from './modules/types';
-
-type ComposedSmell = {
-  smell: Smell;
-  range: vscode.Range;
-};
-
-export const warningDecorationType = vscode.window.createTextEditorDecorationType({
-  backgroundColor: 'rgba(255,0,0, 0.5)',
-  light: {
-    borderColor: 'darkblue'
-  },
-  dark: {
-    borderColor: 'lightblue'
-  }
-});
+import { ComposedSmell, warningDecorationType } from './extension.types';
 
 let currentDecoration = warningDecorationType;
 let ranges: ComposedSmell[] = [];

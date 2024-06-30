@@ -1,5 +1,5 @@
 import fs from 'node:fs/promises';
-import { SmellDetector } from '../modules/smells-detector';
+import { SmellDetector } from '../smells-finder/smells-detector';
 
 const args = process.argv;
 const fileName = args[2];

@@ -1,7 +1,6 @@
 import * as ts from 'typescript';
 
-import { SmellsFinder } from "./SmellsFinder";
-import { Smell } from "./types";
+import { Smell, SmellsFinder } from "../types";
 
 export class TypescriptSmells implements SmellsFinder {
 

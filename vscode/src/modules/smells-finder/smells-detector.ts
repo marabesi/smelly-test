@@ -1,5 +1,5 @@
-import { JavascriptSmells } from './JavascriptSmells';
-import { TypescriptSmells } from './TypescriptSmells';
+import { JavascriptSmells } from './languages/JavascriptSmells';
+import { TypescriptSmells } from './languages/TypescriptSmells';
 import { Smell } from './types';
 
 export class SmellDetector {

@@ -7,3 +7,7 @@ export type Smell = {
   description: string; //supports markdown
   diagnostic: string; //no support for markdown
 };
+
+export interface SmellsFinder {
+  searchSmells(): Smell[];
+}

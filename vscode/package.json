@@ -43,7 +43,7 @@
     "test:all": "mocha -r ts-node/register src/modules/**/**.test.ts",
     "test:coverage": "nyc --reporter=text mocha -r ts-node/register src/modules/**/**.test.ts",
     "coveralls": "npm run test:coveralls:coverage && coveralls --verbose < lcov.info",
-    "cli": "ts-node src/cli/find-smells.ts"
+    "cli": "ts-node src/modules/cli/find-smells.ts"
   },
   "devDependencies": {
     "@types/esprima": "^4.0.6",

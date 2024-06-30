@@ -39,7 +39,9 @@ suite('Smelly Extension Test Suite', () => {
     // typescript
     { language: 'typescript', file: fileFortypescript('script_with_if.test.ts'), expectedTestSmell: 1 },
     { language: 'typescript', file: fileFortypescript('script_with_for.test.ts'), expectedTestSmell: 1 },
-    // typescript
+    // tsx
+    { language: 'typescriptreact', file: fileFortypescript('tsx/enzyme.test.tsx'), expectedTestSmell: 0 },
+    { language: 'typescriptreact', file: fileFortypescript('tsx/if.test.tsx'), expectedTestSmell: 1 },
   ].forEach(({ language, file, expectedTestSmell }) => {
     test(`Shows smelly in diagnostics panel, language: ${language}, file: ${file}, expected smells: ${expectedTestSmell}`, async () => {
       const currentFile = path.join(__dirname + file);

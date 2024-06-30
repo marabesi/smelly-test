@@ -45,23 +45,23 @@ jobs:
         npm run vscode:prepublish
 
     - name: npm test
-      if: github.ref != 'refs/heads/master'
+      if: github.ref != 'refs/heads/main'
       run: |
         npm run test:all
 
-#    - name: npm coverage
-#      if: github.ref == 'refs/heads/master'
-#      run: |
-#        npm run coveralls
+    - name: npm coverage
+      if: github.ref == 'refs/heads/main'
+      run: |
+        npm run coveralls
 
     - name: npm package standalone extension
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/main'
       run: |
         npm i -g vsce
         npm run package
 
     - name: store artifact
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/main'
       uses: actions/upload-artifact@v2
       with:
         name: smelly-test-vscode-extension

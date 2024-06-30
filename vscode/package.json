@@ -44,6 +44,7 @@
     "test:vscode": "vscode-test",
     "test:smells-finder": "mocha -r ts-node/register src/modules/smells-finder/**/**.test.ts",
     "test:all": "npm run test:smells-finder && npm run test",
+    "test:watch:all": "nodemon --exec 'npm run test:smells-finder && npm run test' --watch 'src/modules/**' --ext 'ts'",
     "test:coverage": "nyc --reporter=text mocha -r ts-node/register src/modules/**/**.test.ts",
     "coveralls": "npm run test:coveralls:coverage && coveralls --verbose < lcov.info",
     "cli": "ts-node src/modules/cli/find-smells.ts"
@@ -62,6 +63,7 @@
     "eslint": "^8.34.0",
     "glob": "^8.1.0",
     "mocha": "^10.2.0",
+    "nodemon": "^3.1.4",
     "nyc": "^15.1.0",
     "rimraf": "^5.0.7",
     "ts-loader": "^9.4.2",

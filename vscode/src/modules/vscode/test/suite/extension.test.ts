@@ -13,8 +13,26 @@ function fileFortypescript(file: string) {
 }
 
 suite('Smelly Extension Test Suite', () => {
+  // this is a sensitive test as it relies on it being the first one to be executed
+  test('find smells automatically', async () => {
+    const file = fileForJavascript('real_test_with_if.test.js');
+    const language = 'javascript';
+
+    const currentFile = path.join(__dirname + file);
+    const uri = vscode.Uri.file(currentFile);
+
+    const document = await vscode.workspace.openTextDocument(uri);
+    const editor = await vscode.window.showTextDocument(document);
+
+    assert.equal(editor.document.languageId, language);
+
+    const diagnostics = vscode.languages.getDiagnostics(uri);
+
+    assert.deepEqual(diagnostics.length, 7);
+  });
+
   [
-    { language: 'javascript', file: fileForJavascript('/script_with_if.test.js'), expectedTestSmell: 1 },
+    { language: 'javascript', file: fileForJavascript('script_with_if.test.js'), expectedTestSmell: 1 },
     { language: 'javascript', file: fileForJavascript('real_test_with_if.test.js'), expectedTestSmell: 7 },
     { language: 'javascript', file: fileForJavascript('script_with_for.test.js'), expectedTestSmell: 1 },
     // typescript

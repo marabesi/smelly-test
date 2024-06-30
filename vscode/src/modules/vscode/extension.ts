@@ -31,15 +31,11 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(disposable);
 
-  // clearDiagnostics();
-
-  // generateHighlighting();
-
-  // drawHover(context);
   console.info('[SMELLY] smelly-test active process done');
 }
 
 function drawHover(context: vscode.ExtensionContext) {
+  console.info('[SMELLY] drawing hovers');
   ranges.forEach(({ range, smell }) => {
     const disposableHover = vscode.languages.registerHoverProvider(supportedLanguages, {
       provideHover(document, position, token) {
@@ -60,6 +56,8 @@ function drawHover(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposableHover);
   });
 
+  console.info('[SMELLY] drawing hovers done');
+
   populateDiagnosticPanel();
 }
 
@@ -67,6 +65,7 @@ function populateDiagnosticPanel() {
   const uri = vscode.window.activeTextEditor?.document.uri;
 
   if (uri) {
+    console.info('[SMELLY] populating diagnostics');
     collection.set(uri, undefined);
 
     const diagnosticCollection = ranges.map((smell) => {
@@ -80,6 +79,7 @@ function populateDiagnosticPanel() {
     });
 
     collection.set(uri, diagnosticCollection);
+    console.info('[SMELLY] populating diagnostics done');
   }
 }
 

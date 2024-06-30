@@ -4,6 +4,9 @@ import { SmellDetector } from '../smells-finder/smells-detector';
 import { Smell, SupportedLanguages } from '../smells-finder/types';
 import { supportedLanguages } from '../smells-finder/languages/Supported';
 import { ComposedSmell, warningDecorationType } from './extension.types';
+import { Logger } from '../trace/logger';
+
+const logger = new Logger();
 
 let currentDecoration = warningDecorationType;
 let ranges: ComposedSmell[] = [];
@@ -12,7 +15,7 @@ let collection: vscode.DiagnosticCollection;
 
 export function activate(context: vscode.ExtensionContext) {
   collection =  vscode.languages.createDiagnosticCollection("smelly");
-  console.info('[SMELLY] smelly-test is now active!');
+  logger.info('smelly-test is now active!');
 
   vscode.window.onDidChangeActiveTextEditor(() => {
     generateHighlighting(context);
@@ -31,11 +34,11 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(disposable);
 
-  console.info('[SMELLY] smelly-test active process done');
+  logger.info('smelly-test active process done');
 }
 
 function drawHover(context: vscode.ExtensionContext) {
-  console.info('[SMELLY] drawing hovers');
+  logger.info('drawing hovers');
   ranges.forEach(({ range, smell }) => {
     const disposableHover = vscode.languages.registerHoverProvider(supportedLanguages, {
       provideHover(document, position, token) {
@@ -56,7 +59,7 @@ function drawHover(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposableHover);
   });
 
-  console.info('[SMELLY] drawing hovers done');
+  logger.info('drawing hovers done');
 
   populateDiagnosticPanel();
 }
@@ -65,7 +68,7 @@ function populateDiagnosticPanel() {
   const uri = vscode.window.activeTextEditor?.document.uri;
 
   if (uri) {
-    console.info('[SMELLY] populating diagnostics');
+    logger.info('populating diagnostics');
     collection.set(uri, undefined);
 
     const diagnosticCollection = ranges.map((smell) => {
@@ -79,7 +82,7 @@ function populateDiagnosticPanel() {
     });
 
     collection.set(uri, diagnosticCollection);
-    console.info('[SMELLY] populating diagnostics done');
+    logger.info('populating diagnostics done');
   }
 }
 
@@ -87,26 +90,26 @@ function generateHighlighting(context: vscode.ExtensionContext) {
   const editor = vscode.window.activeTextEditor;
 
   if (!editor ) {
-    console.info(`[SMELLY] editor has no active text`);
+    logger.info(`editor has no active text`);
     return;
   }
 
   const language = editor.document.languageId as SupportedLanguages;
   if (!supportedLanguages.includes(language)) {
-    console.info(`[SMELLY] or language not avaialble: language ${language}`);
+    logger.info(`or language not avaialble: language ${language}`);
   }
 
   const fileName = path.basename(editor.document.fileName);
   if (!fileName.includes('test')) {
-    console.info(`[SMELLY] the current file ${fileName} is not a test file, the file must have 'test' in its name`);
+    logger.info(`the current file ${fileName} is not a test file, the file must have 'test' in its name`);
     clearDiagnostics();
     return;
   }
 
-  console.log('[SMELLY] Finding smells...');
+  logger.info('Finding smells...');
 
   if (!editor) {
-    console.error('[SMELLY] editor not available');
+    logger.error('editor not available');
     return;
   }
 
@@ -117,13 +120,13 @@ function generateHighlighting(context: vscode.ExtensionContext) {
   resetDecorations(editor);
   disposeHovers();
 
-  console.log(`[SMELLY] finding match for ${language}`);
+  logger.info(`finding match for ${language}`);
   findMatch(text, language);
-  console.log(`[SMELLY] finding match for ${language} done`);
+  logger.info(`finding match for ${language} done`);
 
-  console.log(`[SMELLY] highlight selection match`);
+  logger.info(`highlight selection match`);
   highlightSelections(editor);
-  console.log(`[SMELLY] highlight selection match done`);
+  logger.info(`highlight selection match done`);
 
   drawHover(context);
 }
@@ -141,7 +144,7 @@ export function findMatch(text: string, language: string): void {
       range,
     });
   });
-  console.log(`[SMELLY] found ${ranges.length}`);
+  logger.info(`found ${ranges.length}`);
 }
 
 function resetAllDecorations() {
@@ -166,14 +169,14 @@ function clearDiagnostics() {
   const uri = vscode.window.activeTextEditor?.document.uri;
   
   if (uri) {
-    console.log(`[SMELLY] cleaning collection`);
+    logger.info(`cleaning collection`);
     collection.clear();
-    console.log(`[SMELLY] cleaning collection done`);
+    logger.info(`cleaning collection done`);
   }
 }
 
 export function deactivate() {
-  console.log(`[SMELLY] disposing`);
+  logger.info(`disposing`);
   resetAllDecorations();
   disposeHovers();
   collection.dispose();

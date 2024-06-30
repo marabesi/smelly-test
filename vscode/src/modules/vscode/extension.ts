@@ -31,8 +31,10 @@ export function activate(context: vscode.ExtensionContext) {
   const disposable = vscode.commands.registerCommand('extension.smelly-test.find-smells', () => {
     generateHighlighting(context);
   });
-
   context.subscriptions.push(disposable);
+
+  // is there a way to test drive this?
+  generateHighlighting(context);
 
   logger.info('smelly-test active process done');
 }

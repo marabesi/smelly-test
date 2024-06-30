@@ -12,7 +12,19 @@ export class TypescriptSmells implements SmellsFinder {
     const ast = ts.createSourceFile('temp.ts', this.code, ts.ScriptTarget.ES2020, true);
     const nodes = this.findIfStatements(ast);
 
-    return nodes.map(ifStmt => {
+    const forOfs = this.findForOfStatements(ast).map(forStmt => {
+      const { line: startLine, character } = ts.getLineAndCharacterOfPosition(ast, forStmt.getStart());
+      const { line: endLine, character: endCharacter } = ts.getLineAndCharacterOfPosition(ast, forStmt.getEnd());
+
+      return SmellsBuilder.forOfStatement(
+        startLine + 1,
+        endLine + 1,
+        character,
+        endCharacter,
+      );
+    });
+
+    const ifs = nodes.map(ifStmt => {
       const { line: startLine, character } = ts.getLineAndCharacterOfPosition(ast, ifStmt.getStart());
       const { line: endLine, character: endCharacter } = ts.getLineAndCharacterOfPosition(ast, ifStmt.getEnd());
 
@@ -23,9 +35,11 @@ export class TypescriptSmells implements SmellsFinder {
         endCharacter,
       );
     });
+
+    return ifs.concat(forOfs);
   }
 
-  findIfStatements(node: ts.Node, ifStatements: ts.IfStatement[] = []): ts.IfStatement[] {
+  private findIfStatements(node: ts.Node, ifStatements: ts.IfStatement[] = []): ts.IfStatement[] {
     if (ts.isIfStatement(node)) {
       ifStatements.push(node);
     }
@@ -35,5 +49,17 @@ export class TypescriptSmells implements SmellsFinder {
     });
 
     return ifStatements;
+  }
+
+  private findForOfStatements(node: ts.Node, forOfStatements: ts.ForOfStatement[] = []): ts.ForOfStatement[] {
+    if (ts.isForOfStatement(node)) {
+      forOfStatements.push(node);
+    }
+
+    node.forEachChild(child => {
+      this.findForOfStatements(child, forOfStatements);
+    });
+
+    return forOfStatements;
   }
 }

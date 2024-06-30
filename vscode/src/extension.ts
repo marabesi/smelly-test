@@ -24,15 +24,21 @@ let hovers: vscode.Disposable[] = [];
 let collection: vscode.DiagnosticCollection;
 
 export function activate(context: vscode.ExtensionContext) {
-  console.info('[SMELLY] smelly-test is now active!');
   collection =  vscode.languages.createDiagnosticCollection("smelly");
+  console.info('[SMELLY] smelly-test is now active!');
 
   vscode.window.onDidChangeActiveTextEditor(() => {
+    // clearDiagnostics();
+    disposeHovers();
+
     generateHighlighting();
     drawHover(context);
   }, null, context.subscriptions);
 
   vscode.workspace.onDidSaveTextDocument(() => {
+    disposeHovers();
+    // clearDiagnostics();
+
     generateHighlighting();
     drawHover(context);
   }, null, context.subscriptions);
@@ -41,19 +47,24 @@ export function activate(context: vscode.ExtensionContext) {
   }, null, context.subscriptions);
 
   const disposable = vscode.commands.registerCommand('extension.smelly-test.find-smells', () => {
+    disposeHovers();
+    // clearDiagnostics();
+
     generateHighlighting();
     drawHover(context);
   });
 
   context.subscriptions.push(disposable);
 
-  generateHighlighting();
+  // clearDiagnostics();
 
-  drawHover(context);
+  // generateHighlighting();
+
+  // drawHover(context);
+  console.info('[SMELLY] smelly-test active process done');
 }
 
 function drawHover(context: vscode.ExtensionContext) {
-  disposeHovers();
   ranges.forEach(({ range, smell }) => {
     const disposableHover = vscode.languages.registerHoverProvider(['javascript'], {
       provideHover(document, position, token) {
@@ -79,8 +90,10 @@ function drawHover(context: vscode.ExtensionContext) {
 
 function populateDiagnosticPanel() {
   const uri = vscode.window.activeTextEditor?.document.uri;
-  
+
   if (uri) {
+    collection.set(uri, undefined);
+
     const diagnosticCollection = ranges.map((smell) => {
       const diagnostic: vscode.Diagnostic = {
         severity: vscode.DiagnosticSeverity.Warning,
@@ -90,7 +103,7 @@ function populateDiagnosticPanel() {
       };
       return diagnostic;
     });
-    
+
     collection.set(uri, diagnosticCollection);
   }
 }
@@ -98,7 +111,7 @@ function populateDiagnosticPanel() {
 function generateHighlighting() {
   const editor = vscode.window.activeTextEditor;
 
-  const supportedLanguages = ['javascript'];
+  const supportedLanguages = ['javascript', 'typescript'];
   if (!editor || !supportedLanguages.includes(editor.document.languageId)) {
     return;
   }
@@ -123,18 +136,23 @@ function generateHighlighting() {
 
   resetDecorations(editor);
 
-  findMatch(text);
+  const language = editor.document.languageId;
+  console.log(`[SMELLY] finding match for ${language}`);
+  findMatch(text, language);
+  console.log(`[SMELLY] finding match for ${language} done`);
 
+  console.log(`[SMELLY] highlight selection match`);
   highlightSelections(editor);
+  console.log(`[SMELLY] highlight selection match done`);
 }
 
-const findSmells = (text: string): Smell[] => {
-  const detect = new SmellDetector(text);
+const findSmells = (text: string, language: string): Smell[] => {
+  const detect = new SmellDetector(text, language);
   return detect.findAll();
 };
 
-export function findMatch(text: string): void {
-  findSmells(text).forEach(element => {
+export function findMatch(text: string, language: string): void {
+  findSmells(text, language).forEach(element => {
     const range = new vscode.Range(element.lineStart - 1, element.startAt, element.lineEnd - 1, element.endsAt);
     ranges.push({
       smell: element,
@@ -162,7 +180,23 @@ function disposeHovers() {
   hovers.forEach(hover => hover.dispose());
 }
 
+function clearDiagnostics() {
+  const uri = vscode.window.activeTextEditor?.document.uri;
+  
+  if (uri) {
+    console.log(`[SMELLY] cleaning collection`);
+    // collection.delete(uri);
+    // collection.set(uri, undefined);
+    collection.clear();
+    console.log(`[SMELLY] cleaning collection done`);
+  }
+}
+
 export function deactivate() {
+  console.log(`[SMELLY] disposing`);
+  // collection.delete(uri);
   resetAllDecorations();
   disposeHovers();
+  collection.dispose();
+  // clearDiagnostics();
 }

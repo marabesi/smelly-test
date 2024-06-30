@@ -1,6 +1,7 @@
 import * as ts from 'typescript';
 
 import { Smell, SmellsFinder } from "../types";
+import { SmellsBuilder } from '../smells-builder';
 
 export class TypescriptSmells implements SmellsFinder {
 
@@ -15,15 +16,12 @@ export class TypescriptSmells implements SmellsFinder {
       const { line: startLine, character } = ts.getLineAndCharacterOfPosition(ast, ifStmt.getStart());
       const { line: endLine, character: endCharacter } = ts.getLineAndCharacterOfPosition(ast, ifStmt.getEnd());
 
-      return {
-        type: 'if-statement',
-        lineStart: startLine + 1,
-        lineEnd: endLine + 1,
-        startAt: character,
-        endsAt: endCharacter - 1,
-        description: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`,
-        diagnostic: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`,
-      };
+      return SmellsBuilder.ifStatement(
+        startLine + 1,
+        endLine + 1,
+        character,
+        endCharacter,
+      );
     });
   }
 

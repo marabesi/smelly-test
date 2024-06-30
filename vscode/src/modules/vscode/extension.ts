@@ -1,15 +1,14 @@
 import * as vscode from 'vscode';
 import path from 'path';
 import { SmellDetector } from '../smells-finder/smells-detector';
-import { Smell } from '../smells-finder/types';
+import { Smell, SupportedLanguages } from '../smells-finder/types';
+import { supportedLanguages } from '../smells-finder/languages/Supported';
 import { ComposedSmell, warningDecorationType } from './extension.types';
 
 let currentDecoration = warningDecorationType;
 let ranges: ComposedSmell[] = [];
 let hovers: vscode.Disposable[] = [];
 let collection: vscode.DiagnosticCollection;
-
-const supportedLanguages = ['javascript', 'typescript'];
 
 export function activate(context: vscode.ExtensionContext) {
   collection =  vscode.languages.createDiagnosticCollection("smelly");
@@ -87,12 +86,17 @@ function populateDiagnosticPanel() {
 function generateHighlighting(context: vscode.ExtensionContext) {
   const editor = vscode.window.activeTextEditor;
 
-  if (!editor || !supportedLanguages.includes(editor.document.languageId)) {
+  if (!editor ) {
+    console.info(`[SMELLY] editor has no active text`);
     return;
   }
 
-  const fileName = path.basename(editor.document.fileName);
+  const language = editor.document.languageId as SupportedLanguages;
+  if (!supportedLanguages.includes(language)) {
+    console.info(`[SMELLY] or language not avaialble: language ${language}`);
+  }
 
+  const fileName = path.basename(editor.document.fileName);
   if (!fileName.includes('test')) {
     console.info(`[SMELLY] the current file ${fileName} is not a test file, the file must have 'test' in its name`);
     clearDiagnostics();
@@ -113,7 +117,6 @@ function generateHighlighting(context: vscode.ExtensionContext) {
   resetDecorations(editor);
   disposeHovers();
 
-  const language = editor.document.languageId;
   console.log(`[SMELLY] finding match for ${language}`);
   findMatch(text, language);
   console.log(`[SMELLY] finding match for ${language} done`);

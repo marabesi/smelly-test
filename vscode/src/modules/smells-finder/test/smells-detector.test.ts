@@ -48,10 +48,23 @@ if (a === 1) { }`;
       assert.equal(result[0].lineStart, 2, 'line start');
       assert.equal(result[0].lineEnd, 2, 'line end');
       assert.equal(result[0].startAt, 0, 'start at');
-      assert.equal(result[0].endsAt, 15, 'end at');
+      assert.equal(result[0].endsAt, 16, 'end at');
     });
 
     test('find multiple ifs in the test code', () => {
+      const code = `const a: number = 1;
+if (a === 1) { }
+if (a === 2) {
+  console.log('this is a test');
+}`;
+
+      const smellDetector = new SmellDetector(code, 'typescript');
+      const result = smellDetector.findAll();
+  
+      assert.equal(result.length, 2);
+    });
+
+    test('detect the second if in the source code', () => {
       const code = `const a: number = 1;
 if (a === 1) { }
 if (a === 2) {
@@ -65,7 +78,7 @@ if (a === 2) {
       assert.equal(result[1].lineStart, 3, 'line start');
       assert.equal(result[1].lineEnd, 5, 'line end');
       assert.equal(result[1].startAt, 0, 'start at');
-      assert.equal(result[1].endsAt, 0, 'end at');
+      assert.equal(result[1].endsAt, 1, 'end at');
     });
   });
 });

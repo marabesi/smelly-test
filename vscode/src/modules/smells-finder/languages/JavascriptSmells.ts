@@ -1,5 +1,6 @@
 import { Syntax, parseScript } from "esprima";
 import { Smell, SmellsFinder } from "../types";
+import { SmellsBuilder } from "../smells-builder";
 
 export class JavascriptSmells implements SmellsFinder {
   
@@ -16,29 +17,23 @@ export class JavascriptSmells implements SmellsFinder {
     this.findIfStatements(ast, ifs).filter((item: any) => item.type === Syntax.IfStatement);
 
     for (const statement of ifs) {
-      smells.push({
-        type: 'if-statement',
-        lineStart: statement.loc.start.line,
-        lineEnd: statement.loc.end.line,
-        startAt: statement.loc.start.column,
-        endsAt: statement.loc.end.column,
-        description: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`,
-        diagnostic: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`,
-      });
+      smells.push(SmellsBuilder.ifStatement(
+        statement.loc.start.line,
+        statement.loc.end.line,
+        statement.loc.start.column,
+        statement.loc.end.column,
+      ));
     }
 
     this.findForStatements(ast, fors).filter((item: any) => item.type === Syntax.ForOfStatement);
 
     for (const statement of fors) {
-      smells.push({
-        type: 'for-of-statement',
-        lineStart: statement.loc.start.line,
-        lineEnd: statement.loc.end.line,
-        startAt: statement.loc.start.column,
-        endsAt: statement.loc.end.column,
-        description: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`,
-        diagnostic: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`
-      });
+      smells.push(SmellsBuilder.forOfStatement(
+        statement.loc.start.line,
+        statement.loc.end.line,
+        statement.loc.start.column,
+        statement.loc.end.column
+      ));
     }
 
     return smells;

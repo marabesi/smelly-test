@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/marabesi/smelly-test-extension/badge.svg?branch=master)](https://coveralls.io/github/marabesi/smelly-test-extension?branch=master)
+
 # Smelly test
 
 Smelly test is an extension that helps developers mitigate test smells in their test suites. Smelly test is focused on the javascript ecosystem

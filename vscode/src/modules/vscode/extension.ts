@@ -9,6 +9,8 @@ let ranges: ComposedSmell[] = [];
 let hovers: vscode.Disposable[] = [];
 let collection: vscode.DiagnosticCollection;
 
+const supportedLanguages = ['javascript', 'typescript'];
+
 export function activate(context: vscode.ExtensionContext) {
   collection =  vscode.languages.createDiagnosticCollection("smelly");
   console.info('[SMELLY] smelly-test is now active!');
@@ -40,7 +42,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 function drawHover(context: vscode.ExtensionContext) {
   ranges.forEach(({ range, smell }) => {
-    const disposableHover = vscode.languages.registerHoverProvider(['javascript'], {
+    const disposableHover = vscode.languages.registerHoverProvider(supportedLanguages, {
       provideHover(document, position, token) {
         const contents = new vscode.MarkdownString(smell.description);
         contents.supportHtml = true;
@@ -85,7 +87,6 @@ function populateDiagnosticPanel() {
 function generateHighlighting(context: vscode.ExtensionContext) {
   const editor = vscode.window.activeTextEditor;
 
-  const supportedLanguages = ['javascript', 'typescript'];
   if (!editor || !supportedLanguages.includes(editor.document.languageId)) {
     return;
   }

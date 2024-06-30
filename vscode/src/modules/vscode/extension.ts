@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import TelemetryReporter from '@vscode/extension-telemetry';
 import path from 'path';
 import { SmellDetector } from '../smells-finder/smells-detector';
 import { Smell, SupportedLanguages } from '../smells-finder/types';
@@ -8,12 +9,16 @@ import { Logger } from '../trace/logger';
 
 const logger = new Logger();
 
+let reporter;
 let currentDecoration = warningDecorationType;
 let ranges: ComposedSmell[] = [];
 let hovers: vscode.Disposable[] = [];
 let collection: vscode.DiagnosticCollection;
 
 export function activate(context: vscode.ExtensionContext) {
+  const key = context.extension.packageJSON.appInsightsKey;
+  reporter = new TelemetryReporter(key);
+
   collection =  vscode.languages.createDiagnosticCollection("smelly");
   logger.info('smelly-test is now active!');
 
@@ -32,6 +37,7 @@ export function activate(context: vscode.ExtensionContext) {
     generateHighlighting(context);
   });
   context.subscriptions.push(disposable);
+  context.subscriptions.push(reporter);
 
   // is there a way to test drive this?
   generateHighlighting(context);
@@ -174,7 +180,7 @@ function disposeHovers() {
 
 function clearDiagnostics() {
   const uri = vscode.window.activeTextEditor?.document.uri;
-  
+
   if (uri) {
     logger.info(`cleaning collection`);
     collection.clear();

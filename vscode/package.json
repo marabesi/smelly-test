@@ -30,17 +30,20 @@
     ]
   },
   "scripts": {
+    "generate:vsix": "vsce package",
     "vscode:prepublish": "npm run package",
     "compile": "webpack",
     "watch": "webpack --watch",
     "package": "webpack --mode production --devtool hidden-source-map",
-    "compile-tests": "rm -rf out/ dist/ && tsc -p . --outDir out",
+    "clean": "rm -rf out/ dist/",
+    "compile-tests": "npm run clean && tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/modules/vscode/test/runTest.js",
     "test:vscode": "vscode-test",
-    "test:all": "mocha -r ts-node/register src/modules/smells-finder/**/**.test.ts",
+    "test:smells-finder": "mocha -r ts-node/register src/modules/smells-finder/**/**.test.ts",
+    "test:all": "npm run test:smells-finder && npm run test",
     "test:coverage": "nyc --reporter=text mocha -r ts-node/register src/modules/**/**.test.ts",
     "coveralls": "npm run test:coveralls:coverage && coveralls --verbose < lcov.info",
     "cli": "ts-node src/modules/cli/find-smells.ts"

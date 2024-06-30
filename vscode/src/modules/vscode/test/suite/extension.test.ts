@@ -2,8 +2,8 @@ import * as assert from 'assert';
 import * as path from 'path';
 import * as vscode from 'vscode';
 
-const testFolderLocationForJavascript = '../../../../../../src/dataset/javascript';
-const testFolderLocationForTypescript = '../../../../../../src/dataset/typescript';
+const testFolderLocationForJavascript = '../../../../../../src/modules/vscode/dataset/javascript';
+const testFolderLocationForTypescript = '../../../../../../src/modules/vscode/dataset/typescript';
 
 suite('Smelly Extension Test Suite', () => {
   [

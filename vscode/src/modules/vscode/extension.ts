@@ -7,9 +7,8 @@ import { supportedLanguages } from '../smells-finder/languages/Supported';
 import { ComposedSmell, warningDecorationType } from './extension.types';
 import { Logger } from '../trace/logger';
 
-const logger = new Logger();
-
-let reporter;
+let logger: Logger;
+let reporter: TelemetryReporter;
 let currentDecoration = warningDecorationType;
 let ranges: ComposedSmell[] = [];
 let hovers: vscode.Disposable[] = [];
@@ -19,8 +18,10 @@ export function activate(context: vscode.ExtensionContext) {
   const key = context.extension.packageJSON.appInsightsKey;
   reporter = new TelemetryReporter(key);
 
+  logger = new Logger(reporter);
+
   collection =  vscode.languages.createDiagnosticCollection("smelly");
-  logger.info('smelly-test is now active!');
+  logger.info('smelly-test is now active, started process');
 
   vscode.window.onDidChangeActiveTextEditor(() => {
     generateHighlighting(context);
@@ -46,7 +47,7 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 function drawHover(context: vscode.ExtensionContext) {
-  logger.info('drawing hovers');
+  logger.debug('drawing hovers');
   ranges.forEach(({ range, smell }) => {
     const disposableHover = vscode.languages.registerHoverProvider(supportedLanguages, {
       provideHover(document, position, token) {
@@ -67,7 +68,7 @@ function drawHover(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposableHover);
   });
 
-  logger.info('drawing hovers done');
+  logger.debug('drawing hovers done');
 
   populateDiagnosticPanel();
 }
@@ -76,7 +77,7 @@ function populateDiagnosticPanel() {
   const uri = vscode.window.activeTextEditor?.document.uri;
 
   if (uri) {
-    logger.info('populating diagnostics');
+    logger.debug('populating diagnostics');
     collection.set(uri, undefined);
 
     const diagnosticCollection = ranges.map((smell) => {
@@ -90,7 +91,7 @@ function populateDiagnosticPanel() {
     });
 
     collection.set(uri, diagnosticCollection);
-    logger.info('populating diagnostics done');
+    logger.debug('populating diagnostics done');
   }
 }
 
@@ -103,26 +104,26 @@ function generateHighlighting(context: vscode.ExtensionContext) {
   const editor = vscode.window.activeTextEditor;
 
   if (!editor ) {
-    logger.info(`editor has no active text`);
+    logger.debug(`editor has no active text`);
     return;
   }
 
   const language = editor.document.languageId as SupportedLanguages;
   if (!supportedLanguages.includes(language)) {
-    logger.info(`or language not avaialble: language ${language}`);
+    logger.debug(`or language not avaialble: language ${language}`);
   }
 
   const fileName = editor.document.fileName;
   if (isFileNameTestFile(fileName)) {
-    logger.info(`the current file ${fileName} is not a test file, the file must have 'test' in its name`);
+    logger.debug(`the current file ${fileName} is not a test file, the file must have 'test' in its name`);
     clearDiagnostics();
     return;
   }
 
-  logger.info('Finding smells...');
+  logger.debug('Finding smells...');
 
   if (!editor) {
-    logger.error('editor not available');
+    logger.debug('editor not available');
     return;
   }
 
@@ -133,13 +134,13 @@ function generateHighlighting(context: vscode.ExtensionContext) {
   resetDecorations(editor);
   disposeHovers();
 
-  logger.info(`finding match for ${language}`);
+  logger.debug(`finding match for ${language}`);
   findMatch(text, language);
-  logger.info(`finding match for ${language} done`);
+  logger.debug(`finding match for ${language} done`);
 
-  logger.info(`highlight selection match`);
+  logger.debug(`highlight selection match`);
   highlightSelections(editor);
-  logger.info(`highlight selection match done`);
+  logger.debug(`highlight selection match done`);
 
   drawHover(context);
 }
@@ -150,14 +151,17 @@ const findSmells = (text: string, language: string): Smell[] => {
 };
 
 export function findMatch(text: string, language: string): void {
+  const types: string[] = [];
   findSmells(text, language).forEach(element => {
     const range = new vscode.Range(element.lineStart - 1, element.startAt, element.lineEnd - 1, element.endsAt);
     ranges.push({
       smell: element,
       range,
     });
+
+    types.push(element.type);
   });
-  logger.info(`found ${ranges.length}`);
+  logger.info(`found ${ranges.length} smells`, { smellsFound: types });
 }
 
 function resetAllDecorations() {
@@ -182,15 +186,16 @@ function clearDiagnostics() {
   const uri = vscode.window.activeTextEditor?.document.uri;
 
   if (uri) {
-    logger.info(`cleaning collection`);
+    logger.debug(`cleaning collection`);
     collection.clear();
-    logger.info(`cleaning collection done`);
+    logger.debug(`cleaning collection done`);
   }
 }
 
 export function deactivate() {
-  logger.info(`disposing`);
+  logger.debug(`disposing`);
   resetAllDecorations();
   disposeHovers();
   collection.dispose();
+  logger.info('smelly-test is now deactivated');
 }

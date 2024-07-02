@@ -17,6 +17,15 @@
     "Programming Languages",
     "Other"
   ],
+  "license": "SEE LICENSE IN LICENSE",
+  "keywords": [
+    "test",
+    "smells",
+    "tdd",
+    "javascript",
+    "typescript"
+  ],
+  "extensionKind": ["ui", "workspace"],
   "activationEvents": [
     "onLanguage",
     "onStartupFinished"

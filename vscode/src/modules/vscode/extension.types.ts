@@ -15,3 +15,7 @@ export const warningDecorationType = window.createTextEditorDecorationType({
     borderColor: 'lightblue'
   }
 });
+
+export type SmellyConfiguration = {
+  color?: string;
+};

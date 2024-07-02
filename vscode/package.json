@@ -25,7 +25,10 @@
     "javascript",
     "typescript"
   ],
-  "extensionKind": ["ui", "workspace"],
+  "extensionKind": [
+    "ui",
+    "workspace"
+  ],
   "activationEvents": [
     "onLanguage",
     "onStartupFinished"
@@ -85,6 +88,7 @@
   "dependencies": {
     "@vscode/extension-telemetry": "^0.9.6",
     "esprima": "^4.0.1",
+    "hex-rgb": "^5.0.0",
     "ts-node": "^10.9.2"
   },
   "pricing": "Free",

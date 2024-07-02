@@ -27,4 +27,3 @@ worse. This extension provides an aid for that.
   - jsx/tsx
     - Identify **if** statements in the test code
     - Identify **for of** loops in the test code
-

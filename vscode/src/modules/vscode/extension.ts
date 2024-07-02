@@ -4,23 +4,28 @@ import path from 'path';
 import { SmellDetector } from '../smells-finder/smells-detector';
 import { Smell, SupportedLanguages } from '../smells-finder/types';
 import { supportedLanguages } from '../smells-finder/languages/Supported';
-import { ComposedSmell, warningDecorationType } from './extension.types';
+import { ComposedSmell, SmellyConfiguration } from './extension.types';
 import { Logger } from '../trace/logger';
+import { setupConfiguration } from './configuration';
 
 let logger: Logger;
 let reporter: TelemetryReporter;
-let currentDecoration = warningDecorationType;
+let currentDecoration: vscode.TextEditorDecorationType;
 let ranges: ComposedSmell[] = [];
 let hovers: vscode.Disposable[] = [];
 let collection: vscode.DiagnosticCollection;
 
+function fetchConfiguration(): SmellyConfiguration {
+  return vscode.workspace.getConfiguration().get('smelly') || {};
+}
+
 export function activate(context: vscode.ExtensionContext) {
-  const key = context.extension.packageJSON.appInsightsKey;
-  reporter = new TelemetryReporter(key);
+  const { version, appInsightsKey } = context.extension.packageJSON;
 
+  reporter = new TelemetryReporter(appInsightsKey);
   logger = new Logger(reporter);
-
   collection =  vscode.languages.createDiagnosticCollection("smelly");
+
   logger.info('smelly-test is now active, started process');
 
   vscode.window.onDidChangeActiveTextEditor(() => {
@@ -32,6 +37,7 @@ export function activate(context: vscode.ExtensionContext) {
   }, null, context.subscriptions);
 
   vscode.workspace.onDidChangeConfiguration(e => {
+    currentDecoration = setupConfiguration(fetchConfiguration(), logger);
   }, null, context.subscriptions);
 
   const disposable = vscode.commands.registerCommand('extension.smelly-test.find-smells', () => {
@@ -44,6 +50,7 @@ export function activate(context: vscode.ExtensionContext) {
   generateHighlighting(context);
 
   logger.info('smelly-test active process done');
+  vscode.window.showInformationMessage(`Smelly version ${version} is now activated 🚀`);
 }
 
 function drawHover(context: vscode.ExtensionContext) {

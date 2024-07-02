@@ -9,7 +9,7 @@ export class SmellsBuilder {
     endsAt: number
   ): Smell {
     return {
-      type: SmellType.IF_STATEMENT,
+      type: SmellType.ifStatement,
       lineStart,
       lineEnd,
       startAt,
@@ -26,7 +26,7 @@ export class SmellsBuilder {
     endsAt: number
   ): Smell {
     return {
-      type: SmellType.FOR_LOOP_STATEMENT,
+      type: SmellType.forLoopStatement,
       lineStart,
       lineEnd,
       startAt,

@@ -18,6 +18,6 @@ export enum SupportedLanguages {
 }
 
 export enum SmellType {
-  IF_STATEMENT = 'if-statement',
-  FOR_LOOP_STATEMENT = 'for-of-statement'
+  ifStatement = 'if-statement',
+  forLoopStatement = 'for-of-statement'
 }

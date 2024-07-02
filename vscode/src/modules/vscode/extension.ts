@@ -4,13 +4,13 @@ import path from 'path';
 import { SmellDetector } from '../smells-finder/smells-detector';
 import { Smell, SupportedLanguages } from '../smells-finder/types';
 import { supportedLanguages } from '../smells-finder/languages/Supported';
-import { ComposedSmell, SmellyConfiguration } from './extension.types';
+import { ComposedSmell, SmellyConfiguration, warningDecorationType } from './extension.types';
 import { Logger } from '../trace/logger';
 import { setupConfiguration } from './configuration';
 
 let logger: Logger;
 let reporter: TelemetryReporter;
-let currentDecoration: vscode.TextEditorDecorationType;
+let currentDecoration: vscode.TextEditorDecorationType = warningDecorationType;
 let ranges: ComposedSmell[] = [];
 let hovers: vscode.Disposable[] = [];
 let collection: vscode.DiagnosticCollection;
@@ -24,26 +24,32 @@ export function activate(context: vscode.ExtensionContext) {
 
   reporter = new TelemetryReporter(appInsightsKey);
   logger = new Logger(reporter);
-  collection =  vscode.languages.createDiagnosticCollection("smelly");
+  collection = vscode.languages.createDiagnosticCollection("smelly");
 
   logger.info('smelly-test is now active, started process');
 
-  vscode.window.onDidChangeActiveTextEditor(() => {
-    generateHighlighting(context);
-  }, null, context.subscriptions);
+  context.subscriptions.push(
+    vscode.window.onDidChangeActiveTextEditor(() => {
+      generateHighlighting(context);
+    }, null, context.subscriptions)
+  );
 
-  vscode.workspace.onDidSaveTextDocument(() => {
-    generateHighlighting(context);
-  }, null, context.subscriptions);
+  context.subscriptions.push(
+    vscode.workspace.onDidSaveTextDocument(() => {
+      generateHighlighting(context);
+    }, null, context.subscriptions)
+  );
 
-  vscode.workspace.onDidChangeConfiguration(e => {
-    currentDecoration = setupConfiguration(fetchConfiguration(), logger);
-  }, null, context.subscriptions);
+  context.subscriptions.push(
+    vscode.workspace.onDidChangeConfiguration(e => {
+      currentDecoration = setupConfiguration(fetchConfiguration(), logger);
+    }, null, context.subscriptions)
+  );
 
-  const disposable = vscode.commands.registerCommand('extension.smelly-test.find-smells', () => {
-    generateHighlighting(context);
-  });
-  context.subscriptions.push(disposable);
+  context.subscriptions.push(
+    vscode.commands.registerCommand('extension.smelly-test.find-smells', () => {
+      generateHighlighting(context);
+    }));
   context.subscriptions.push(reporter);
 
   // is there a way to test drive this?

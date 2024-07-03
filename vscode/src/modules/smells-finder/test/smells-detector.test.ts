@@ -10,161 +10,130 @@ const JAVASCRIPT = 'javascript';
 const TYPESCRIPT = 'typescript';
 
 suite('Smelly Extension Test Suite', () => {
-  suite('Javascript', () => {
-    test('find if in the test code', () => {
-      const code = `const a = 1;
-if (a === 1) {}`;
-  
-      const smellDetector = new SmellDetector(code, JAVASCRIPT);
-      const result = smellDetector.findAll();
-  
-      assert.equal(result[0].type, IF_STATEMENT);
-      assert.equal(result[0].lineStart, 2);
-      assert.equal(result[0].lineEnd, 2);
-      assert.equal(result[0].startAt, 0);
-      assert.equal(result[0].endsAt, 15);
-    });
-  
-    test('find for in the test code', () => {
-      const code = `const lists = [{}, {}];
+  [{
+    code: `const a = 1;
+if (a === 1) {}`,
+    language: JAVASCRIPT,
+    index: 0,
+    type: IF_STATEMENT,
+    lineStart: 2,
+    lineEnd: 2,
+    startAt: 0,
+    endsAt: 15,
+  }, {
+    code: `const lists = [{}, {}];
   
 for (const i of lists) {
 
-}`;
-
-      const smellDetector = new SmellDetector(code, JAVASCRIPT);
-      const result = smellDetector.findAll();
-  
-      assert.equal(result[0].type,FOR_OF);
-      assert.equal(result[0].lineStart, 3);
-      assert.equal(result[0].lineEnd, 5);
-      assert.equal(result[0].startAt, 0);
-      assert.equal(result[0].endsAt, 1);
-    });
-    
-    test('find timeout in the test code', () => {
-      const code = `setTimeout(() => {
+}`,
+    language: JAVASCRIPT,
+    type: FOR_OF,
+    index: 0,
+    lineStart: 3,
+    lineEnd: 5,
+    startAt: 0,
+    endsAt: 1,
+  },
+  {
+    code: `setTimeout(() => {
   done();
-});`;
-
-      const smellDetector = new SmellDetector(code, JAVASCRIPT);
-      const result = smellDetector.findAll();
-  
-      assert.equal(result[0].type, 'timeout', 'type');
-      assert.equal(result[0].lineStart, 1, 'line start');
-      assert.equal(result[0].lineEnd, 3, 'line end');
-      assert.equal(result[0].startAt, 0, 'start at');
-      assert.equal(result[0].endsAt, 2, 'end at');
-    });
-
-    test('find timeout with function defined in the test code', () => {
-      const code = `function done() {};
+});`,
+    language: JAVASCRIPT,
+    index: 0,
+    type: TIMEOUT,
+    lineStart: 1,
+    lineEnd: 3,
+    startAt: 0,
+    endsAt: 2,
+  },
+  {
+    code: `function done() {};
 setTimeout(() => {
   done();
-});`;
+});`,
+    language: JAVASCRIPT,
+    index: 0,
+    type: TIMEOUT,
+    lineStart: 2,
+    lineEnd: 4,
+    startAt: 0,
+    endsAt: 2,
+  },
+  {
+    code: `const a: number = 1;
+if (a === 1) { }`,
+    language: TYPESCRIPT,
+    index: 0,
+    type: IF_STATEMENT,
+    lineStart: 2,
+    lineEnd: 2,
+    startAt: 0,
+    endsAt: 16,
+  },
+  {
 
-      const smellDetector = new SmellDetector(code, JAVASCRIPT);
-      const result = smellDetector.findAll();
-  
-      assert.equal(result[0].type, 'timeout', 'type');
-      assert.equal(result[0].lineStart, 2, 'line start');
-      assert.equal(result[0].lineEnd, 4, 'line end');
-      assert.equal(result[0].startAt, 0, 'start at');
-      assert.equal(result[0].endsAt, 2, 'end at');
-    });
-  });
-
-  suite('Typescript', () => {
-    test('find if in the test code', () => {
-      const code = `const a: number = 1;
-if (a === 1) { }`;
-
-      const smellDetector = new SmellDetector(code, TYPESCRIPT);
-      const result = smellDetector.findAll();
-  
-      assert.equal(result[0].type, IF_STATEMENT);
-      assert.equal(result[0].lineStart, 2, 'line start');
-      assert.equal(result[0].lineEnd, 2, 'line end');
-      assert.equal(result[0].startAt, 0, 'start at');
-      assert.equal(result[0].endsAt, 16, 'end at');
-    });
-
-    test('find multiple ifs in the test code', () => {
-      const code = `const a: number = 1;
+    code: `const a: number = 1;
 if (a === 1) { }
 if (a === 2) {
   console.log('this is a test');
-}`;
-
-      const smellDetector = new SmellDetector(code, TYPESCRIPT);
-      const result = smellDetector.findAll();
-  
-      assert.equal(result.length, 2);
-    });
-
-    test('detect the second if in the source code', () => {
-      const code = `const a: number = 1;
-if (a === 1) { }
-if (a === 2) {
-  console.log('this is a test');
-}`;
-
-      const smellDetector = new SmellDetector(code, TYPESCRIPT);
-      const result = smellDetector.findAll();
-  
-      assert.equal(result[1].type, IF_STATEMENT);
-      assert.equal(result[1].lineStart, 3, 'line start');
-      assert.equal(result[1].lineEnd, 5, 'line end');
-      assert.equal(result[1].startAt, 0, 'start at');
-      assert.equal(result[1].endsAt, 1, 'end at');
-    });
-
-    test('find for in the test code', () => {
-      const code = `const lists: any[] = [{}, {}];
+}`,
+    language: TYPESCRIPT,
+    index: 1,
+    type: IF_STATEMENT,
+    lineStart: 3,
+    lineEnd: 5,
+    startAt: 0,
+    endsAt: 1,
+  },
+  {
+    code: `const lists: any[] = [{}, {}];
   
 for (const i of lists) {
 
-}`;
-
-      const smellDetector = new SmellDetector(code, TYPESCRIPT);
-      const result = smellDetector.findAll();
-  
-      assert.equal(result[0].type,FOR_OF);
-      assert.equal(result[0].lineStart, 3);
-      assert.equal(result[0].lineEnd, 5);
-      assert.equal(result[0].startAt, 0);
-      assert.equal(result[0].endsAt, 1);
-    });
-
-    test('find timeout in the test code', () => {
-      const code = `setTimeout(() => {
+}`,
+    language: TYPESCRIPT,
+    index: 0,
+    type: FOR_OF,
+    lineStart: 3,
+    lineEnd: 5,
+    startAt: 0,
+    endsAt: 1,
+  },
+  {
+    code: `setTimeout(() => {
   done();
-});`;
-
-      const smellDetector = new SmellDetector(code, TYPESCRIPT);
-      const result = smellDetector.findAll();
-  
-      assert.equal(result[0].type, TIMEOUT, 'type');
-      assert.equal(result[0].lineStart, 1, 'line start');
-      assert.equal(result[0].lineEnd, 3, 'line end');
-      assert.equal(result[0].startAt, 0, 'start at');
-      assert.equal(result[0].endsAt, 2, 'end at');
-    });
-
-    test('find timeout and function in the test code', () => {
-      const code = `function done() {};
+});`,
+    language: TYPESCRIPT,
+    index: 0,
+    type: TIMEOUT,
+    lineStart: 1,
+    lineEnd: 3,
+    startAt: 0,
+    endsAt: 2,
+  },
+  {
+    code: `function done() {};
 setTimeout(() => {
   done();
-});`;
-  
-      const smellDetector = new SmellDetector(code, TYPESCRIPT);
+});`,
+    language: TYPESCRIPT,
+    index: 0,
+    type: TIMEOUT,
+    lineStart: 2,
+    lineEnd: 4,
+    startAt: 0,
+    endsAt: 2,
+  }
+  ].forEach(({ code, language, index, type, lineStart, lineEnd, startAt, endsAt }) => {
+    test(`detect test smell for ${language}: type ${type} at index ${index}`, () => {
+      const smellDetector = new SmellDetector(code, language);
       const result = smellDetector.findAll();
-  
-      assert.equal(result[0].type, TIMEOUT, 'type');
-      assert.equal(result[0].lineStart, 2, 'line start');
-      assert.equal(result[0].lineEnd, 4, 'line end');
-      assert.equal(result[0].startAt, 0, 'start at');
-      assert.equal(result[0].endsAt, 2, 'end at');
+
+      assert.equal(result[index].type, type, 'type');
+      assert.equal(result[index].lineStart, lineStart, 'lineStart');
+      assert.equal(result[index].lineEnd, lineEnd, 'lineEnd');
+      assert.equal(result[index].startAt, startAt, 'startAt');
+      assert.equal(result[index].endsAt, endsAt, 'endsAt');
     });
   });
 });

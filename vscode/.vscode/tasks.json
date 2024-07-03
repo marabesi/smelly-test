@@ -35,6 +35,13 @@
 				"npm: watch-tests"
 			],
 			"problemMatcher": []
+		},
+		{
+			"type": "npm",
+			"script": "test:smells-finder",
+			"problemMatcher": [],
+			"label": "npm: test:smells-finder",
+			"detail": "mocha -r ts-node/register src/modules/smells-finder/**/**.test.ts"
 		}
 	]
 }

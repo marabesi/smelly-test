@@ -18,6 +18,11 @@ help mitigate test smells in code bases out there. If we compare the Java ecosys
 for years in academic settings. If we start to dig into the frontend technologies for mitigating test smells it is even
 worse. This extension provides an aid for that.
 
+## How?
+
+Smelly works automatically whenever a javascript/typescript test is opened. The extension detects files that have
+**test** or **spec** in their name. The video above depicts the smells being detected when the file is opened.
+
 ## Features
 
 - server side javascript/typescript

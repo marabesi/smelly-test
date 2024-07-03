@@ -23,7 +23,9 @@ worse. This extension provides an aid for that.
 - server side javascript/typescript
   - Identify **if** statements in the test code
   - Identify **for of** loops in the test code
+  - Identify **setTimeout** in the test code
 - client side javascript/typescript
   - jsx/tsx
     - Identify **if** statements in the test code
     - Identify **for of** loops in the test code
+    - Identify **setTimeout** in the test code

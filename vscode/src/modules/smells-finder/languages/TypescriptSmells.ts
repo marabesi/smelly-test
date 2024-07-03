@@ -36,7 +36,20 @@ export class TypescriptSmells implements SmellsFinder {
       );
     });
 
-    return ifs.concat(forOfs);
+    const timeouts = this.findSetTimeouts(ast).map(times => {
+      const { line: startLine, character } = ts.getLineAndCharacterOfPosition(ast, times.getStart());
+      const { line: endLine, character: endCharacter } = ts.getLineAndCharacterOfPosition(ast, times.getEnd());
+
+      return SmellsBuilder.timeout(
+        startLine + 1,
+        endLine + 1,
+        character,
+        endCharacter,
+      );
+    });
+
+    const result = ifs.concat(forOfs).concat(timeouts);
+    return result;
   }
 
   private findIfStatements(node: ts.Node, ifStatements: ts.IfStatement[] = []): ts.IfStatement[] {
@@ -61,5 +74,20 @@ export class TypescriptSmells implements SmellsFinder {
     });
 
     return forOfStatements;
+  }
+
+  private findSetTimeouts(node: any, results: any[] = []) {
+    if (ts.isCallExpression(node)) {
+      const expression = node.expression;
+      if (ts.isIdentifier(expression) && expression.escapedText === 'setTimeout') {
+        results.push(node);
+      }
+    }
+
+    ts.forEachChild(node, child => {
+      this.findSetTimeouts(child, results);
+    });
+
+    return results;
   }
 }

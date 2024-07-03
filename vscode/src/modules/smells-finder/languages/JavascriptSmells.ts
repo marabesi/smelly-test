@@ -13,6 +13,7 @@ export class JavascriptSmells implements SmellsFinder {
 
     const ifs: any[] = [];
     const fors: any[] = [];
+    const timeouts: any[] = [];
 
     this.findIfStatements(ast, ifs).filter((item: any) => item.type === Syntax.IfStatement);
 
@@ -36,7 +37,30 @@ export class JavascriptSmells implements SmellsFinder {
       ));
     }
 
+    this.findSetTimeouts(ast, timeouts);
+
+    for (const statement of timeouts) {
+      smells.push(SmellsBuilder.timeout(
+        statement.loc.start.line,
+        statement.loc.end.line,
+        statement.loc.start.column,
+        statement.loc.end.column
+      ));
+    }
+
     return smells;
+  }
+
+  private findSetTimeouts(node: any, results: any[] = []) {
+    if (node.type === 'CallExpression' && node.callee.name === 'setTimeout') {
+      results.push(node);
+    }
+    for (const key in node) {
+      if (node[key] && typeof node[key] === 'object') {
+        this.findSetTimeouts(node[key], results);
+      }
+    }
+    return results;
   }
 
   private findIfStatements(node: any, ifStatements: any[] = []) {

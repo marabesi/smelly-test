@@ -1,0 +1,5 @@
+function done() {};
+
+setTimeout(() => {
+  done();
+});

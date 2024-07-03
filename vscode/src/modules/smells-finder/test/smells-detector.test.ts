@@ -5,6 +5,7 @@ import { SmellDetector } from '../smells-detector';
 const IF_STATEMENT = 'if-statement';
 const FOR_OF = 'for-of-statement';
 const TIMEOUT = 'timeout';
+const CONSOLE = 'console-statement';
 
 const JAVASCRIPT = 'javascript';
 const TYPESCRIPT = 'typescript';
@@ -123,6 +124,34 @@ setTimeout(() => {
     lineEnd: 4,
     startAt: 0,
     endsAt: 2,
+  },
+  {
+    code: `describe("my test", () => {
+  it("a", () => {
+console.log(1);
+  });
+})`,
+    language: JAVASCRIPT,
+    index: 0,
+    type: CONSOLE,
+    lineStart: 3,
+    lineEnd: 3,
+    startAt: 0,
+    endsAt: 14,
+  },
+  {
+    code: `describe("my test", () => {
+  it("a", () => {
+console.log(1);
+  });
+})`,
+    language: TYPESCRIPT,
+    index: 0,
+    type: CONSOLE,
+    lineStart: 3,
+    lineEnd: 3,
+    startAt: 0,
+    endsAt: 14,
   }
   ].forEach(({ code, language, index, type, lineStart, lineEnd, startAt, endsAt }) => {
     test(`detect test smell for ${language}: type ${type} at index ${index}`, () => {

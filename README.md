@@ -30,14 +30,14 @@ This extension is one of the results of an ongoing research effort to navigate t
 practice and test smell generation. Here are the publications behind it:
 
 - The research goal: [CISTI2023 - Towards a TDD maturity model through an anti-patterns framework](https://github.com/marabesi/publications/blob/main/preprint-towards-a-tdd-maturity-model-through-an-anti-patterns-framework-cisti-2023.pdf)
-- The literature review: [Exploring the Connection between the TDD Practice and Test Smells—A Systematic Literature Review](https://github.com/marabesi/publications/blob/main/exploring-the-connection-between-the-tdd-practice-and-test-smells-a-systematic-literature-review.pdf)
+- The Literature Review: [Exploring the Connection between the TDD Practice and Test Smells—A Systematic Literature Review](https://github.com/marabesi/publications/blob/main/exploring-the-connection-between-the-tdd-practice-and-test-smells-a-systematic-literature-review.pdf)
 
-You will find loads of resources avilable online to go deeper into the subject, however, if you are loking to
+You will find loads of resources available online to go deeper into the subject, however, if you are looking to
 a curated list here goes:
 
-- [A portion of test smells (the ist is not exaustive via testsmells.org)](https://testsmells.org/pages/testsmells.html)
+- [A portion of the test smells (is not exhaustive via testsmells.org)](https://testsmells.org/pages/testsmells.html)
 
-## Want to keep up to date with latest research?
+## Want to keep up to date with the latest research?
 
 [Papers of the Week](https://www.linkedin.com/newsletters/papers-of-the-week-6956357330917564416) is a newsletter that publishes weekly papers about software engineering favoring TDD, software testing and DevOps.
 

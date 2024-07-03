@@ -20,16 +20,16 @@ worse. This extension provides an aid for that.
 
 ## How?
 
-Smelly works automatically whenever a javascript/typescript test is opened. The extension detects files that have
-**test** or **spec** in their name. The video above depicts the smells being detected when the file is opened.
+Smelly works automatically whenever a javascript/typescript test is opened. The extension detects files that have **test** or **spec** in their name. The video above depicts the smells being detected when the file is opened.
 
 ## Features
 
-- server side javascript/typescript
+- server-side javascript/typescript
   - Identify **if** statements in the test code
   - Identify **for of** loops in the test code
   - Identify **setTimeout** in the test code
-- client side javascript/typescript
+  - detect console logs as a reference to the loudmouth
+- client-side javascript/typescript
   - jsx/tsx
     - Identify **if** statements in the test code
     - Identify **for of** loops in the test code
@@ -37,6 +37,5 @@ Smelly works automatically whenever a javascript/typescript test is opened. The 
 
 ## Planned smells
 
-- detect console logs as a reference to the loudmouth
 - heuristics regarding mocks with jest
 - heuristics regarding test size

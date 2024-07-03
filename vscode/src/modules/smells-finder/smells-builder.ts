@@ -52,4 +52,21 @@ export class SmellsBuilder {
       diagnostic: `Smelly: Avoid using setTimeouts for tests. I might lead to Sleepy test or undeterministic behaviour based on where the test is executed`,
     };
   }
+
+  public static console(
+    lineStart: number,
+    lineEnd: number,
+    startAt: number,
+    endsAt: number
+  ): Smell {
+    return {
+      type: SmellType.consoleStatement,
+      lineStart,
+      lineEnd,
+      startAt,
+      endsAt,
+      description: `Smelly: Avoid poluting the test output. It is known as the loudmouth`,
+      diagnostic: `Smelly: Avoid poluting the test output. It is known as the loudmouth`,
+    };
+  }
 }

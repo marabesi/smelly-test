@@ -20,5 +20,6 @@ export enum SupportedLanguages {
 export enum SmellType {
   ifStatement = 'if-statement',
   forLoopStatement = 'for-of-statement',
-  timeOut = 'timeout'
+  timeOut = 'timeout',
+  consoleStatement = "console-statement"
 }

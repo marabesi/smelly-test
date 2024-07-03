@@ -14,6 +14,7 @@ export class JavascriptSmells implements SmellsFinder {
     const ifs: any[] = [];
     const fors: any[] = [];
     const timeouts: any[] = [];
+    const consoles: any[] = [];
 
     this.findIfStatements(ast, ifs).filter((item: any) => item.type === Syntax.IfStatement);
 
@@ -48,7 +49,34 @@ export class JavascriptSmells implements SmellsFinder {
       ));
     }
 
+    this.findConsoleLogs(ast, consoles);
+
+    for (const statement of consoles) {
+      smells.push(SmellsBuilder.console(
+        statement.loc.start.line,
+        statement.loc.end.line,
+        statement.loc.start.column,
+        statement.loc.end.column
+      ));
+    }
+
     return smells;
+  }
+
+  private findConsoleLogs(node: any, results: any[] = []) {
+    if (node.type === 'CallExpression' &&
+      node.callee.type === 'MemberExpression' &&
+      node.callee.object.name === 'console' &&
+      node.callee.property.name === 'log') {
+      results.push(node);
+    }
+
+    for (const key in node) {
+      if (node[key] && typeof node[key] === 'object') {
+        this.findConsoleLogs(node[key], results);
+      }
+    }
+    return results;
   }
 
   private findSetTimeouts(node: any, results: any[] = []) {

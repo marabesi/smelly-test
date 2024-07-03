@@ -48,7 +48,19 @@ export class TypescriptSmells implements SmellsFinder {
       );
     });
 
-    const result = ifs.concat(forOfs).concat(timeouts);
+    const consoles = this.findConsoleLogs(ast).map(times => {
+      const { line: startLine, character } = ts.getLineAndCharacterOfPosition(ast, times.getStart());
+      const { line: endLine, character: endCharacter } = ts.getLineAndCharacterOfPosition(ast, times.getEnd());
+
+      return SmellsBuilder.console(
+        startLine + 1,
+        endLine + 1,
+        character,
+        endCharacter,
+      );
+    });
+
+    const result = ifs.concat(forOfs).concat(timeouts).concat(consoles);
     return result;
   }
 
@@ -86,6 +98,24 @@ export class TypescriptSmells implements SmellsFinder {
 
     ts.forEachChild(node, child => {
       this.findSetTimeouts(child, results);
+    });
+
+    return results;
+  }
+
+  private findConsoleLogs(node: any, results: any[] = []) {
+    if (ts.isCallExpression(node)) {
+      const expression = node.expression;
+      if (ts.isPropertyAccessExpression(expression) &&
+        expression.expression.kind === ts.SyntaxKind.Identifier &&
+        expression.expression.getText() === 'console' &&
+        expression.name.escapedText === 'log') {
+        results.push(node);
+      }
+    }
+
+    ts.forEachChild(node, child => {
+      this.findConsoleLogs(child, results);
     });
 
     return results;

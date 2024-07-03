@@ -29,3 +29,9 @@ worse. This extension provides an aid for that.
     - Identify **if** statements in the test code
     - Identify **for of** loops in the test code
     - Identify **setTimeout** in the test code
+
+## Planned smells
+
+- detect console logs as a reference to the loudmouth
+- heuristics regarding mocks with jest
+- heuristics regarding test size

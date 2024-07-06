@@ -37,6 +37,10 @@ a curated list here goes:
 
 - [A portion of the test smells (is not exhaustive via testsmells.org)](https://testsmells.org/pages/testsmells.html)
 
+### Related projects
+
+- [jnose for java](https://github.com/arieslab/jnose)
+
 ## Want to keep up to date with the latest research?
 
 [Papers of the Week](https://www.linkedin.com/newsletters/papers-of-the-week-6956357330917564416) is a newsletter that publishes weekly papers about software engineering favoring TDD, software testing and DevOps.

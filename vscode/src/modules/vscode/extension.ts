@@ -56,7 +56,6 @@ export function activate(context: vscode.ExtensionContext) {
   generateHighlighting(context);
 
   logger.info('smelly-test active process done');
-  vscode.window.showInformationMessage(`Smelly version ${version} is now activated 🚀`);
 }
 
 function drawHover(context: vscode.ExtensionContext) {

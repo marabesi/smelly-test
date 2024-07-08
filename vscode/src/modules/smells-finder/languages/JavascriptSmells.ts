@@ -129,7 +129,6 @@ export class JavascriptSmells implements SmellsFinder {
 
   private findForStatements(node: any, forStatements: any[] = [], forType: string) {
     if (node.type === forType) {
-      // if (node.type === 'ForStatement' || node.type === 'ForInStatement' || node.type === 'ForOfStatement') {
       forStatements.push(node);
     }
 

@@ -24,6 +24,30 @@ export class TypescriptSmells implements SmellsFinder {
       );
     });
 
+    const forIns = this.findForInStatements(ast).map(forStmt => {
+      const { line: startLine, character } = ts.getLineAndCharacterOfPosition(ast, forStmt.getStart());
+      const { line: endLine, character: endCharacter } = ts.getLineAndCharacterOfPosition(ast, forStmt.getEnd());
+
+      return SmellsBuilder.forInStatement(
+        startLine + 1,
+        endLine + 1,
+        character,
+        endCharacter,
+      );
+    });
+
+    const fors = this.findForStatements(ast).map(forStmt => {
+      const { line: startLine, character } = ts.getLineAndCharacterOfPosition(ast, forStmt.getStart());
+      const { line: endLine, character: endCharacter } = ts.getLineAndCharacterOfPosition(ast, forStmt.getEnd());
+
+      return SmellsBuilder.forStatement(
+        startLine + 1,
+        endLine + 1,
+        character,
+        endCharacter,
+      );
+    });
+
     const ifs = nodes.map(ifStmt => {
       const { line: startLine, character } = ts.getLineAndCharacterOfPosition(ast, ifStmt.getStart());
       const { line: endLine, character: endCharacter } = ts.getLineAndCharacterOfPosition(ast, ifStmt.getEnd());
@@ -60,7 +84,11 @@ export class TypescriptSmells implements SmellsFinder {
       );
     });
 
-    const result = ifs.concat(forOfs).concat(timeouts).concat(consoles);
+    const result = ifs.concat(forOfs)
+      .concat(forIns)
+      .concat(fors)
+      .concat(timeouts)
+      .concat(consoles);
     return result;
   }
 
@@ -76,6 +104,18 @@ export class TypescriptSmells implements SmellsFinder {
     return ifStatements;
   }
 
+  private findForStatements(node: ts.Node, forStatements: ts.ForStatement[] = []): ts.ForStatement[] {
+    if (ts.isForStatement(node)) {
+      forStatements.push(node);
+    }
+
+    node.forEachChild(child => {
+      this.findForStatements(child, forStatements);
+    });
+
+    return forStatements;
+  }
+
   private findForOfStatements(node: ts.Node, forOfStatements: ts.ForOfStatement[] = []): ts.ForOfStatement[] {
     if (ts.isForOfStatement(node)) {
       forOfStatements.push(node);
@@ -86,6 +126,18 @@ export class TypescriptSmells implements SmellsFinder {
     });
 
     return forOfStatements;
+  }
+
+  private findForInStatements(node: ts.Node, forInStatements: ts.ForInStatement[] = []): ts.ForInStatement[] {
+    if (ts.isForInStatement(node)) {
+      forInStatements.push(node);
+    }
+
+    node.forEachChild(child => {
+      this.findForInStatements(child, forInStatements);
+    });
+
+    return forInStatements;
   }
 
   private findSetTimeouts(node: any, results: any[] = []) {

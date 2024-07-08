@@ -45,7 +45,7 @@ suite('Smelly Extension Test Suite', () => {
     { language: 'javascriptreact', file: fileForJavascript('jsx/timeout.test.jsx'), expectedTestSmell: 1 },
     // typescript
     { language: 'typescript', file: fileFortypescript('script_with_if.test.ts'), expectedTestSmell: 1 },
-    // { language: 'typescript', file: fileFortypescript('script_with_for.test.ts'), expectedTestSmell: 3 },
+    { language: 'typescript', file: fileFortypescript('script_with_for.test.ts'), expectedTestSmell: 3 },
     { language: 'typescript', file: fileFortypescript('script_with_timeout.test.ts'), expectedTestSmell: 1 },
     { language: 'typescript', file: fileFortypescript('script_with_console.test.ts'), expectedTestSmell: 1 },
     // tsx

@@ -132,6 +132,34 @@ for (const i of lists) {
     endsAt: 1,
   },
   {
+    code: `const lists: any[] = [{}, {}];
+  
+for (const i in lists) {
+
+}`,
+    language: TYPESCRIPT,
+    index: 0,
+    type: FOR_IN,
+    lineStart: 3,
+    lineEnd: 5,
+    startAt: 0,
+    endsAt: 1,
+  },
+  {
+    code: `const lists: any[] = [{}, {}];
+  
+for (let i =0; i < 2; i++) {
+
+}`,
+    language: TYPESCRIPT,
+    index: 0,
+    type: FOR,
+    lineStart: 3,
+    lineEnd: 5,
+    startAt: 0,
+    endsAt: 1,
+  },
+  {
     code: `setTimeout(() => {
   done();
 });`,

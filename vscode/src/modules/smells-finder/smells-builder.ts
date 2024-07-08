@@ -1,6 +1,39 @@
 import { Smell, SmellType } from "./types";
 
 export class SmellsBuilder {
+  static forStatement(
+    lineStart: number,
+    lineEnd: number,
+    startAt: number,
+    endsAt: number
+  ): Smell {
+    return {
+      type: SmellType.forStatement,
+      lineStart,
+      lineEnd,
+      startAt,
+      endsAt,
+      description: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`,
+      diagnostic: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`
+    };
+  }
+
+  public static forInStatement(
+    lineStart: number,
+    lineEnd: number,
+    startAt: number,
+    endsAt: number
+  ): Smell {
+    return {
+      type: SmellType.forInLoopStatement,
+      lineStart,
+      lineEnd,
+      startAt,
+      endsAt,
+      description: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`,
+      diagnostic: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`
+    };
+  }
 
   public static ifStatement(
     lineStart: number,

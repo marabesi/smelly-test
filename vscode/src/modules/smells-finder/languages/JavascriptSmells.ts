@@ -12,6 +12,8 @@ export class JavascriptSmells implements SmellsFinder {
     const ast = parseScript(this.code, { loc: true });
 
     const ifs: any[] = [];
+    const forOfs: any[] = [];
+    const forIns: any[] = [];
     const fors: any[] = [];
     const timeouts: any[] = [];
     const consoles: any[] = [];
@@ -27,10 +29,30 @@ export class JavascriptSmells implements SmellsFinder {
       ));
     }
 
-    this.findForStatements(ast, fors).filter((item: any) => item.type === Syntax.ForOfStatement);
+    this.findForStatements(ast, forOfs, Syntax.ForOfStatement).filter((item: any) => item.type === Syntax.ForOfStatement);
 
-    for (const statement of fors) {
+    for (const statement of forOfs) {
       smells.push(SmellsBuilder.forOfStatement(
+        statement.loc.start.line,
+        statement.loc.end.line,
+        statement.loc.start.column,
+        statement.loc.end.column
+      ));
+    }
+
+    this.findForStatements(ast, forIns, Syntax.ForInStatement).filter((item: any) => item.type === Syntax.ForInStatement);
+    for (const statement of forIns) {
+      smells.push(SmellsBuilder.forInStatement(
+        statement.loc.start.line,
+        statement.loc.end.line,
+        statement.loc.start.column,
+        statement.loc.end.column
+      ));
+    }
+
+    this.findForStatements(ast, fors, Syntax.ForStatement).filter((item: any) => item.type === Syntax.ForStatement);
+    for (const statement of fors) {
+      smells.push(SmellsBuilder.forStatement(
         statement.loc.start.line,
         statement.loc.end.line,
         statement.loc.start.column,
@@ -105,15 +127,15 @@ export class JavascriptSmells implements SmellsFinder {
     return ifStatements;
   }
 
-  private findForStatements(node: any, forStatements: any[] = []) {
-    if (node.type === 'ForOfStatement') {
+  private findForStatements(node: any, forStatements: any[] = [], forType: string) {
+    if (node.type === forType) {
       // if (node.type === 'ForStatement' || node.type === 'ForInStatement' || node.type === 'ForOfStatement') {
       forStatements.push(node);
     }
 
     for (let key in node) {
       if (node[key] && typeof node[key] === 'object') {
-        this.findForStatements(node[key], forStatements);
+        this.findForStatements(node[key], forStatements, forType);
       }
     }
 

@@ -4,6 +4,8 @@ import { SmellDetector } from '../smells-detector';
 
 const IF_STATEMENT = 'if-statement';
 const FOR_OF = 'for-of-statement';
+const FOR_IN = 'for-in-statement';
+const FOR = 'for-statement';
 const TIMEOUT = 'timeout';
 const CONSOLE = 'console-statement';
 
@@ -21,7 +23,8 @@ if (a === 1) {}`,
     lineEnd: 2,
     startAt: 0,
     endsAt: 15,
-  }, {
+  },
+  {
     code: `const lists = [{}, {}];
   
 for (const i of lists) {
@@ -29,6 +32,34 @@ for (const i of lists) {
 }`,
     language: JAVASCRIPT,
     type: FOR_OF,
+    index: 0,
+    lineStart: 3,
+    lineEnd: 5,
+    startAt: 0,
+    endsAt: 1,
+  },
+  {
+    code: `const lists = [{}, {}];
+  
+for (const i in lists) {
+
+}`,
+    language: JAVASCRIPT,
+    type: FOR_IN,
+    index: 0,
+    lineStart: 3,
+    lineEnd: 5,
+    startAt: 0,
+    endsAt: 1,
+  },
+  {
+    code: `const lists = [{}, {}];
+  
+for (let i = 0; i < 1; i++) {
+
+}`,
+    language: JAVASCRIPT,
+    type: FOR,
     index: 0,
     lineStart: 3,
     lineEnd: 5,

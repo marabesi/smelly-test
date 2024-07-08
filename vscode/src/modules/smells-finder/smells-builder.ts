@@ -48,8 +48,8 @@ export class SmellsBuilder {
       lineEnd,
       startAt,
       endsAt,
-      description: `Smelly: Avoid using setTimeouts for tests. I might lead to Sleepy test or undeterministic behaviour based on where the test is executed.`,
-      diagnostic: `Smelly: Avoid using setTimeouts for tests. I might lead to Sleepy test or undeterministic behaviour based on where the test is executed`,
+      description: `Smelly: Avoid using setTimeouts for tests. It might lead to Sleepy test or undeterministic behaviour based on where the test is executed.`,
+      diagnostic: `Smelly: Avoid using setTimeouts for tests. It might lead to Sleepy test or undeterministic behaviour based on where the test is executed`,
     };
   }
 

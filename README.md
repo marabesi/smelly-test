@@ -29,6 +29,7 @@ npm run cli -- path/to/file/test.js typescript
 This extension is one of the results of an ongoing research effort to navigate the intersection between the TDD
 practice and test smell generation. Here are the publications behind it:
 
+- [Patterns that make TDD harder an ebook from practitioners for practitioners](https://info.codurance.com/es/antipatrones-de-tdd-ebook)
 - The research goal: [CISTI2023 - Towards a TDD maturity model through an anti-patterns framework](https://github.com/marabesi/publications/blob/main/preprint-towards-a-tdd-maturity-model-through-an-anti-patterns-framework-cisti-2023.pdf)
 - The Literature Review: [Exploring the Connection between the TDD Practice and Test Smells—A Systematic Literature Review](https://github.com/marabesi/publications/blob/main/exploring-the-connection-between-the-tdd-practice-and-test-smells-a-systematic-literature-review.pdf)
 

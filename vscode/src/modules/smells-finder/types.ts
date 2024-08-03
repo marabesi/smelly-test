@@ -24,4 +24,5 @@ export enum SmellType {
   forStatement = 'for-statement',
   timeOut = 'timeout',
   consoleStatement = "console-statement",
+  jestMock = "excessive-jest-mock",
 }

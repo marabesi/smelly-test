@@ -14,6 +14,7 @@ function fileFortypescript(file: string) {
 
 suite('Smelly Extension Test Suite', () => {
   // this is a sensitive test as it relies on it being the first one to be executed
+  // the problem is the vscode lifecycle during tests.
   test('find smells automatically', async () => {
     const file = fileForJavascript('real_test_with_if.test.js');
     const language = 'javascript';
@@ -48,6 +49,7 @@ suite('Smelly Extension Test Suite', () => {
     { language: 'typescript', file: fileFortypescript('script_with_for.test.ts'), expectedTestSmell: 3 },
     { language: 'typescript', file: fileFortypescript('script_with_timeout.test.ts'), expectedTestSmell: 1 },
     { language: 'typescript', file: fileFortypescript('script_with_console.test.ts'), expectedTestSmell: 1 },
+    { language: 'typescript', file: fileFortypescript('script_with_jest_mocks.test.ts'), expectedTestSmell: 1 },
     // tsx
     { language: 'typescriptreact', file: fileFortypescript('tsx/enzyme.test.tsx'), expectedTestSmell: 0 },
     { language: 'typescriptreact', file: fileFortypescript('tsx/if.test.tsx'), expectedTestSmell: 1 },
@@ -68,7 +70,7 @@ suite('Smelly Extension Test Suite', () => {
 
       const diagnostics = vscode.languages.getDiagnostics(uri);
 
-      assert.deepEqual(diagnostics.length, expectedTestSmell);
+      assert.deepEqual(diagnostics.length, expectedTestSmell, 'the number of test smells expected does not match');
     });
   });
 

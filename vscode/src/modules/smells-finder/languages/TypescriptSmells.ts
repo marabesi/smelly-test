@@ -84,11 +84,39 @@ export class TypescriptSmells implements SmellsFinder {
       );
     });
 
+    const jestMocks = this.findJestMocks(ast).map(mockCall => {
+      const { line: startLine, character } = ts.getLineAndCharacterOfPosition(ast, mockCall.getStart());
+      const { line: endLine, character: endCharacter } = ts.getLineAndCharacterOfPosition(ast, mockCall.getEnd());
+      return SmellsBuilder.jestMock(
+        startLine + 1,
+        endLine + 1,
+        character,
+        endCharacter,
+      );
+    });
+
+    const jestMockSmells: Smell[] = [];
+
+    if (jestMocks.length >= 10) {
+      const first = 0;
+      const last = jestMocks.length - 1;
+
+      jestMockSmells.push(
+        SmellsBuilder.jestMock(
+          jestMocks[first].lineStart,
+          jestMocks[last].lineEnd,
+          jestMocks[first].startAt,
+          jestMocks[last].endsAt,
+        )
+      );
+    }
+
     const result = ifs.concat(forOfs)
       .concat(forIns)
       .concat(fors)
       .concat(timeouts)
-      .concat(consoles);
+      .concat(consoles)
+      .concat(jestMockSmells);
     return result;
   }
 
@@ -171,5 +199,20 @@ export class TypescriptSmells implements SmellsFinder {
     });
 
     return results;
+  }
+
+  private findJestMocks(node: ts.Node, functionCalls: any[] = []): any[] {
+    if (
+      ts.isCallExpression(node) &&
+      ts.isPropertyAccessExpression(node.expression) &&
+      node.expression.expression.getText() === 'jest' &&
+      node.expression.name.getText() === 'mock'
+    ) {
+      functionCalls.push(node);
+    }
+    ts.forEachChild(node, child => {
+      this.findJestMocks(child, functionCalls);
+    });
+    return functionCalls;
   }
 }

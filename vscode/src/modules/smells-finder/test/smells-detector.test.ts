@@ -8,6 +8,7 @@ const FOR_IN = 'for-in-statement';
 const FOR = 'for-statement';
 const TIMEOUT = 'timeout';
 const CONSOLE = 'console-statement';
+const MOCKERY = 'excessive-jest-mock';
 
 const JAVASCRIPT = 'javascript';
 const TYPESCRIPT = 'typescript';
@@ -23,6 +24,7 @@ if (a === 1) {}`,
     lineEnd: 2,
     startAt: 0,
     endsAt: 15,
+    total: 1,
   },
   {
     code: `const lists = [{}, {}];
@@ -37,6 +39,7 @@ for (const i of lists) {
     lineEnd: 5,
     startAt: 0,
     endsAt: 1,
+    total: 1,
   },
   {
     code: `const lists = [{}, {}];
@@ -51,6 +54,7 @@ for (const i in lists) {
     lineEnd: 5,
     startAt: 0,
     endsAt: 1,
+    total: 1,
   },
   {
     code: `const lists = [{}, {}];
@@ -65,6 +69,7 @@ for (let i = 0; i < 1; i++) {
     lineEnd: 5,
     startAt: 0,
     endsAt: 1,
+    total: 1,
   },
   {
     code: `setTimeout(() => {
@@ -77,6 +82,7 @@ for (let i = 0; i < 1; i++) {
     lineEnd: 3,
     startAt: 0,
     endsAt: 2,
+    total: 1,
   },
   {
     code: `function done() {};
@@ -90,6 +96,7 @@ setTimeout(() => {
     lineEnd: 4,
     startAt: 0,
     endsAt: 2,
+    total: 1,
   },
   {
     code: `const a: number = 1;
@@ -101,6 +108,7 @@ if (a === 1) { }`,
     lineEnd: 2,
     startAt: 0,
     endsAt: 16,
+    total: 1,
   },
   {
 
@@ -116,6 +124,7 @@ if (a === 2) {
     lineEnd: 5,
     startAt: 0,
     endsAt: 1,
+    total: 3,
   },
   {
     code: `const lists: any[] = [{}, {}];
@@ -130,6 +139,7 @@ for (const i of lists) {
     lineEnd: 5,
     startAt: 0,
     endsAt: 1,
+    total: 1,
   },
   {
     code: `const lists: any[] = [{}, {}];
@@ -144,6 +154,7 @@ for (const i in lists) {
     lineEnd: 5,
     startAt: 0,
     endsAt: 1,
+    total: 1,
   },
   {
     code: `const lists: any[] = [{}, {}];
@@ -158,6 +169,7 @@ for (let i =0; i < 2; i++) {
     lineEnd: 5,
     startAt: 0,
     endsAt: 1,
+    total: 1,
   },
   {
     code: `setTimeout(() => {
@@ -170,6 +182,7 @@ for (let i =0; i < 2; i++) {
     lineEnd: 3,
     startAt: 0,
     endsAt: 2,
+    total: 1,
   },
   {
     code: `function done() {};
@@ -183,6 +196,7 @@ setTimeout(() => {
     lineEnd: 4,
     startAt: 0,
     endsAt: 2,
+    total: 1,
   },
   {
     code: `describe("my test", () => {
@@ -197,6 +211,7 @@ console.log(1);
     lineEnd: 3,
     startAt: 0,
     endsAt: 14,
+    total: 1,
   },
   {
     code: `describe("my test", () => {
@@ -211,17 +226,74 @@ console.log(1);
     lineEnd: 3,
     startAt: 0,
     endsAt: 14,
+    total: 1,
+  },
+  {
+    code: `jest.mock("../");
+jest.mock("../");
+jest.mock("../");
+jest.mock("../");
+jest.mock("../");
+jest.mock("../");
+jest.mock("../");
+jest.mock("../");
+jest.mock("../");
+jest.mock("../");`,
+    language: TYPESCRIPT,
+    index: 0,
+    type: MOCKERY,
+    lineStart: 1,
+    lineEnd: 10,
+    startAt: 0,
+    endsAt: 16,
+    total: 1,
+  },
+  {
+    code: `jest.mock("../");
+jest.mock("../");
+jest.mock("../");
+jest.mock("../");
+jest.mock("../");
+jest.mock("../");
+jest.mock("../");
+jest.mock("../");
+jest.mock("../");
+jest.mock("../");
+jest.mock("../");`,
+    language: TYPESCRIPT,
+    index: 0,
+    type: MOCKERY,
+    lineStart: 1,
+    lineEnd: 11,
+    startAt: 0,
+    endsAt: 16,
+    total: 1,
   }
-  ].forEach(({ code, language, index, type, lineStart, lineEnd, startAt, endsAt }) => {
+  ].forEach(({ code, language, index, type, lineStart, lineEnd, startAt, endsAt, total }) => {
     test(`detect test smell for ${language}: type ${type} at index ${index}`, () => {
       const smellDetector = new SmellDetector(code, language);
       const result = smellDetector.findAll();
 
+      assert.equal(result.length, total, 'number of detected smells is not correct');
       assert.equal(result[index].type, type, 'type');
       assert.equal(result[index].lineStart, lineStart, 'lineStart');
       assert.equal(result[index].lineEnd, lineEnd, 'lineEnd');
       assert.equal(result[index].startAt, startAt, 'startAt');
       assert.equal(result[index].endsAt, endsAt, 'endsAt');
+    });
+  });
+
+  [{
+    code: `
+jest.mock("../");`,
+    language: TYPESCRIPT,
+  }
+  ].forEach(({ code, language  }) => {
+    test(`detect code without smells`, () => {
+      const smellDetector = new SmellDetector(code, language);
+      const result = smellDetector.findAll();
+
+      assert.equal(result.length, 0);
     });
   });
 });

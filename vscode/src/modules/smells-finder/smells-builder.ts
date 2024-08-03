@@ -102,4 +102,22 @@ export class SmellsBuilder {
       diagnostic: `Smelly: Avoid poluting the test output. It is known as the loudmouth`,
     };
   }
+
+  public static jestMock(
+    lineStart: number,
+    lineEnd: number,
+    startAt: number,
+    endsAt: number
+  ): Smell {
+    return {
+      type: SmellType.jestMock,
+      lineStart,
+      lineEnd,
+      startAt,
+      endsAt,
+      description: `Smelly: `,
+      diagnostic: `Smelly: `,
+    };
+
+  }
 }

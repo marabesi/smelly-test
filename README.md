@@ -41,6 +41,7 @@ a curated list here goes:
 ### Related projects
 
 - [jnose for java](https://github.com/arieslab/jnose)
+- [tsDetect](https://github.com/TestSmells/TSDetect)
 
 ## Want to keep up to date with the latest research?
 

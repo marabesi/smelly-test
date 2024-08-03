@@ -115,8 +115,8 @@ export class SmellsBuilder {
       lineEnd,
       startAt,
       endsAt,
-      description: `Smelly: `,
-      diagnostic: `Smelly: `,
+      description: `Smelly: Avoid mocking too many dependencies in the test file. Split the test cases to distribute the mocking load.`,
+      diagnostic: `Smelly: Avoid mocking too many dependencies in the test file. Split the test cases to distribute the mocking load.`,
     };
 
   }

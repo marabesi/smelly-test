@@ -1,10 +1,11 @@
 import fs, { readdir } from 'node:fs/promises';
 import { SmellDetector } from '../smells-finder/smells-detector';
 import { join } from 'node:path';
+import { SupportedLanguages } from '../smells-finder/types';
 
 const args = process.argv;
 const fileName = args[2];
-const language = args[3];
+const language = args[3] || SupportedLanguages.javascript;
 
 if (!fileName) {
   console.error('[SMELLY] please provide a test file');
@@ -24,6 +25,7 @@ async function execute() {
     if (isFile && isFile.isFile()) {
       const fileContents = await fs.readFile(fileName, { encoding: 'utf8' });
       const smellDetector = new SmellDetector(fileContents, language);
+      console.info(`Detecting for language ${language}`);
       console.info(smellDetector.findAll());
       return;
     }

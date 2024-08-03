@@ -83,10 +83,6 @@ function drawHover(context: vscode.ExtensionContext) {
   logger.debug('drawing hovers done');
 
   populateDiagnosticPanel();
-
-  if (ranges.length === 0) {
-    vscode.window.showInformationMessage("No test smells found, keep the great work 🚀");
-  }
 }
 
 function populateDiagnosticPanel() {

@@ -45,14 +45,14 @@
               "string",
               "undefined"
             ],
-            "default": false
+            "default": "#B22222"
           },
           "smelly.fileTestIdentifier": {
             "type": [
               "string",
               "undefined"
             ],
-            "default": false,
+            "default": "(my|test|spec)",
             "description": "Defines the file key that smelly should use to find smells"
           }
         }

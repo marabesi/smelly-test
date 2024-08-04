@@ -109,18 +109,15 @@ function populateDiagnosticPanel() {
 }
 
 function isFileNameTestFile(fileName: string): boolean {
-  const fileNameAndPath = path.basename(fileName);
+  const fileNameOnly = path.basename(fileName);
   const fileTestIdentifier = fetchConfiguration().fileTestIdentifier;
 
-  console.log(" CONFIG CONFIG  ", fileTestIdentifier);
   if (!fileTestIdentifier) {
-    return fileNameAndPath.includes('test') || fileNameAndPath.includes('spec');
+    return fileNameOnly.includes('test') || fileNameOnly.includes('spec');
   }
 
   const regex = new RegExp(fileTestIdentifier);
-  const match = regex.exec(fileName);
-  
-  console.log(" aaaaaaaaaaaaaaa ", match);
+  const match = regex.exec(fileNameOnly);
 
   if (!match) {
     return false;
@@ -143,8 +140,9 @@ function generateHighlighting(context: vscode.ExtensionContext) {
   }
 
   const fileName = editor.document.fileName;
+
   if (!isFileNameTestFile(fileName)) {
-    logger.debug(`the current file ${fileName} is not a test file, the file must have 'test' in its name`);
+    logger.debug(`the current file ${fileName} is not a test file, the file must have 'test' in its name or needs to match the file identifier in the vscode configuration`);
     clearDiagnostics();
     return;
   }

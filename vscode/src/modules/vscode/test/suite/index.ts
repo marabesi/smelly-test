@@ -43,7 +43,6 @@ export const deleteWorkSpaceConfiguration = () => {
 	return vscode.workspace
 		.getConfiguration('smelly')
 		.update('fileTestIdentifier', undefined, vscode.ConfigurationTarget.Global, true);
-
 };
 
 export function fileForJavascript(file: string) {

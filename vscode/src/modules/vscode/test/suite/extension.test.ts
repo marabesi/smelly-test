@@ -76,10 +76,10 @@ suite('Smelly Extension Features Test Suite', () => {
     const currentFile = path.join(__dirname + file);
     const uri = vscode.Uri.file(currentFile);
 
-    await deleteWorkSpaceConfiguration();
-
     const document = await vscode.workspace.openTextDocument(uri);
     const editor = await vscode.window.showTextDocument(document);
+    
+    await deleteWorkSpaceConfiguration();
 
     const result = await vscode.commands.executeCommand('extension.smelly-test.find-smells');
 

@@ -6,7 +6,11 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [0.0.13]
 
+- detect test file based on vscode settings (new fileTestIdentifier added to settings)
+
 ## [0.0.12]
+
+- excessive usage of `jest.mock`
 
 ## [0.0.11]
 

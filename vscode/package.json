@@ -36,6 +36,28 @@
   "appInsightsKey": "f258032c-0600-4d0e-85a4-dce3c0e97625",
   "main": "./dist/extension.js",
   "contributes": {
+    "configuration":[
+      {
+        "title": "smelly",
+        "properties": {
+          "smelly.color": {
+            "type": [
+              "string",
+              "undefined"
+            ],
+            "default": false
+          },
+          "smelly.fileTestIdentifier": {
+            "type": [
+              "string",
+              "undefined"
+            ],
+            "default": false,
+            "description": "Defines the file key that smelly should use to find smells"
+          }
+        }
+      }
+    ],
     "commands": [
       {
         "command": "extension.smelly-test.find-smells",
@@ -55,7 +77,6 @@
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/modules/vscode/test/runTest.js",
-    "test:vscode": "vscode-test",
     "test:smells-finder": "mocha -r ts-node/register src/modules/smells-finder/**/**.test.ts",
     "test:all": "npm run test:smells-finder && npm run test",
     "test:watch:all": "nodemon --exec 'npm run test:smells-finder && npm run test' --watch 'src/modules/**' --ext 'ts' --delay 5",

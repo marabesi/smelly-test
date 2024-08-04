@@ -1,6 +1,7 @@
 import * as path from 'path';
 import Mocha from 'mocha';
 import glob from 'glob';
+import * as vscode from 'vscode';
 
 export function run(): Promise<void> {
 	// Create the mocha test
@@ -36,4 +37,26 @@ export function run(): Promise<void> {
 			}
 		});
 	});
+}
+
+export const deleteWorkSpaceConfiguration = () => {
+	return vscode.workspace
+		.getConfiguration('smelly')
+		.update('fileTestIdentifier', undefined, vscode.ConfigurationTarget.Global, true);
+
+};
+
+export function fileForJavascript(file: string) {
+  const testFolderLocationForJavascript = '../../../../../../src/modules/vscode/dataset/javascript';
+  return testFolderLocationForJavascript + '/' + file;
+}
+
+export function fileFortypescript(file: string) {
+  const testFolderLocationForTypescript = '../../../../../../src/modules/vscode/dataset/typescript';
+  return testFolderLocationForTypescript + '/' + file;
+}
+
+export function fileFromFilesPattern(file: string) {
+  const testFolderLocationForJavascript = '../../../../../../src/modules/vscode/dataset/files_pattern';
+  return testFolderLocationForJavascript + '/' + file;
 }

@@ -1,18 +1,9 @@
 import * as assert from 'assert';
 import * as path from 'path';
 import * as vscode from 'vscode';
+import { deleteWorkSpaceConfiguration, fileForJavascript, fileFortypescript } from '.';
 
-function fileForJavascript(file: string) {
-  const testFolderLocationForJavascript = '../../../../../../src/modules/vscode/dataset/javascript';
-  return testFolderLocationForJavascript + '/' + file;
-}
-
-function fileFortypescript(file: string) {
-  const testFolderLocationForTypescript = '../../../../../../src/modules/vscode/dataset/typescript';
-  return testFolderLocationForTypescript + '/' + file;
-}
-
-suite('Smelly Extension Test Suite', () => {
+suite('Smelly Extension Features Test Suite', () => {
   // this is a sensitive test as it relies on it being the first one to be executed
   // the problem is the vscode lifecycle during tests.
   test('find smells automatically', async () => {
@@ -21,6 +12,8 @@ suite('Smelly Extension Test Suite', () => {
 
     const currentFile = path.join(__dirname + file);
     const uri = vscode.Uri.file(currentFile);
+
+    await deleteWorkSpaceConfiguration();
 
     const document = await vscode.workspace.openTextDocument(uri);
     const editor = await vscode.window.showTextDocument(document);
@@ -58,7 +51,9 @@ suite('Smelly Extension Test Suite', () => {
   ].forEach(({ language, file, expectedTestSmell }) => {
     test(`Shows smelly in diagnostics panel, language: ${language}, file: ${file}, expected smells: ${expectedTestSmell}`, async () => {
       const currentFile = path.join(__dirname + file);
-      const uri = vscode.Uri.file( currentFile);
+      const uri = vscode.Uri.file(currentFile);
+
+      await deleteWorkSpaceConfiguration();
 
       const document = await vscode.workspace.openTextDocument(uri);
       const editor = await vscode.window.showTextDocument(document);
@@ -80,6 +75,8 @@ suite('Smelly Extension Test Suite', () => {
 
     const currentFile = path.join(__dirname + file);
     const uri = vscode.Uri.file(currentFile);
+
+    await deleteWorkSpaceConfiguration();
 
     const document = await vscode.workspace.openTextDocument(uri);
     const editor = await vscode.window.showTextDocument(document);

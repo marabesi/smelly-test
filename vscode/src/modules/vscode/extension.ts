@@ -16,11 +16,12 @@ let hovers: vscode.Disposable[] = [];
 let collection: vscode.DiagnosticCollection;
 
 function fetchConfiguration(): SmellyConfiguration {
-  return vscode.workspace.getConfiguration().get('smelly') || {};
+  const configuration = vscode.workspace.getConfiguration().get('smelly') || {};
+  return configuration;
 }
 
 export function activate(context: vscode.ExtensionContext) {
-  const { version, appInsightsKey } = context.extension.packageJSON;
+  const { appInsightsKey } = context.extension.packageJSON;
 
   reporter = new TelemetryReporter(appInsightsKey);
   logger = new Logger(reporter);
@@ -107,9 +108,25 @@ function populateDiagnosticPanel() {
   }
 }
 
-function isFileNameTestFile(fileName: string) {
+function isFileNameTestFile(fileName: string): boolean {
   const fileNameAndPath = path.basename(fileName);
-  return !fileNameAndPath.includes('test') && !fileNameAndPath.includes('spec');
+  const fileTestIdentifier = fetchConfiguration().fileTestIdentifier;
+
+  console.log(" CONFIG CONFIG  ", fileTestIdentifier);
+  if (!fileTestIdentifier) {
+    return fileNameAndPath.includes('test') || fileNameAndPath.includes('spec');
+  }
+
+  const regex = new RegExp(fileTestIdentifier);
+  const match = regex.exec(fileName);
+  
+  console.log(" aaaaaaaaaaaaaaa ", match);
+
+  if (!match) {
+    return false;
+  }
+
+  return match.length > 0;
 }
 
 function generateHighlighting(context: vscode.ExtensionContext) {
@@ -126,7 +143,7 @@ function generateHighlighting(context: vscode.ExtensionContext) {
   }
 
   const fileName = editor.document.fileName;
-  if (isFileNameTestFile(fileName)) {
+  if (!isFileNameTestFile(fileName)) {
     logger.debug(`the current file ${fileName} is not a test file, the file must have 'test' in its name`);
     clearDiagnostics();
     return;

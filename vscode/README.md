@@ -37,5 +37,4 @@ Smelly works automatically whenever a javascript/typescript test is opened. The 
 
 ## Planned smells
 
-- heuristics regarding mocks with jest
 - heuristics regarding test size

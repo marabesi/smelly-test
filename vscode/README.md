@@ -29,11 +29,13 @@ Smelly works automatically whenever a javascript/typescript test is opened. The 
   - Identify **for of** loops in the test code
   - Identify **setTimeout** in the test code
   - detect console logs as a reference to the loudmouth
+  - excessive usage of jest mocks
 - client-side javascript/typescript
   - jsx/tsx
     - Identify **if** statements in the test code
     - Identify **for of** loops in the test code
     - Identify **setTimeout** in the test code
+    - excessive usage of jest mocks
 
 ## Planned smells
 

@@ -4,6 +4,10 @@ All notable changes to the "smelly test" extension will be documented in this fi
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.0.14]
+
+- Detect console.info and console.error
+
 ## [0.0.13]
 
 - detect test file based on vscode settings (new fileTestIdentifier added to settings)

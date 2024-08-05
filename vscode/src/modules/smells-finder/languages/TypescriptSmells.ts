@@ -186,10 +186,11 @@ export class TypescriptSmells implements SmellsFinder {
   private findConsoleLogs(node: any, results: any[] = []) {
     if (ts.isCallExpression(node)) {
       const expression = node.expression;
-      if (ts.isPropertyAccessExpression(expression) &&
+      if ((
+        ts.isPropertyAccessExpression(expression) &&
         expression.expression.kind === ts.SyntaxKind.Identifier &&
-        expression.expression.getText() === 'console' &&
-        expression.name.escapedText === 'log') {
+        expression.expression.getText() === 'console') && (
+        expression.name.escapedText === 'log' || expression.name.escapedText === 'info' || expression.name.escapedText === 'error')) {
         results.push(node);
       }
     }

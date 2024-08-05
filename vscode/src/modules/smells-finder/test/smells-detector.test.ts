@@ -229,6 +229,66 @@ console.log(1);
     total: 1,
   },
   {
+    code: `describe("my test", () => {
+  it("a", () => {
+console.error(1);
+  });
+})`,
+    language: JAVASCRIPT,
+    index: 0,
+    type: CONSOLE,
+    lineStart: 3,
+    lineEnd: 3,
+    startAt: 0,
+    endsAt: 16,
+    total: 1,
+  },
+  {
+    code: `describe("my test", () => {
+  it("a", () => {
+console.info(1);
+  });
+})`,
+    language: JAVASCRIPT,
+    index: 0,
+    type: CONSOLE,
+    lineStart: 3,
+    lineEnd: 3,
+    startAt: 0,
+    endsAt: 15,
+    total: 1,
+  },
+  {
+    code: `describe("my test", () => {
+  it("a", () => {
+console.info(1);
+  });
+})`,
+    language: TYPESCRIPT,
+    index: 0,
+    type: CONSOLE,
+    lineStart: 3,
+    lineEnd: 3,
+    startAt: 0,
+    endsAt: 15,
+    total: 1,
+  },
+  {
+    code: `describe("my test", () => {
+  it("a", () => {
+console.error(1);
+  });
+})`,
+    language: TYPESCRIPT,
+    index: 0,
+    type: CONSOLE,
+    lineStart: 3,
+    lineEnd: 3,
+    startAt: 0,
+    endsAt: 16,
+    total: 1,
+  },
+  {
     code: `jest.mock("../");
 jest.mock("../");
 jest.mock("../");

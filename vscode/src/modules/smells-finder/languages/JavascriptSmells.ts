@@ -86,10 +86,10 @@ export class JavascriptSmells implements SmellsFinder {
   }
 
   private findConsoleLogs(node: any, results: any[] = []) {
-    if (node.type === 'CallExpression' &&
+    if ((node.type === 'CallExpression' &&
       node.callee.type === 'MemberExpression' &&
-      node.callee.object.name === 'console' &&
-      node.callee.property.name === 'log') {
+      node.callee.object.name === 'console') &&
+      (node.callee.property.name === 'log' || node.callee.property.name === 'info' || node.callee.property.name === 'error')) {
       results.push(node);
     }
 

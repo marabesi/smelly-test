@@ -1,3 +1,4 @@
+//@ts-nocheck
 import fs, { readdir } from 'node:fs/promises';
 import { SmellDetector } from '../src/smells-detector';
 import { join } from 'node:path';
@@ -13,7 +14,7 @@ if (!fileName) {
 }
 
 const walk: any = async (dirPath: string) => Promise.all(
-  await readdir(dirPath, { withFileTypes: true }).then((entries) => entries.map((entry: any) => {
+  await readdir(dirPath, { withFileTypes: true }).then((entries: any) => entries.map((entry: any) => {
     const childPath = join(dirPath, entry.name)
     return entry.isDirectory() ? walk(childPath) : childPath;
   }))

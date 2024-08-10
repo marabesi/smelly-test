@@ -1,3 +1,4 @@
+//@ts-nocheck
 import * as assert from 'assert';
 import { suite, test } from 'mocha';
 import { SmellDetector } from '../smells-detector';

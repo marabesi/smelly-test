@@ -16,6 +16,6 @@
 		// "noUnusedParameters": true,  /* Report errors on unused parameters. */
 	},
 	"exclude": [
-		"src/dataset/typescript/tsx/**"
-	],
+		"src/dataset/typescript/tsx/**",
+	]
 }

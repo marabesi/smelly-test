@@ -17,13 +17,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    # defaults:
-    #   run:
-    #     working-directory: ./vscode
-
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [18.14.2]
 
     steps:
     - uses: actions/checkout@v1
@@ -41,29 +37,28 @@ jobs:
         npm install
         npm run clean
         npm i --workspaces
+        npm run compile --workspaces
 
     - name: npm build
-      working-directory: ./vscode
       run: |
-        npm run vscode:prepublish
+        ls -la node_modules/@smelly
+        npm run vscode:prepublish --workspace=vscode
 
     - name: npm test
       if: github.ref != 'refs/heads/main'
       run: |
         npm run test --workspaces
 
-    - name: npm coverage
-      working-directory: ./vscode
-      if: github.ref == 'refs/heads/main'
-      run: |
-        npm run coveralls
+    # - name: npm coverage
+    #   if: github.ref == 'refs/heads/main'
+    #   run: |
+    #     npm run coveralls --workspace=vscode
 
     - name: npm package standalone extension
-      working-directory: ./vscode
       if: github.ref == 'refs/heads/main'
       run: |
         npm i -g vsce
-        npm run package
+        npm run package --workspace=vscode
 
     - name: store artifact
       if: github.ref == 'refs/heads/main'

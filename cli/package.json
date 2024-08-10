@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/cli.js",
+  "types": "./types/src/index.d.ts",
   "dependencies": {
     "esprima": "^4.0.1",
     "ts-node": "^10.9.2"
@@ -10,7 +11,7 @@
   "devDependencies": {
     "@types/esprima": "^4.0.6",
     "@types/mocha": "^10.0.1",
-    "@types/node": "16.x",
+    "@types/node": "^18.19.44",
     "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@typescript-eslint/parser": "^5.53.0",
     "eslint": "^8.34.0",
@@ -25,7 +26,7 @@
   "scripts": {
     "compile": "webpack",
     "watch": "webpack --watch",
-    "clean": "rm -rf out/ dist/",
+    "clean": "rm -rf out/ dist/ types/",
     "compile-tests": "npm run clean && tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",

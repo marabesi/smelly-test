@@ -2,12 +2,11 @@
   "name": "@smelly/workspace",
   "version": "1.0.0",
   "description": "Smelly test is an extension that helps developers mitigate test smells in their test suites. Smelly test is focused on the javascript/typescript ecosystem, for the backend and frontend.",
-  "main": "index.js",
   "devDependencies": {
     "typescript": "^5.2.0",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1",
-    "ts-loader": "^9.4.2",
+    "webpack": "^5.93.0",
+    "webpack-cli": "^5.1.4",
+    "ts-loader": "^9.5.1",
     "rimraf": "^5.0.7"
   },
   "scripts": {

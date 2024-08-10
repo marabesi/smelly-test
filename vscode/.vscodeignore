@@ -1,7 +1,7 @@
 .vscode/**
 .vscode-test/**
 out/**
-node_modules/**
+../node_modules/**
 src/**
 .gitignore
 .yarnrc
@@ -11,3 +11,16 @@ vsc-extension-quickstart.md
 **/.eslintrc.json
 **/*.map
 **/*.ts
+coverage
+.git/**
+../.git/**
+../.github/**
+../cli/**
+../.idea
+.nyc_output/**
+../.gitignore
+../package-lock.json
+../package.json
+../README.md
+../setup-repo.sh
+.vscode-test.js

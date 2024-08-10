@@ -59,7 +59,7 @@ jobs:
       if: github.ref == 'refs/heads/main'
       run: |
         npm i -g vsce
-        npm run package --workspace=vscode
+        npm run generate:vsix --workspace=vscode
 
     - name: store artifact
       if: github.ref == 'refs/heads/main'

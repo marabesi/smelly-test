@@ -1,4 +1,4 @@
-name: Deploy Extension
+name: Publish to Microsoft Marketplace
 
 on:
   workflow_dispatch:
@@ -8,12 +8,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js 18x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 18.x
-      - run: |
+    - uses: actions/checkout@v4
+    - name: Set Environment Variables
+      uses: tw3lveparsecs/github-actions-setvars@v0.1
+      with:
+        envFilePath: ./envvars.for.actions
+
+    - name: Use Node.js
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+      run: |
           npm i --workspaces
           npm run compile --workspaces
           npm install -g vsce

@@ -1,5 +1,5 @@
 import { Range, window } from 'vscode';
-import { Smell } from "../smells-finder/types";
+import { Smell } from "@smelly/cli";
 
 export type ComposedSmell = {
   smell: Smell;

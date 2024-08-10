@@ -1,6 +1,6 @@
 import { window, TextEditorDecorationType } from 'vscode';
 import { SmellyConfiguration, warningDecorationType } from './extension.types';
-import { Logger } from '../trace/logger';
+import { Logger } from './trace/logger';
 // @ts-ignore for some reason there is an issue with the ts config with this module
 import hexRgb from 'hex-rgb';
 

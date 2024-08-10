@@ -76,7 +76,7 @@
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/modules/vscode/test/runTest.js",
+    "test": "node ./out/test/runTest.js",
     "test:smells-finder": "mocha -r ts-node/register src/modules/smells-finder/**/**.test.ts",
     "test:all": "npm run test:smells-finder && npm run test",
     "test:watch:all": "nodemon --exec 'npm run test:smells-finder && npm run test' --watch 'src/modules/**' --ext 'ts' --delay 5",
@@ -109,7 +109,8 @@
     "@vscode/extension-telemetry": "^0.9.6",
     "esprima": "^4.0.1",
     "hex-rgb": "^5.0.0",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "@smelly/cli": "*"
   },
   "pricing": "Free",
   "sponsor": {

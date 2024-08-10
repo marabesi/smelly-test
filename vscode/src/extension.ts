@@ -1,11 +1,9 @@
 import * as vscode from 'vscode';
 import TelemetryReporter from '@vscode/extension-telemetry';
 import path from 'path';
-import { SmellDetector } from '../smells-finder/smells-detector';
-import { Smell, SupportedLanguages } from '../smells-finder/types';
-import { supportedLanguages } from '../smells-finder/languages/Supported';
+import { SmellDetector, Smell, SupportedLanguages, supportedLanguages } from '@smelly/cli';
 import { ComposedSmell, SmellyConfiguration, warningDecorationType } from './extension.types';
-import { Logger } from '../trace/logger';
+import { Logger } from './trace/logger';
 import { setupConfiguration } from './configuration';
 
 let logger: Logger;
@@ -129,7 +127,7 @@ function isFileNameTestFile(fileName: string): boolean {
 function generateHighlighting(context: vscode.ExtensionContext) {
   const editor = vscode.window.activeTextEditor;
 
-  if (!editor ) {
+  if (!editor) {
     logger.debug(`editor has no active text`);
     return;
   }

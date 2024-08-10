@@ -46,16 +46,16 @@ export const deleteWorkSpaceConfiguration = () => {
 };
 
 export function fileForJavascript(file: string) {
-  const testFolderLocationForJavascript = '../../../../../../src/modules/vscode/dataset/javascript';
+  const testFolderLocationForJavascript = '../../../../src/dataset/javascript';
   return testFolderLocationForJavascript + '/' + file;
 }
 
 export function fileFortypescript(file: string) {
-  const testFolderLocationForTypescript = '../../../../../../src/modules/vscode/dataset/typescript';
+  const testFolderLocationForTypescript = '../../../../src/dataset/typescript';
   return testFolderLocationForTypescript + '/' + file;
 }
 
 export function fileFromFilesPattern(file: string) {
-  const testFolderLocationForJavascript = '../../../../../../src/modules/vscode/dataset/files_pattern';
+  const testFolderLocationForJavascript = '../../../../src/dataset/files_pattern';
   return testFolderLocationForJavascript + '/' + file;
 }

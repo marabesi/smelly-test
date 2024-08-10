@@ -1,12 +1,11 @@
 {
   "name": "@smelly/cli",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "Find out the smells in your tests, suggestions for correction and the theory behind them",
   "main": "dist/cli.js",
   "types": "./types/src/index.d.ts",
   "dependencies": {
-    "esprima": "^4.0.1",
-    "ts-node": "^10.9.2"
+    "esprima": "^4.0.1"
   },
   "devDependencies": {
     "@types/esprima": "^4.0.6",
@@ -14,6 +13,7 @@
     "@types/node": "^18.19.44",
     "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@typescript-eslint/parser": "^5.53.0",
+    "ts-node": "^10.9.2",
     "eslint": "^8.34.0",
     "mocha": "^10.2.0",
     "nodemon": "^3.1.4",
@@ -33,6 +33,9 @@
     "coveralls": "npm run test:coverage && coveralls --verbose < coverage/lcov.info",
     "cli": "ts-node bin/find-smells.ts"
   },
-  "author": "",
+  "author": {
+    "name": "Matheus Marabesi",
+    "url": "https://marabesi.com"
+  },
   "license": "ISC"
 }

@@ -6,7 +6,7 @@
   "icon": "images/icon.png",
   "version": "0.0.14",
   "repository": {
-    "url": "https://github.com/marabesi/smelly-test-extension/tree/main/vscode"
+    "url": "https://github.com/marabesi/smelly-test/tree/main/vscode"
   },
   "publisher": "marabesi",
   "browser": "./dist/extension.js",

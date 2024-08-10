@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "Smelly test is an extension that helps developers mitigate test smells in their test suites. Smelly test is focused on the javascript/typescript ecosystem, for the backend and frontend.",
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "rimraf": "^5.0.7"
+  },
   "scripts": {
+    "clean": "npm exec --workspaces -- rimraf node_modules && rimraf node_modules"
   },
   "author": "",
   "license": "ISC",

@@ -17,4 +17,4 @@ jobs:
           npm i --workspaces
           npm run compile --workspaces
           npm install -g vsce
-          npx vsce publish -p ${{ secrets.VSCE_TOKEN }}
+          cd vscode && npx vsce publish -p ${{ secrets.VSCE_TOKEN }}

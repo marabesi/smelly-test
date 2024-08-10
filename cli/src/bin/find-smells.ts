@@ -15,7 +15,7 @@ if (!fileName) {
 
 const walk: any = async (dirPath: string) => Promise.all(
   await readdir(dirPath, { withFileTypes: true }).then((entries: any) => entries.map((entry: any) => {
-    const childPath = join(dirPath, entry.name)
+    const childPath = join(dirPath, entry.name);
     return entry.isDirectory() ? walk(childPath) : childPath;
   }))
 );

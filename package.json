@@ -1,0 +1,15 @@
+{
+  "name": "@smelly/workspace",
+  "version": "1.0.0",
+  "description": "Smelly test is an extension that helps developers mitigate test smells in their test suites. Smelly test is focused on the javascript/typescript ecosystem, for the backend and frontend.",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+  },
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "cli",
+    "vscode"
+  ]
+}

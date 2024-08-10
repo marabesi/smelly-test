@@ -1,5 +1,5 @@
 {
-  "name": "smelly-test",
+  "name": "@smelly/vscode",
   "displayName": "Smelly test",
   "description": "Find out the smells in your tests, suggestions for correction and the theory behind them",
   "icon": "images/icon.png",
@@ -86,7 +86,6 @@
   },
   "devDependencies": {
     "@types/esprima": "^4.0.6",
-    "@types/glob": "^8.1.0",
     "@types/mocha": "^10.0.1",
     "@types/node": "16.x",
     "@types/vscode": "^1.90.0",

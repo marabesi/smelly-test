@@ -24,3 +24,4 @@ coverage
 ../README.md
 ../setup-repo.sh
 .vscode-test.js
+../envvars.for.actions

@@ -17,9 +17,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: ./vscode
+    # defaults:
+    #   run:
+    #     working-directory: ./vscode
 
     strategy:
       matrix:
@@ -39,23 +39,27 @@ jobs:
     - name: npm install
       run: |
         npm install
+        npm run clean
         npm i --workspaces
 
     - name: npm build
+      working-directory: ./vscode
       run: |
         npm run vscode:prepublish
 
     - name: npm test
       if: github.ref != 'refs/heads/main'
       run: |
-        npm run test:all
+        npm run test --workspaces
 
     - name: npm coverage
+      working-directory: ./vscode
       if: github.ref == 'refs/heads/main'
       run: |
         npm run coveralls
 
     - name: npm package standalone extension
+      working-directory: ./vscode
       if: github.ref == 'refs/heads/main'
       run: |
         npm i -g vsce
@@ -65,5 +69,6 @@ jobs:
       if: github.ref == 'refs/heads/main'
       uses: actions/upload-artifact@v2
       with:
+        working-directory: ./vscode
         name: smelly-test-vscode-extension
         path: ./*.vsix

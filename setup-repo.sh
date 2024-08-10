@@ -2,6 +2,6 @@
 
 npm i
 npm run clean
-npm run compile --workspaces
 npm i --workspaces
+npm run compile --workspaces
 npm run test --workspaces

@@ -7,16 +7,15 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: ./vscode
-
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: 18
-      - run: npm install
+      - run: |
+          npm i --workspaces
+          npm run compile --workspaces
+          npm install -g vsce
       - name: Publish to Open VSX Registry
         uses: HaaLeo/publish-vscode-extension@v1
         with:

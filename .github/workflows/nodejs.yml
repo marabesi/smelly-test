@@ -34,14 +34,11 @@ jobs:
 
     - name: npm install
       run: |
-        npm install
-        npm run clean
         npm i --workspaces
         npm run compile --workspaces
 
     - name: npm build
       run: |
-        ls -la node_modules/@smelly
         npm run vscode:prepublish --workspace=vscode
 
     - name: npm test

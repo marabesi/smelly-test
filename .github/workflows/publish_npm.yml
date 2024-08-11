@@ -1,0 +1,29 @@
+name: Publish Package to npmjs
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set Environment Variables
+      uses: tw3lveparsecs/github-actions-setvars@v0.1
+      with:
+        envFilePath: ./envvars.for.actions
+
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      with:
+        registry-url: 'https://registry.npmjs.org'
+        node-version: ${{ env.NODE_VERSION }}
+        run: |
+          npm i --workspaces
+          npm run compile --workspace=cli
+          npm publish --workspace=cli --provenance --access public

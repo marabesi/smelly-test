@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import TelemetryReporter from '@vscode/extension-telemetry';
 import path from 'path';
-import { SmellDetector, Smell, SupportedLanguages, supportedLanguages } from '@smelly/cli';
+import { SmellDetector, Smell, SupportedLanguages, supportedLanguages } from 'smelly-cli';
 import { ComposedSmell, SmellyConfiguration, warningDecorationType } from './extension.types';
 import { Logger } from './trace/logger';
 import { setupConfiguration } from './configuration';

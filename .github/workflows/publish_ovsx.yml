@@ -15,12 +15,14 @@ jobs:
         envFilePath: ./envvars.for.actions
 
     - name: Use Node.js
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ env.NODE_VERSION }}
+
+    - name: Build
       run: |
           npm i --workspaces
           npm run compile --workspaces
-          npm install -g vsce
     
     - name: Publish to Open VSX Registry
       uses: HaaLeo/publish-vscode-extension@v1

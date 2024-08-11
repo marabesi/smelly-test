@@ -2,8 +2,6 @@ name: Publish Package to npmjs
 
 on:
   workflow_dispatch:
-  release:
-    types: [published]
 
 env:
   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -14,6 +12,7 @@ jobs:
     permissions:
       contents: read
       id-token: write
+
     steps:
     - uses: actions/checkout@v4
     - name: Set Environment Variables
@@ -21,10 +20,13 @@ jobs:
       with:
         envFilePath: ./envvars.for.actions
 
-    - name: Publish to npm
+    - name: Use Node.js
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ env.NODE_VERSION }}
         registry-url: 'https://registry.npmjs.org'
+
+    - name: Publish to npm
       run: |
         npm i --workspaces
         npm run compile --workspace=cli

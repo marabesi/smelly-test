@@ -1,5 +1,5 @@
 {
-  "name": "smelly-vscode",
+  "name": "smelly-test",
   "private": true,
   "displayName": "Smelly test",
   "description": "Find out the smells in your tests, suggestions for correction and the theory behind them",

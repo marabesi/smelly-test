@@ -2,6 +2,7 @@ import * as assert from 'assert';
 import * as path from 'path';
 import * as vscode from 'vscode';
 import { fileFromFilesPattern } from '.';
+import { EXTENSION_IDENTIFIER } from '../../extension.types';
 
 suite('Smelly Extension Configuration Test Suite', () => {
 
@@ -13,7 +14,7 @@ suite('Smelly Extension Configuration Test Suite', () => {
     const uri = vscode.Uri.file(currentFile);
 
     await vscode.workspace
-      .getConfiguration('smelly')
+      .getConfiguration(EXTENSION_IDENTIFIER)
       .update('fileTestIdentifier', 'my', vscode.ConfigurationTarget.Global, false);
 
     const document = await vscode.workspace.openTextDocument(uri);

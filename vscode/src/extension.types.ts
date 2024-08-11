@@ -1,6 +1,8 @@
 import { Range, window } from 'vscode';
 import { Smell } from "smelly-cli";
 
+export const EXTENSION_IDENTIFIER = 'smelly';
+
 export type ComposedSmell = {
   smell: Smell;
   range: Range;

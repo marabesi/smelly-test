@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import TelemetryReporter from '@vscode/extension-telemetry';
 import path from 'path';
 import { SmellDetector, Smell, SupportedLanguages, supportedLanguages } from 'smelly-cli';
-import { ComposedSmell, SmellyConfiguration, warningDecorationType } from './extension.types';
+import { ComposedSmell, EXTENSION_IDENTIFIER, SmellyConfiguration, warningDecorationType } from './extension.types';
 import { Logger } from './trace/logger';
 import { setupConfiguration } from './configuration';
 
@@ -14,7 +14,7 @@ let hovers: vscode.Disposable[] = [];
 let collection: vscode.DiagnosticCollection;
 
 function fetchConfiguration(): SmellyConfiguration {
-  const configuration = vscode.workspace.getConfiguration().get('smelly') || {};
+  const configuration = vscode.workspace.getConfiguration().get(EXTENSION_IDENTIFIER) || {};
   return configuration;
 }
 
@@ -23,7 +23,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   reporter = new TelemetryReporter(appInsightsKey);
   logger = new Logger(reporter);
-  collection = vscode.languages.createDiagnosticCollection("smelly");
+  collection = vscode.languages.createDiagnosticCollection(EXTENSION_IDENTIFIER);
 
   logger.info('smelly-test is now active, started process');
 

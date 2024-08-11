@@ -2,6 +2,7 @@ import * as path from 'path';
 import Mocha from 'mocha';
 import glob from 'glob';
 import * as vscode from 'vscode';
+import { EXTENSION_IDENTIFIER } from '../../extension.types';
 
 export function run(): Promise<void> {
 	// Create the mocha test
@@ -41,7 +42,7 @@ export function run(): Promise<void> {
 
 export const deleteWorkSpaceConfiguration = () => {
 	return vscode.workspace
-		.getConfiguration('smelly')
+		.getConfiguration(EXTENSION_IDENTIFIER)
 		.update('fileTestIdentifier', undefined, vscode.ConfigurationTarget.Global, true);
 };
 

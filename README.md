@@ -18,12 +18,6 @@ worse. This extension provides an aid for that.
 
 Installing it from [VsCode marketplace](https://marketplace.visualstudio.com/items?itemName=marabesi.smelly-test)
 
-### Command Line Interface
-
-```sh
-npm run cli -- path/to/file/test.js typescript
-```
-
 ## The research behind Smelly
 
 This extension is one of the results of an ongoing research effort to navigate the intersection between the TDD

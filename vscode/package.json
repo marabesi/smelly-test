@@ -107,7 +107,7 @@
     "esprima": "^4.0.1",
     "hex-rgb": "^5.0.0",
     "ts-node": "^10.9.2",
-    "@smelly/cli": "*"
+    "smelly-cli": "*"
   },
   "pricing": "Free",
   "sponsor": {

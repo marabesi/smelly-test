@@ -8,6 +8,9 @@
   "dependencies": {
     "esprima": "^4.0.1"
   },
+  "repository": {
+    "url": "https://github.com/marabesi/smelly-test/tree/main/cli"
+  },
   "devDependencies": {
     "@types/esprima": "^4.0.6",
     "@types/mocha": "^10.0.1",

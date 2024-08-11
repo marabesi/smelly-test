@@ -12,6 +12,7 @@ let currentDecoration: vscode.TextEditorDecorationType = warningDecorationType;
 let ranges: ComposedSmell[] = [];
 let hovers: vscode.Disposable[] = [];
 let collection: vscode.DiagnosticCollection;
+let smellyStatusBar: vscode.StatusBarItem;
 
 function fetchConfiguration(): SmellyConfiguration {
   const configuration = vscode.workspace.getConfiguration().get(EXTENSION_IDENTIFIER) || {};
@@ -45,11 +46,16 @@ export function activate(context: vscode.ExtensionContext) {
     }, null, context.subscriptions)
   );
 
+  const smellyCommandSignature = 'extension.smelly-test.find-smells';
   context.subscriptions.push(
-    vscode.commands.registerCommand('extension.smelly-test.find-smells', () => {
+    vscode.commands.registerCommand(smellyCommandSignature, () => {
       generateHighlighting(context);
     }));
   context.subscriptions.push(reporter);
+
+  smellyStatusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
+  smellyStatusBar.command = smellyCommandSignature;
+  context.subscriptions.push(smellyStatusBar);
 
   // is there a way to test drive this?
   generateHighlighting(context);
@@ -103,6 +109,15 @@ function populateDiagnosticPanel() {
 
     collection.set(uri, diagnosticCollection);
     logger.debug('populating diagnostics done');
+  }
+}
+
+function populateStatusBar() {
+  if (ranges.length === 0) {
+    smellyStatusBar.text = "Your test is awesome 🚀";
+    smellyStatusBar.show();
+  } else {
+    smellyStatusBar.hide();
   }
 }
 
@@ -168,6 +183,8 @@ function generateHighlighting(context: vscode.ExtensionContext) {
   logger.debug(`highlight selection match done`);
 
   drawHover(context);
+  populateDiagnosticPanel();
+  populateStatusBar();
 }
 
 const findSmells = (text: string, language: string): Smell[] => {

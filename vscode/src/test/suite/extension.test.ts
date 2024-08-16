@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import * as path from 'path';
 import * as vscode from 'vscode';
-import { deleteWorkSpaceConfiguration, fileForJavascript, fileFortypescript } from '.';
+import { deleteWorkSpaceConfiguration, fileForJavascript, fileFortypescript, fileFromFilesPattern } from '.';
 
 suite('Smelly Extension Features Test Suite', () => {
   // this is a sensitive test as it relies on it being the first one to be executed
@@ -69,25 +69,26 @@ suite('Smelly Extension Features Test Suite', () => {
     });
   });
 
-  test('ignores files that are not for test', async () => {
-    const file = fileForJavascript('script_with_if.js');
-    const language = 'javascript';
+  [
+    { file: fileForJavascript('script_with_if.js') },
+    { file: fileFromFilesPattern('random_markdown.test.md') }
+  ].forEach(({ file }) => {
+    test('ignores files that are not for test (' + file + ')', async () => {
+      const currentFile = path.join(__dirname + file);
+      const uri = vscode.Uri.file(currentFile);
 
-    const currentFile = path.join(__dirname + file);
-    const uri = vscode.Uri.file(currentFile);
+      await deleteWorkSpaceConfiguration();
 
-    const document = await vscode.workspace.openTextDocument(uri);
-    const editor = await vscode.window.showTextDocument(document);
-    
-    await deleteWorkSpaceConfiguration();
+      const document = await vscode.workspace.openTextDocument(uri);
+      await vscode.window.showTextDocument(document);
 
-    const result = await vscode.commands.executeCommand('extension.smelly-test.find-smells');
+      const result = await vscode.commands.executeCommand('extension.smelly-test.find-smells');
 
-    assert.equal(undefined, result);
-    assert.equal(editor.document.languageId, language);
+      assert.equal(undefined, result);
 
-    const diagnostics = vscode.languages.getDiagnostics(uri);
+      const diagnostics = vscode.languages.getDiagnostics(uri);
 
-    assert.deepEqual(diagnostics.length, 0);
+      assert.deepEqual(diagnostics.length, 0);
+    });
   });
 });

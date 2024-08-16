@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import * as vscode from 'vscode';
 import TelemetryReporter from '@vscode/extension-telemetry';
 import path from 'path';
@@ -20,10 +21,8 @@ function fetchConfiguration(): SmellyConfiguration {
 }
 
 export function activate(context: vscode.ExtensionContext) {
-  const { appInsightsKey } = context.extension.packageJSON;
+  logger = new Logger();
 
-  reporter = new TelemetryReporter(appInsightsKey);
-  logger = new Logger(reporter);
   collection = vscode.languages.createDiagnosticCollection(EXTENSION_IDENTIFIER);
 
   logger.info('smelly-test is now active, started process');
@@ -148,8 +147,12 @@ function generateHighlighting(context: vscode.ExtensionContext) {
   }
 
   const language = editor.document.languageId as SupportedLanguages;
-  if (!supportedLanguages.includes(language)) {
-    logger.debug(`or language not avaialble: language ${language}`);
+
+  const matches = supportedLanguages.filter(item => language.includes(item));
+
+  if (matches.length === 0) {
+    logger.debug(`language not avaialble: ${language}`);
+    return;
   }
 
   const fileName = editor.document.fileName;
@@ -239,5 +242,8 @@ export function deactivate() {
   resetAllDecorations();
   disposeHovers();
   collection.dispose();
+  collection = vscode.languages.createDiagnosticCollection(EXTENSION_IDENTIFIER);
+  smellyStatusBar.dispose();
+
   logger.info('smelly-test is now deactivated');
 }

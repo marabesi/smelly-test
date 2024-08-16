@@ -17,14 +17,14 @@
     "@types/node": "^18.19.44",
     "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@typescript-eslint/parser": "^5.53.0",
-    "ts-node": "^10.9.2",
     "eslint": "^8.34.0",
     "mocha": "^10.2.0",
     "nodemon": "^3.1.4",
     "nyc": "^15.1.0",
+    "ts-loader": "*",
+    "ts-node": "^10.9.2",
     "webpack": "*",
-    "webpack-cli": "*",
-    "ts-loader": "*"
+    "webpack-cli": "*"
   },
   "scripts": {
     "compile": "webpack",

@@ -3,6 +3,9 @@ name: Publish to Microsoft Marketplace
 on:
   workflow_dispatch:
 
+env:
+  APPLICATIONINSIGHTS_CONNECTION_STRING: ${{ secret.APPLICATIONINSIGHTS_CONNECTION_STRING }}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest

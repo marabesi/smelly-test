@@ -34,10 +34,9 @@
     "onLanguage",
     "onStartupFinished"
   ],
-  "appInsightsKey": "f258032c-0600-4d0e-85a4-dce3c0e97625",
   "main": "./dist/extension.js",
   "contributes": {
-    "configuration":[
+    "configuration": [
       {
         "title": "smelly",
         "properties": {
@@ -98,16 +97,17 @@
     "mocha": "^10.2.0",
     "nodemon": "^3.1.4",
     "nyc": "^15.1.0",
+    "ts-loader": "*",
     "webpack": "*",
-    "webpack-cli": "*",
-    "ts-loader": "*"
+    "webpack-cli": "*"
   },
   "dependencies": {
     "@vscode/extension-telemetry": "^0.9.6",
+    "dotenv": "^16.4.5",
     "esprima": "^4.0.1",
     "hex-rgb": "^5.0.0",
-    "ts-node": "^10.9.2",
-    "smelly-cli": "*"
+    "smelly-cli": "*",
+    "ts-node": "^10.9.2"
   },
   "pricing": "Free",
   "sponsor": {

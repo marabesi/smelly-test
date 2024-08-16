@@ -4,6 +4,11 @@ All notable changes to the "smelly test" extension will be documented in this fi
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.0.16]
+
+- Fix app insights
+- Fix the way the extension detect valid languages to run the smells
+
 ## [0.0.15]
 
 - Adds status bar indicating success when the test has no smells

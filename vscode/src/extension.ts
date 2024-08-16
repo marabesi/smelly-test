@@ -151,7 +151,7 @@ function generateHighlighting(context: vscode.ExtensionContext) {
   const matches = supportedLanguages.filter(item => language.includes(item));
 
   if (matches.length === 0) {
-    logger.debug(`language not avaialble: ${language}`);
+    logger.debug(`language not supported: ${language}`);
     return;
   }
 

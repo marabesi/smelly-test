@@ -2,7 +2,9 @@
 
 'use strict';
 
+const webpack = require('webpack');
 const path = require('path');
+require('dotenv').config();
 
 //@ts-check
 /** @typedef {import('webpack').Configuration} WebpackConfig **/
@@ -27,6 +29,11 @@ const extensionConfig = {
     // support reading TypeScript and JavaScript files, 📖 -> https://github.com/TypeStrong/ts-loader
     extensions: ['.ts', '.js']
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      "process.env.APPLICATIONINSIGHTS_CONNECTION_STRING": '"' + process.env.APPLICATIONINSIGHTS_CONNECTION_STRING + '"'
+    }),
+  ],
   module: {
     rules: [
       {

@@ -25,3 +25,4 @@ coverage
 ../setup-repo.sh
 .vscode-test.js
 ../envvars.for.actions
+../.DS_Store

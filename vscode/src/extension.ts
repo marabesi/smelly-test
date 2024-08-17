@@ -16,12 +16,11 @@ let collection: vscode.DiagnosticCollection;
 let smellyStatusBar: vscode.StatusBarItem;
 
 function fetchConfiguration(): SmellyConfiguration {
-  const configuration = vscode.workspace.getConfiguration().get(EXTENSION_IDENTIFIER) || {};
-  return configuration;
+  return vscode.workspace.getConfiguration().get<SmellyConfiguration>(EXTENSION_IDENTIFIER) || {};
 }
 
 export function activate(context: vscode.ExtensionContext) {
-  logger = new Logger();
+  logger = new Logger(fetchConfiguration());
 
   collection = vscode.languages.createDiagnosticCollection(EXTENSION_IDENTIFIER);
 
@@ -41,6 +40,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(
     vscode.workspace.onDidChangeConfiguration(e => {
+      logger = new Logger(fetchConfiguration());
       currentDecoration = setupConfiguration(fetchConfiguration(), logger);
     }, null, context.subscriptions)
   );

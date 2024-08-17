@@ -21,4 +21,5 @@ export const warningDecorationType = window.createTextEditorDecorationType({
 export type SmellyConfiguration = {
   color?: string;
   fileTestIdentifier?: string;
+  debug?: boolean;
 };

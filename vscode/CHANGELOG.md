@@ -2,12 +2,16 @@
 
 All notable changes to the "smelly test" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+Check [Keep a Changelog](http://keepachangelog.com) for recommendations on how to structure this file.
+
+## [0.0.17]
+
+- Adds debug mode in configuration settings. It allows more verbose output in the developer tools
 
 ## [0.0.16]
 
 - Fix app insights
-- Fix the way the extension detect valid languages to run the smells
+- Fix the way the extension detects valid languages to run the smells
 
 ## [0.0.15]
 

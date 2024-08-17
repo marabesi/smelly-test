@@ -1,10 +1,13 @@
 import TelemetryReporter from "@vscode/extension-telemetry";
+import { SmellyConfiguration } from "../extension.types";
 
 export class Logger {
 
   private telemetry?: TelemetryReporter | undefined;
   
-  constructor() {
+  constructor(
+    private configuration: SmellyConfiguration
+  ) {
     const appInsightsKey = process.env.APPLICATIONINSIGHTS_CONNECTION_STRING || "";
     if (!appInsightsKey) {
       this.debug("telemetry key not found");
@@ -25,8 +28,10 @@ export class Logger {
   }
 
   debug(message: string) {
-    const toLog = this.wrapInformation(message);
-    console.info(toLog);
+    if (this.configuration.debug) {
+      const toLog = this.wrapInformation(message);
+      console.info(toLog);
+    }
   }
 
   error(message: string) {

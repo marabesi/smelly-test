@@ -54,6 +54,14 @@
             ],
             "default": "(my|test|spec)",
             "description": "Defines the file key that smelly should use to find smells"
+          },
+          "smelly.debug": {
+            "type": [
+              "boolean",
+              "undefined"
+            ],
+            "default": false,
+            "description": "Enables more verbose output in the developer tools console"
           }
         }
       }

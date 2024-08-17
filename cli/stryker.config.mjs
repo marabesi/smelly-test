@@ -10,7 +10,7 @@ const config = {
   "typescriptChecker": {
     "prioritizePerformanceOverAccuracy": true
   },
-  buildCommand: "npm run pretest",
+  buildCommand: "npm run compile-tests",
   "mochaOptions": {
     "spec": ["out/src/test/**/*.js"],
     "package": "package.json",

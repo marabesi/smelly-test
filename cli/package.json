@@ -34,7 +34,6 @@
     "clean": "rm -rf out/ dist/ types/",
     "compile-tests": "npm run clean && tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
-    "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "lint": "eslint . --ext ts",
     "test": "mocha -r ts-node/register ./**/**.test.ts",
     "test:watch": "nodemon --exec 'npm run test' --watch 'src/**' --ext 'ts' --delay 5",

@@ -12,6 +12,8 @@
     "url": "https://github.com/marabesi/smelly-test/tree/main/cli"
   },
   "devDependencies": {
+    "@stryker-mutator/mocha-runner": "^8.5.0",
+    "@stryker-mutator/typescript-checker": "^8.5.0",
     "@types/esprima": "^4.0.6",
     "@types/mocha": "^10.0.1",
     "@types/node": "^18.19.44",
@@ -37,6 +39,7 @@
     "test": "mocha -r ts-node/register ./**/**.test.ts",
     "test:watch": "nodemon --exec 'npm run test' --watch 'src/**' --ext 'ts' --delay 5",
     "test:coverage": "nyc --reporter=lcov mocha -r ts-node/register ./**/**.test.ts",
+    "test:mutation": "stryker run",
     "coveralls": "npm run test:coverage && coveralls --verbose < coverage/lcov.info",
     "cli": "ts-node bin/find-smells.ts"
   },

@@ -4,6 +4,10 @@ All notable changes to the "smelly test" extension will be documented in this fi
 
 Check [Keep a Changelog](http://keepachangelog.com) for recommendations on how to structure this file.
 
+## [0.0.18]
+
+- Updated readme with configuration section
+
 ## [0.0.17]
 
 - Adds debug mode in configuration settings. It allows more verbose output in the developer tools

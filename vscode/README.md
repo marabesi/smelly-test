@@ -37,6 +37,16 @@ Smelly works automatically whenever a javascript/typescript test is opened. The 
     - Identify **setTimeout** in the test code
     - excessive usage of jest mocks
 
+## Configuration
+
+Smelly allows you to customize its configuration and fine-tune the smell detection to better suit your needs. The table below outlines the available options and their functions:
+
+| Configuration Option       | Description                                                                                  | Default Value | Accepted Values                                                          |
+|----------------------------|----------------------------------------------------------------------------------------------|---------------|--------------------------------------------------------------------------|
+| `smelly.color`             | Highlights the problematic code snippet in your test file that Smelly identifies as a smell. By default, this highlight is red. You can change the color by providing an RGB value. | `#ff0000`     | Any valid RGBA format. Use [Rapid Tables](https://www.rapidtables.com/web/color/RGB_Color.html) to find one. |
+| `smelly.fileTestIdentifier` | Determines whether Smelly should run on a file by matching the file name.                    | Smelly automatically detects files with `.test` or `.spec` in their names. | Any valid regex.                                                        |
+| `smelly.debug`             | Enables more detailed output when running Smelly. To view these messages, ensure that the developer tools in VS Code are open. | `false`       | `true` or `false`                                                        |
+
 ## Planned smells
 
 - heuristics regarding test size

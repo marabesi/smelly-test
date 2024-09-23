@@ -1,7 +1,7 @@
 //@ts-nocheck
 import * as assert from 'assert';
 import { suite, test } from 'mocha';
-import { SmellDetector } from '../smells-detector';
+import { SmellDetector } from '../src/index';
 
 const IF_STATEMENT = 'if-statement';
 const FOR_OF = 'for-of-statement';

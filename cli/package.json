@@ -40,7 +40,7 @@
     "test:coverage": "nyc --reporter=lcov mocha -r ts-node/register ./**/**.test.ts",
     "test:mutation": "stryker run",
     "coveralls": "npm run test:coverage && coveralls --verbose < coverage/lcov.info",
-    "cli": "ts-node bin/find-smells.ts"
+    "cli": "ts-node src/bin/find-smells.ts"
   },
   "author": {
     "name": "Matheus Marabesi",

@@ -1,5 +1,8 @@
 # @smelly/cli
 
+Smelly is a command line tool application that helps javascript/typescript developers to keep their test
+suite away from test smells.
+
 ## Command Line Interface
 
 ```sh

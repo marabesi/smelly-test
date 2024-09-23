@@ -1,8 +1,7 @@
 //@ts-nocheck
 import fs, { readdir } from 'node:fs/promises';
-import { SmellDetector } from '../src/smells-detector';
+import { SmellDetector, SupportedLanguages } from '../index';
 import { join } from 'node:path';
-import { SupportedLanguages } from '../src/types';
 
 const args = process.argv;
 const fileName = args[2];

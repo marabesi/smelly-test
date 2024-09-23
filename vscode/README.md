@@ -50,3 +50,4 @@ Smelly allows you to customize its configuration and fine-tune the smell detecti
 ## Planned smells
 
 - heuristics regarding test size
+- heuristics regarding 1 test file for 1 production file

@@ -11,3 +11,4 @@ coverage/
 types/
 reports/
 .stryker-tmp
+smelly-report.html

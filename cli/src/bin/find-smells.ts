@@ -1,15 +1,12 @@
-//@ts-nocheck
 import path from 'path';
-//@ts-nocheck
 import fs, { readdir } from 'node:fs/promises';
-//@ts-nocheck
 import { SmellDetector, SupportedLanguages } from '../index';
 import { join } from 'node:path';
 import { SmellsAggreagtor, SmellsList } from '../reporters/Html';
 
 const args = process.argv;
 const fileName = args[2];
-const language = args[3] || SupportedLanguages.javascript;
+const language = args[3] as SupportedLanguages || SupportedLanguages.javascript;
 const report = args[4];
 
 if (!fileName) {

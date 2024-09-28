@@ -1,4 +1,3 @@
-// @ts-ignore
 import fs from 'node:fs/promises';
 import { ExportOptions } from "./Html";
 

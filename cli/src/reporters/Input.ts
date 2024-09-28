@@ -9,5 +9,4 @@ export class ReadHtml implements Input {
     const data = await fs.readFile(`${__dirname}/layout/example.html`, { encoding: 'utf8' });
     return data;
   }
-
 }

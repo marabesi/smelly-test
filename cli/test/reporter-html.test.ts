@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import { ExportOptions, SmellsAggreagtor, SmellsList } from "../src/reporters/Html";
+import { ExportOptions, SmellsAggreagtor, SmellsList } from '../src/reporters/Html';
 import { HtmlOutput } from '../src/reporters/Output';
 import { ReadHtml } from '../src/reporters/Input';
 

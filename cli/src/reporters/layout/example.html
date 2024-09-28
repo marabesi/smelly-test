@@ -23,7 +23,7 @@
 
 <body class="bg-gray-50 dark:bg-gray-600">
   <div class="container mx-auto p-5">
-    
+
     <div class="flex justify-between items-center py-5">
       <h1 class="text-3xl text-gray-700 dark:text-gray-400">Test smells report</h1>
 
@@ -44,175 +44,94 @@
     <div class="grid grid-rows-1 grid-flow-col gap-4">
       <div
         class="mb-5 max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700">
-    
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">4</h5>
-        <p class="font-normal text-gray-700 dark:text-gray-400">Test smells in total</p>
+
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ totalSmells }}</h5>
+        <p class="font-normal text-gray-700 dark:text-gray-400">Test smells</p>
       </div>
-      <!-- <div
+      <div
         class="mb-5 max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700">
     
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">4</h5>
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ data.length }}</h5>
         <p class="font-normal text-gray-700 dark:text-gray-400">Test cases</p>
-      </div> -->
+      </div>
     </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" class="px-6 py-3">
-              Product name
+              File name
             </th>
             <th scope="col" class="px-6 py-3">
-              Color
+              Language
             </th>
             <th scope="col" class="px-6 py-3">
-              Category
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Price
-            </th>
-            <th scope="col" class="px-6 py-3">
-              Action
+              Smells
             </th>
           </tr>
         </thead>
         <tbody>
+          {{#each data}}
           <tr
             class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              Apple MacBook Pro 17"
+              {{this.fileName}}
             </th>
             <td class="px-6 py-4">
-              Silver
+              {{this.language}}
             </td>
             <td class="px-6 py-4">
-              Laptop
-            </td>
-            <td class="px-6 py-4">
-              $2999
-            </td>
-            <td class="px-6 py-4">
-              <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+              {{this.smells.length}}
             </td>
           </tr>
-          <tr
-            class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              Microsoft Surface Pro
-            </th>
-            <td class="px-6 py-4">
-              White
-            </td>
-            <td class="px-6 py-4">
-              Laptop PC
-            </td>
-            <td class="px-6 py-4">
-              $1999
-            </td>
-            <td class="px-6 py-4">
-              <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-            </td>
-          </tr>
-          <tr
-            class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              Magic Mouse 2
-            </th>
-            <td class="px-6 py-4">
-              Black
-            </td>
-            <td class="px-6 py-4">
-              Accessories
-            </td>
-            <td class="px-6 py-4">
-              $99
-            </td>
-            <td class="px-6 py-4">
-              <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-            </td>
-          </tr>
-          <tr
-            class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              Google Pixel Phone
-            </th>
-            <td class="px-6 py-4">
-              Gray
-            </td>
-            <td class="px-6 py-4">
-              Phone
-            </td>
-            <td class="px-6 py-4">
-              $799
-            </td>
-            <td class="px-6 py-4">
-              <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              Apple Watch 5
-            </th>
-            <td class="px-6 py-4">
-              Red
-            </td>
-            <td class="px-6 py-4">
-              Wearables
-            </td>
-            <td class="px-6 py-4">
-              $999
-            </td>
-            <td class="px-6 py-4">
-              <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-            </td>
-          </tr>
+          {{/each}}
         </tbody>
       </table>
     </div>
-  
+
   </div>
 
   <script>
     var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-      var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
 
-      // Change the icons inside the button based on previous settings
-      if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        themeToggleLightIcon.classList.remove('hidden');
-      } else {
-        themeToggleDarkIcon.classList.remove('hidden');
-      }
+    // Change the icons inside the button based on previous settings
+    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      themeToggleLightIcon.classList.remove('hidden');
+    } else {
+      themeToggleDarkIcon.classList.remove('hidden');
+    }
 
-      var themeToggleBtn = document.getElementById('theme-toggle');
+    var themeToggleBtn = document.getElementById('theme-toggle');
 
-      themeToggleBtn.addEventListener('click', function () {
+    themeToggleBtn.addEventListener('click', function () {
 
-        // toggle icons inside button
-        themeToggleDarkIcon.classList.toggle('hidden');
-        themeToggleLightIcon.classList.toggle('hidden');
+      // toggle icons inside button
+      themeToggleDarkIcon.classList.toggle('hidden');
+      themeToggleLightIcon.classList.toggle('hidden');
 
-        // if set via local storage previously
-        if (localStorage.getItem('color-theme')) {
-          if (localStorage.getItem('color-theme') === 'light') {
-            document.documentElement.classList.add('dark');
-            localStorage.setItem('color-theme', 'dark');
-          } else {
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('color-theme', 'light');
-          }
-
-          // if NOT set via local storage previously
+      // if set via local storage previously
+      if (localStorage.getItem('color-theme')) {
+        if (localStorage.getItem('color-theme') === 'light') {
+          document.documentElement.classList.add('dark');
+          localStorage.setItem('color-theme', 'dark');
         } else {
-          if (document.documentElement.classList.contains('dark')) {
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('color-theme', 'light');
-          } else {
-            document.documentElement.classList.add('dark');
-            localStorage.setItem('color-theme', 'dark');
-          }
+          document.documentElement.classList.remove('dark');
+          localStorage.setItem('color-theme', 'light');
         }
 
-      });
+        // if NOT set via local storage previously
+      } else {
+        if (document.documentElement.classList.contains('dark')) {
+          document.documentElement.classList.remove('dark');
+          localStorage.setItem('color-theme', 'light');
+        } else {
+          document.documentElement.classList.add('dark');
+          localStorage.setItem('color-theme', 'dark');
+        }
+      }
+
+    });
   </script>
 </body>
 

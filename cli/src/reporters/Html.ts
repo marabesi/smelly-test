@@ -29,7 +29,8 @@ export class SmellsAggreagtor implements AgreggatorSmellls {
       const data = await read.readTeamplate();
 
       const template = Handlebars.compile(data);
-      const html = template(this.smellLists);
+      const totalSmells = this.smellLists.reduce((previous, current) => previous + current.smells.length, 0);
+      const html = template({ data: this.smellLists, totalSmells});
 
       const output = new HtmlOutput();
       await output.writeTo(html, this.exportOptions);

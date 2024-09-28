@@ -6,7 +6,8 @@
   "main": "dist/cli.js",
   "types": "./types/src/index.d.ts",
   "dependencies": {
-    "esprima": "^4.0.1"
+    "esprima": "^4.0.1",
+    "handlebars": "^4.7.8"
   },
   "repository": {
     "url": "https://github.com/marabesi/smelly-test/tree/main/cli"
@@ -15,15 +16,19 @@
     "@stryker-mutator/mocha-runner": "^8.5.0",
     "@stryker-mutator/typescript-checker": "^8.5.0",
     "@types/esprima": "^4.0.6",
-    "@types/mocha": "^10.0.1",
-    "@types/node": "^18.19.44",
+    "@types/expect": "^24.3.0",
+    "@types/mocha": "^10.0.8",
+    "@types/node": "^20.14.8",
+    "@types/sinon": "^17.0.3",
     "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@typescript-eslint/parser": "^5.53.0",
     "eslint": "^8.34.0",
     "mocha": "^10.2.0",
     "nodemon": "^3.1.4",
     "nyc": "^15.1.0",
+    "sinon": "^19.0.2",
     "ts-loader": "*",
+    "ts-mocha": "^10.0.0",
     "ts-node": "^10.9.2",
     "webpack": "*",
     "webpack-cli": "*"
@@ -35,9 +40,9 @@
     "compile-tests": "npm run clean && tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
     "lint": "eslint . --ext ts",
-    "test": "mocha -r ts-node/register ./**/**.test.ts",
+    "test": "ts-mocha -p tsconfig.json ./**/**.test.ts",
     "test:watch": "nodemon --exec 'npm run test' --watch 'src/**' --ext 'ts' --delay 5",
-    "test:coverage": "nyc --reporter=lcov mocha -r ts-node/register ./**/**.test.ts",
+    "test:coverage": "nyc --reporter=lcov ts-mocha -p tsconfig.json ts-node/register ./**/**.test.ts",
     "test:mutation": "stryker run",
     "coveralls": "npm run test:coverage && coveralls --verbose < coverage/lcov.info",
     "cli": "ts-node src/bin/find-smells.ts"

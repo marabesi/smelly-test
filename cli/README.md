@@ -8,3 +8,7 @@ suite away from test smells.
 ```sh
 npm run cli -- path/to/file/test.js typescript
 ```
+
+## Resources
+
+- [Tailwind CSS Table - Flowbite](https://flowbite.com/docs/components/tables)

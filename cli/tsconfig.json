@@ -1,8 +1,7 @@
 {
 	"compilerOptions": {
-		"module": "node16",
-		"moduleResolution": "Node16",
-		"target": "ES2020",
+		"module": "CommonJS",
+		"target": "ESNext",
 		"esModuleInterop": true,
 		"lib": [
 			"ES2020",
@@ -11,12 +10,12 @@
 		"sourceMap": true,
 		"rootDir": ".",
 		"typeRoots": [
-			"./types"
+			"./types",
 		],
 		"strict": true, /* enable all strict type-checking options */
 		"declaration": true,
 		"declarationDir": "./types",
-		"types": []
+		"types": ["node"]
 		/* Additional Checks */
 		// "noImplicitReturns": true, /* Report error when not all code paths in function return a value. */
 		// "noFallthroughCasesInSwitch": true, /* Report errors for fallthrough cases in switch statement. */

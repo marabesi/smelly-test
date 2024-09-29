@@ -5,6 +5,7 @@
   "description": "Find out the smells in your tests, suggestions for correction and the theory behind them",
   "main": "dist/cli.js",
   "types": "./types/src/index.d.ts",
+  "bin": "dist/cli.js",
   "dependencies": {
     "esprima": "^4.0.1",
     "handlebars": "^4.7.8"

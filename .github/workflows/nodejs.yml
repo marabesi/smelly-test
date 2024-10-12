@@ -36,7 +36,9 @@ jobs:
 
     - name: npm install
       run: |
-        npm i --workspaces && \
+        npm i
+        npm run clean
+        npm i --workspaces
         npm run compile --workspaces
 
     - name: npm build

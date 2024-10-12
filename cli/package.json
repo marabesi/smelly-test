@@ -3,9 +3,9 @@
   "version": "0.0.4",
   "private": false,
   "description": "Find out the smells in your tests, suggestions for correction and the theory behind them",
-  "main": "build/index.js",
+  "main": "dist/cli.js",
   "types": "./types/src/index.d.ts",
-  "bin": "dist/cli.js",
+  "bin": "build/index.js",
   "dependencies": {
     "commander": "^12.1.0",
     "esprima": "^4.0.1",
@@ -34,6 +34,7 @@
     "ts-node": "^10.9.2"
   },
   "scripts": {
+    "compile": "webpack",
     "build": "rm -rf build/ && tsc && cp index.js build/",
     "watch": "webpack --watch",
     "clean": "rm -rf out/ dist/ types/",

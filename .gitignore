@@ -12,3 +12,4 @@ types/
 reports/
 .stryker-tmp
 smelly-report.html
+build/

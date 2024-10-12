@@ -3,10 +3,11 @@
   "version": "0.0.4",
   "private": false,
   "description": "Find out the smells in your tests, suggestions for correction and the theory behind them",
-  "main": "dist/cli.js",
+  "main": "build/index.js",
   "types": "./types/src/index.d.ts",
   "bin": "dist/cli.js",
   "dependencies": {
+    "commander": "^12.1.0",
     "esprima": "^4.0.1",
     "handlebars": "^4.7.8"
   },
@@ -30,12 +31,10 @@
     "sinon": "^19.0.2",
     "ts-loader": "*",
     "ts-mocha": "^10.0.0",
-    "ts-node": "^10.9.2",
-    "webpack": "*",
-    "webpack-cli": "*"
+    "ts-node": "^10.9.2"
   },
   "scripts": {
-    "compile": "webpack",
+    "build": "rm -rf build/ && tsc && cp index.js build/",
     "watch": "webpack --watch",
     "clean": "rm -rf out/ dist/ types/",
     "compile-tests": "npm run clean && tsc -p . --outDir out",

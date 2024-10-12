@@ -7,6 +7,7 @@
 			"ES2020",
 			"dom"
 		],
+		"outDir": "./build",
 		"sourceMap": true,
 		"rootDir": ".",
 		"strict": true, /* enable all strict type-checking options */

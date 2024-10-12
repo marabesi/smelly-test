@@ -87,7 +87,6 @@
     "test": "node ./out/test/runTest.js",
     "test:all": "npm run test",
     "test:watch:all": "nodemon --exec 'npm run test' --watch 'src/**' --ext 'ts' --delay 5",
-    "test:coverage": "nyc --reporter=lcov mocha -r ts-node/register src/smells-finder/**/**.test.ts",
     "coveralls": "npm run test:coverage && coveralls --verbose < coverage/lcov.info"
   },
   "devDependencies": {
@@ -114,7 +113,7 @@
     "dotenv": "^16.4.5",
     "esprima": "^4.0.1",
     "hex-rgb": "^5.0.0",
-    "smelly-cli": "*",
+    "smelly-detector": "*",
     "ts-node": "^10.9.2"
   },
   "pricing": "Free",

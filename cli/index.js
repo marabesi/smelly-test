@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('./src/bin/find-smells.js');
+require('./src/find-smells.js');

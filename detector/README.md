@@ -4,6 +4,7 @@
 
 [![https://nodei.co/npm/smelly-cli.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/smelly-cli.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/smelly-cli)
 
+
 Smelly is a command line tool application that helps javascript/typescript developers to keep their test
 suite away from test smells.
 

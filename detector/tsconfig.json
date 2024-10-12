@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		"module": "CommonJS",
+		"target": "ESNext",
+		"esModuleInterop": true,
+		"lib": [
+			"ES2020",
+			"dom"
+		],
+		"outDir": "./build",
+		"sourceMap": true,
+		"rootDir": ".",
+		"strict": true, /* enable all strict type-checking options */
+		"declaration": true,
+		"declarationDir": "./types",
+		/* Additional Checks */
+		// "noImplicitReturns": true, /* Report error when not all code paths in function return a value. */
+		// "noFallthroughCasesInSwitch": true, /* Report errors for fallthrough cases in switch statement. */
+		// "noUnusedParameters": true,  /* Report errors on unused parameters. */
+	}
+}

@@ -1,8 +1,8 @@
 import path from 'path';
 import fs, { readdir } from 'node:fs/promises';
-import { SmellDetector, SupportedLanguages } from '../index';
+import { SmellDetector, SupportedLanguages } from 'smelly-detector';
+import { SmellsAggreagtor, SmellsList } from 'smelly-detector/src/reporters/Html';
 import { join } from 'node:path';
-import { SmellsAggreagtor, SmellsList } from '../reporters/Html';
 
 const args = process.argv;
 const fileName = args[2];

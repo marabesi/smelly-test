@@ -18,6 +18,7 @@
   "license": "ISC",
   "workspaces": [
     "cli",
-    "vscode"
+    "vscode",
+    "detector"
   ]
 }

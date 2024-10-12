@@ -1,17 +1,21 @@
 {
-  "name": "smelly-cli",
-  "version": "0.0.5",
-  "private": false,
+  "name": "smelly-detector",
+  "version": "0.0.1",
   "description": "Find out the smells in your tests, suggestions for correction and the theory behind them",
-  "main": "build/find-smells.js",
-  "bin": "build/find-smells.js",
+  "main": "build/src/index.js",
+  "types": "./types/src/index.d.ts",
   "dependencies": {
-    "commander": "^12.1.0"
+    "commander": "^12.1.0",
+    "esprima": "^4.0.1",
+    "handlebars": "^4.7.8"
   },
   "repository": {
-    "url": "https://github.com/marabesi/smelly-test/tree/main/cli"
+    "url": "https://github.com/marabesi/smelly-test/tree/main/detector"
   },
   "devDependencies": {
+    "@stryker-mutator/mocha-runner": "^8.5.0",
+    "@stryker-mutator/typescript-checker": "^8.5.0",
+    "@types/esprima": "^4.0.6",
     "@types/expect": "^24.3.0",
     "@types/mocha": "^10.0.8",
     "@types/node": "^20.14.8",
@@ -38,8 +42,7 @@
     "test:watch": "nodemon --exec 'npm run test' --watch 'src/**' --ext 'ts' --delay 5",
     "test:coverage": "nyc --reporter=lcov ts-mocha -p tsconfig.json ts-node/register ./**/**.test.ts",
     "test:mutation": "stryker run",
-    "coveralls": "npm run test:coverage && coveralls --verbose < coverage/lcov.info",
-    "cli": "ts-node src/find-smells.ts"
+    "coveralls": "npm run test:coverage && coveralls --verbose < coverage/lcov.info"
   },
   "author": {
     "name": "Matheus Marabesi",

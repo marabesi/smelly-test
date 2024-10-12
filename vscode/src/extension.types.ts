@@ -1,5 +1,5 @@
 import { Range, window } from 'vscode';
-import { Smell } from "smelly-cli";
+import { Smell } from "smelly-detector";
 
 export const EXTENSION_IDENTIFIER = 'smelly';
 

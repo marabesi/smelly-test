@@ -1,15 +1,16 @@
 {
 	"compilerOptions": {
-		"module": "CommonJS",
+		"module": "NodeNext",
 		"target": "ESNext",
 		"esModuleInterop": true,
+		"moduleResolution": "NodeNext",
 		"lib": [
 			"ES2020",
 			"dom"
 		],
 		"outDir": "./build",
 		"sourceMap": true,
-		"rootDir": ".",
+		"rootDir": "./",
 		"strict": true, /* enable all strict type-checking options */
 		"declaration": true,
 		"declarationDir": "./types",

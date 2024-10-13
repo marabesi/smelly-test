@@ -31,14 +31,14 @@ jobs:
         registry-url: 'https://registry.npmjs.org'
 
     - name: Publish CLI to npm
-      if: ${{ github.event.inputs.workspace_name }} == "cli"
+      if: ${{ github.event.inputs.workspace_name == "cli" }}
       run: |
         npm i --workspaces
         npm run compile --workspaces
         npm publish --workspace=cli --provenance --access public
     
     - name: Publish Detector to npm
-      if: ${{ github.event.inputs.workspace_name }} == "detector"
+      if: ${{ github.event.inputs.workspace_name  == "detector" }}
       run: |
         npm i --workspaces
         npm run compile --workspaces

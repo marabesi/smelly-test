@@ -2,6 +2,10 @@ name: Publish Package to npmjs
 
 on:
   workflow_dispatch:
+    inputs:
+      workspace_name:
+        description: 'Which workspace you want to deploy (cli, detector)'
+        required: true
 
 env:
   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -26,9 +30,17 @@ jobs:
         node-version: ${{ env.NODE_VERSION }}
         registry-url: 'https://registry.npmjs.org'
 
-    - name: Publish to npm
+    - name: Publish CLI to npm
+      if: ${{ github.event.inputs.workspace_name }} == "cli"
+      run: |
+        npm i --workspaces
+        npm run compile --workspaces
+        npm publish --workspace=cli --provenance --access public
+    
+    - name: Publish Detector to npm
+      if: ${{ github.event.inputs.workspace_name }} == "detector"
       run: |
         npm i --workspaces
         npm run compile --workspaces
         npm publish --workspace=detector --provenance --access public
-        npm publish --workspace=cli --provenance --access public
+

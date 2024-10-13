@@ -1,7 +1,7 @@
 {
   "name": "smelly-detector",
   "private": false,
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Find out the smells in your tests, suggestions for correction and the theory behind them",
   "main": "build/src/index.js",
   "types": "types/src/index.d.ts",

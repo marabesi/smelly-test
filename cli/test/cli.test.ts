@@ -7,7 +7,7 @@ const execPromise = promisify(exec);
 describe('cli', () => {
 
   it('find no smells for a given path', async () => {
-    const { stdout } = await execPromise(`npm run cli -- fake-data/no-smells/ javascript --report=html`);
+    const { stdout } = await execPromise(`npm run cli -- fake-data/no-smells/ javascript --report=html --report-output=$(pwd)`);
 
     assert.equal(true, stdout.includes("Report HTML generated"));
   });

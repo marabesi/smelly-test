@@ -8,6 +8,7 @@ const args = process.argv;
 const fileName = args[2];
 const language = args[3] as SupportedLanguages || SupportedLanguages.javascript;
 const report = args[4];
+const reportOutput = args[5];
 
 if (!fileName) {
   console.error('[SMELLY] please provide a test file');
@@ -45,7 +46,7 @@ async function execute() {
         aggregator.push({ fileName: file, smells, language });
       }
 
-      const to = path.resolve(`${__dirname}/../..`);
+      const to = path.resolve(reportOutput);
       const report = new SmellsAggreagtor(aggregator, { to });
       report.build();
 

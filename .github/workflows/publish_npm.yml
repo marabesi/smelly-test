@@ -30,4 +30,5 @@ jobs:
       run: |
         npm i --workspaces
         npm run compile --workspaces
+        npm publish --workspace=detector --provenance --access public
         npm publish --workspace=cli --provenance --access public

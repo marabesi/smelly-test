@@ -1,6 +1,6 @@
 {
   "name": "smelly-cli",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "private": false,
   "description": "Find out the smells in your tests, suggestions for correction and the theory behind them",
   "bin": "build/index.js",

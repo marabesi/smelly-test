@@ -6,6 +6,7 @@
   "main": "build/find-smells.js",
   "bin": "build/find-smells.js",
   "dependencies": {
+    "smelly-detector": "*",
     "commander": "^12.1.0"
   },
   "repository": {

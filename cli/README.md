@@ -7,18 +7,34 @@
 Smelly is a command line tool application that helps javascript/typescript developers to keep their test
 suite away from test smells.
 
+## Installation
+
+### docker
+
+```sh
+g clone https://github.com/marabesi/smelly-test.git
+cd smelly-test/cli
+docker build . -t smelly-cli
+```
+
+Running the report
+
+```sh
+docker run --rm smelly-cli
+```
+
 ## Command Line Interface
 
 Single file
 
 ```sh
-npm run cli -- path/to/file/test.js typescript
+npx smelly-cli /smells/my-test.ts typescript 
 ```
 
 Report
 
 ```sh
-npm run cli -- path/to/file/test.js typescript --report=html
+npx smelly-cli /smells/ javascript --report=html $(pwd)
 ```
 
 ## Resources

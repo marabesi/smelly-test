@@ -2,9 +2,18 @@
   "name": "smelly-detector",
   "private": false,
   "version": "0.0.4",
-  "description": "Find out the smells in your tests, suggestions for correction and the theory behind them",
   "main": "build/src/index.js",
-  "types": "types/src/index.d.ts",
+  "description": "Find out the smells in your tests, suggestions for correction and the theory behind them",
+  "exports": {
+    ".": {
+      "types": "./types/src/index.d.ts",
+      "default": "./build/src/index.js"
+    },
+    "./reports": {
+      "default": "./build/src/reports.js",
+      "types": "./types/src/reports.d.ts"
+    }
+  },
   "dependencies": {
     "commander": "^12.1.0",
     "esprima": "^4.0.1",

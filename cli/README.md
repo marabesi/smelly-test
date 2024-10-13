@@ -9,8 +9,16 @@ suite away from test smells.
 
 ## Command Line Interface
 
+Single file
+
 ```sh
 npm run cli -- path/to/file/test.js typescript
+```
+
+Report
+
+```sh
+npm run cli -- path/to/file/test.js typescript --report=html
 ```
 
 ## Resources

@@ -1,6 +1,6 @@
 import path from 'path';
 import fs, { readdir } from 'node:fs/promises';
-import { SmellDetector, SupportedLanguages } from 'smelly-detector';
+import { Smell, SmellDetector, SupportedLanguages } from 'smelly-detector';
 import { SmellsAggreagtor, SmellsList } from 'smelly-detector/src/reporters/Html';
 import { join } from 'node:path';
 
@@ -60,7 +60,7 @@ async function execute() {
       const result = smellDetector.findAll();
 
       if (result.length) {
-        result.forEach((e) => {
+        result.forEach((e: Smell) => {
           output.push({ ...e, file });
         });
       }

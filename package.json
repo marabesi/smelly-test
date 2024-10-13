@@ -17,8 +17,8 @@
   "author": "",
   "license": "ISC",
   "workspaces": [
+    "detector",
     "cli",
-    "vscode",
-    "detector"
+    "vscode"
   ]
 }

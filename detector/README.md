@@ -1,20 +1,26 @@
-# @smelly/cli
+# @smelly/detector
 
 [![Continuous Integration Workflow](https://github.com/marabesi/smelly-test/actions/workflows/nodejs.yml/badge.svg)](https://github.com/marabesi/smelly-test/actions/workflows/nodejs.yml)
 
 [![https://nodei.co/npm/smelly-cli.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/smelly-cli.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/smelly-cli)
 
+This package is part of the smelly package and containers the egine that detects test smells on javascript/typescript
+files. It provides an interface eacy of comsuption for different ends.
 
-Smelly is a command line tool application that helps javascript/typescript developers to keep their test
-suite away from test smells.
-
-## Command Line Interface
+## Installation
 
 ```sh
-npm run cli -- path/to/file/test.js typescript
+npm install --save smelly-detector
 ```
 
-## Resources
+## Programmatically using detector
 
-- [Tailwind CSS Table - Flowbite](https://flowbite.com/docs/components/tables)
-- [Handlebars](https://handlebarsjs.com/guide/#what-is-handlebars)
+The detector package can be used as a standalone package.
+
+```typescript
+import { SmellDetector } from 'smelly-detector';
+
+const detector = new SmellDetector("my source code", "javascript");
+
+console.log(detector.findAll());
+```

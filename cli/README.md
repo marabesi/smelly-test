@@ -31,7 +31,7 @@ Single file
 npx smelly-cli /smells/my-test.ts typescript 
 ```
 
-Report
+Report (must be a path with tests in it)
 
 ```sh
 npx smelly-cli /smells/ javascript --report=html $(pwd)

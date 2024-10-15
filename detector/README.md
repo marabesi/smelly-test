@@ -2,7 +2,7 @@
 
 [![Continuous Integration Workflow](https://github.com/marabesi/smelly-test/actions/workflows/nodejs.yml/badge.svg)](https://github.com/marabesi/smelly-test/actions/workflows/nodejs.yml)
 
-[![https://nodei.co/npm/smelly-cli.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/smelly-cli.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/smelly-cli)
+[![https://nodei.co/npm/smelly-detector.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/smelly-detector.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/smelly-detector)
 
 This package is part of the smelly package and containers the egine that detects test smells on javascript/typescript
 files. It provides an interface eacy of comsuption for different ends.

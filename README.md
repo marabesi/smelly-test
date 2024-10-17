@@ -14,9 +14,17 @@ worse. This extension provides an aid for that.
 
 ## Running smelly
 
+### CLI
+
+Smelly is available to run via [command line](https://github.com/marabesi/smelly-test/tree/main/cli)
+
 ### VsCode marketplace
 
 Installing it from [VsCode marketplace](https://marketplace.visualstudio.com/items?itemName=marabesi.smelly-test)
+
+### Programmatically
+
+The [core of smelly](https://github.com/marabesi/smelly-test/tree/main/detector) is avaiable for usage as well, it allows tools to us the smell test detection engine.
 
 ## The research behind Smelly
 

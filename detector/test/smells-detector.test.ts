@@ -1,5 +1,4 @@
-import * as assert from 'assert';
-import { suite, test } from 'mocha';
+import { describe, expect, test } from 'vitest';
 import { SmellDetector } from '../src/index';
 
 const IF_STATEMENT = 'if-statement';
@@ -13,8 +12,8 @@ const MOCKERY = 'excessive-jest-mock';
 const JAVASCRIPT = 'javascript';
 const TYPESCRIPT = 'typescript';
 
-suite('Smelly Test Smell Detection Suite', () => {
-  [{
+describe('Smelly Test Smell Detection Suite', () => {
+  test.each([[{
     code: `const a = 1;
 if (a === 1) {}`,
     language: JAVASCRIPT,
@@ -27,8 +26,8 @@ if (a === 1) {}`,
     total: 1,
     description: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`,
     diagnostic: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`,
-  },
-  {
+  }],
+  [{
     code: `const lists = [{}, {}];
   
 for (const i of lists) {
@@ -44,8 +43,8 @@ for (const i of lists) {
     total: 1,
     description: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`,
     diagnostic: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`
-  },
-  {
+  }],
+  [{
     code: `const lists = [{}, {}];
   
 for (const i in lists) {
@@ -61,8 +60,8 @@ for (const i in lists) {
     total: 1,
     description: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`,
     diagnostic: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`
-  },
-  {
+  }],
+  [{
     code: `const lists = [{}, {}];
   
 for (let i = 0; i < 1; i++) {
@@ -78,8 +77,8 @@ for (let i = 0; i < 1; i++) {
     total: 1,
     description: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`,
     diagnostic: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`
-  },
-  {
+  }],
+  [{
     code: `setTimeout(() => {
   done();
 });`,
@@ -93,8 +92,8 @@ for (let i = 0; i < 1; i++) {
     total: 1,
     description: `Smelly: Avoid using setTimeouts for tests. It might lead to Sleepy test or undeterministic behaviour based on where the test is executed.`,
     diagnostic: `Smelly: Avoid using setTimeouts for tests. It might lead to Sleepy test or undeterministic behaviour based on where the test is executed`,
-  },
-  {
+  }],
+  [{
     code: `function done() {};
 setTimeout(() => {
   done();
@@ -109,8 +108,8 @@ setTimeout(() => {
     total: 1,
     description: `Smelly: Avoid using setTimeouts for tests. It might lead to Sleepy test or undeterministic behaviour based on where the test is executed.`,
     diagnostic: `Smelly: Avoid using setTimeouts for tests. It might lead to Sleepy test or undeterministic behaviour based on where the test is executed`,
-  },
-  {
+  }],
+  [{
     code: `const a: number = 1;
 if (a === 1) { }`,
     language: TYPESCRIPT,
@@ -123,8 +122,8 @@ if (a === 1) { }`,
     total: 1,
     description: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`,
     diagnostic: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`,
-  },
-  {
+  }],
+  [{
 
     code: `const a: number = 1;
 if (a === 1) { }
@@ -141,8 +140,8 @@ if (a === 2) {
     total: 3,
     description: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`,
     diagnostic: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`,
-  },
-  {
+  }],
+  [{
     code: `const lists: any[] = [{}, {}];
   
 for (const i of lists) {
@@ -158,8 +157,8 @@ for (const i of lists) {
     total: 1,
     description: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`,
     diagnostic: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`
-  },
-  {
+  }],
+  [{
     code: `const lists: any[] = [{}, {}];
   
 for (const i in lists) {
@@ -175,8 +174,8 @@ for (const i in lists) {
     total: 1,
     description: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`,
     diagnostic: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`
-  },
-  {
+  }],
+  [{
     code: `const lists: any[] = [{}, {}];
   
 for (let i =0; i < 2; i++) {
@@ -192,8 +191,8 @@ for (let i =0; i < 2; i++) {
     total: 1,
     description: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`,
     diagnostic: `Smelly: Avoid Conditional Test Logic in the test. Having conditional logic points to a test case that requires different context to run. Split the test case to fit one context per test case.`
-  },
-  {
+  }],
+  [{
     code: `setTimeout(() => {
   done();
 });`,
@@ -207,8 +206,8 @@ for (let i =0; i < 2; i++) {
     total: 1,
     description: `Smelly: Avoid using setTimeouts for tests. It might lead to Sleepy test or undeterministic behaviour based on where the test is executed.`,
     diagnostic: `Smelly: Avoid using setTimeouts for tests. It might lead to Sleepy test or undeterministic behaviour based on where the test is executed`,
-  },
-  {
+  }],
+  [{
     code: `function done() {};
 setTimeout(() => {
   done();
@@ -223,8 +222,8 @@ setTimeout(() => {
     total: 1,
     description: `Smelly: Avoid using setTimeouts for tests. It might lead to Sleepy test or undeterministic behaviour based on where the test is executed.`,
     diagnostic: `Smelly: Avoid using setTimeouts for tests. It might lead to Sleepy test or undeterministic behaviour based on where the test is executed`,
-  },
-  {
+  }],
+  [{
     code: `describe("my test", () => {
   it("a", () => {
 console.log(1);
@@ -240,8 +239,8 @@ console.log(1);
     total: 1,
     description: `Smelly: Avoid poluting the test output. It is known as the loudmouth`,
     diagnostic: `Smelly: Avoid poluting the test output. It is known as the loudmouth`,
-  },
-  {
+  }],
+  [{
     code: `describe("my test", () => {
   it("a", () => {
 console.log(1);
@@ -257,8 +256,8 @@ console.log(1);
     total: 1,
     description: `Smelly: Avoid poluting the test output. It is known as the loudmouth`,
     diagnostic: `Smelly: Avoid poluting the test output. It is known as the loudmouth`,
-  },
-  {
+  }],
+  [{
     code: `describe("my test", () => {
   it("a", () => {
 console.error(1);
@@ -274,8 +273,8 @@ console.error(1);
     total: 1,
     description: `Smelly: Avoid poluting the test output. It is known as the loudmouth`,
     diagnostic: `Smelly: Avoid poluting the test output. It is known as the loudmouth`,
-  },
-  {
+  }],
+  [{
     code: `describe("my test", () => {
   it("a", () => {
 console.info(1);
@@ -291,8 +290,8 @@ console.info(1);
     total: 1,
     description: `Smelly: Avoid poluting the test output. It is known as the loudmouth`,
     diagnostic: `Smelly: Avoid poluting the test output. It is known as the loudmouth`,
-  },
-  {
+  }],
+  [{
     code: `describe("my test", () => {
   it("a", () => {
 console.info(1);
@@ -308,8 +307,8 @@ console.info(1);
     total: 1,
     description: `Smelly: Avoid poluting the test output. It is known as the loudmouth`,
     diagnostic: `Smelly: Avoid poluting the test output. It is known as the loudmouth`,
-  },
-  {
+  }],
+  [{
     code: `describe("my test", () => {
   it("a", () => {
 console.error(1);
@@ -325,8 +324,8 @@ console.error(1);
     total: 1,
     description: `Smelly: Avoid poluting the test output. It is known as the loudmouth`,
     diagnostic: `Smelly: Avoid poluting the test output. It is known as the loudmouth`,
-  },
-  {
+  }],
+  [{
     code: `jest.mock("../");
 jest.mock("../");
 jest.mock("../");
@@ -347,8 +346,8 @@ jest.mock("../");`,
     total: 1,
     description: `Smelly: Avoid mocking too many dependencies in the test file. Split the test cases to distribute the mocking load.`,
     diagnostic: `Smelly: Avoid mocking too many dependencies in the test file. Split the test cases to distribute the mocking load.`,
-  },
-  {
+  }],
+  [{
     code: `jest.mock("../");
 jest.mock("../");
 jest.mock("../");
@@ -370,34 +369,30 @@ jest.mock("../");`,
     total: 1,
     description: `Smelly: Avoid mocking too many dependencies in the test file. Split the test cases to distribute the mocking load.`,
     diagnostic: `Smelly: Avoid mocking too many dependencies in the test file. Split the test cases to distribute the mocking load.`,
-  }
-  ].forEach(({ code, language, index, type, lineStart, lineEnd, startAt, endsAt, total, description, diagnostic }) => {
-    test(`detect test smell for ${language}: type ${type} at index ${index}`, () => {
-      const smellDetector = new SmellDetector(code, language);
-      const result = smellDetector.findAll();
+  }]
+  ])(`detect test smell for %s %s: type %s %s at index %s`, ({ code, language, index, type, lineStart, lineEnd, startAt, endsAt, total, description, diagnostic }) => {
+    const smellDetector = new SmellDetector(code, language);
+    const result = smellDetector.findAll();
 
-      assert.equal(result.length, total, 'number of detected smells is not correct');
-      assert.equal(result[index].type, type, 'type');
-      assert.equal(result[index].lineStart, lineStart, 'lineStart');
-      assert.equal(result[index].lineEnd, lineEnd, 'lineEnd');
-      assert.equal(result[index].startAt, startAt, 'startAt');
-      assert.equal(result[index].endsAt, endsAt, 'endsAt');
-      assert.equal(result[index].description, description, `description for ${type} does not match`);
-      assert.equal(result[index].diagnostic, diagnostic, `diagnostic for ${type} does not match`);
-    });
+    expect(result.length).toEqual(total);
+    expect(result[index].type).toEqual(type);
+    expect(result[index].lineStart).toEqual(lineStart);
+    expect(result[index].lineEnd).toEqual(lineEnd);
+    expect(result[index].startAt).toEqual(startAt);
+    expect(result[index].endsAt).toEqual(endsAt);
+    expect(result[index].description).toEqual(description);
+    expect(result[index].diagnostic).toEqual(diagnostic);
   });
 
-  [{
+  test.each([{
     code: `
 jest.mock("../");`,
     language: TYPESCRIPT,
   }
-  ].forEach(({ code, language }) => {
-    test(`detect code without smells`, () => {
-      const smellDetector = new SmellDetector(code, language);
-      const result = smellDetector.findAll();
+  ])(`detect code without smells`, ({ code, language }) => {
+    const smellDetector = new SmellDetector(code, language);
+    const result = smellDetector.findAll();
 
-      assert.equal(result.length, 0);
-    });
+    expect(result.length).toEqual(0);
   });
 });

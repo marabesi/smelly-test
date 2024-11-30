@@ -1,33 +1,28 @@
-import sinon from 'sinon';
 import { ExportOptions, SmellsAggreagtor, SmellsList } from '../src/reporters/Html';
 import { HtmlOutput } from '../src/reporters/Output';
 import { ReadHtml } from '../src/reporters/Input';
+import { vi,test, describe, expect } from 'vitest';
+
+vi.mock('../src/reporters/Input');
+vi.mock('../src/reporters/Output');
 
 describe('report html', () => {
-  let input: sinon.SinonStub;
-  let output: sinon.SinonMock;
-
-  beforeEach(() => {
-    input = sinon.stub(ReadHtml.prototype, 'readTeamplate');
-    output = sinon.mock(HtmlOutput.prototype);
-  });
-
-  afterEach(() => {
-    input.restore();
-    output.restore();
-  });
-
-  it('no smells for a single file', async () => {
+  test('no smells for a single file', async () => {
     const smellsFound: SmellsList[] = [];
     const exportsOptions: ExportOptions = { to: '.' };
 
-    input.resolves('fake data');
-    output.expects('writeTo').once().withArgs('fake data', exportsOptions);
+    ReadHtml.mockImplementation(() => {
+      return {
+        readTeamplate: () => Promise.resolve('fake data')
+      };
+    });
+
+    HtmlOutput.prototype.writeTo = vi.fn();
 
     const reporter = new SmellsAggreagtor(smellsFound, exportsOptions);
 
     await reporter.build();
 
-    sinon.verify();
+    expect(HtmlOutput.prototype.writeTo).toHaveBeenCalledWith('fake data', exportsOptions);
   });
 });

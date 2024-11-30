@@ -1,7 +1,7 @@
 import { ExportOptions, SmellsAggreagtor, SmellsList } from '../src/reporters/Html';
 import { HtmlOutput } from '../src/reporters/Output';
 import { ReadHtml } from '../src/reporters/Input';
-import { vi,test, describe, expect } from 'vitest';
+import { vi,test, describe, expect, Mock } from 'vitest';
 
 vi.mock('../src/reporters/Input');
 vi.mock('../src/reporters/Output');
@@ -11,7 +11,7 @@ describe('report html', () => {
     const smellsFound: SmellsList[] = [];
     const exportsOptions: ExportOptions = { to: '.' };
 
-    ReadHtml.mockImplementation(() => {
+    (ReadHtml as Mock).mockImplementation(() => {
       return {
         readTeamplate: () => Promise.resolve('fake data')
       };

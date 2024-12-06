@@ -1,7 +1,7 @@
 import { vi,test, describe, expect } from 'vitest';
 import { HtmlOutput } from '../src/reporters/Output';
 import { SmellsBuilder } from '../src/smells-builder';
-import { SmellsAggreagtor } from '../src/reporters/Html';
+import { SmellsAggreagtor } from '../src/reporters/SmellsAgreggator';
 import { ExportOptions, SmellsList } from '../src/reporters/types';
 import { Smell, SmellType, SupportedLanguages } from '../src/types';
 

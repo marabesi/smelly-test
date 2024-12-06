@@ -7,6 +7,7 @@ Check [Keep a Changelog](http://keepachangelog.com) for recommendations on how t
 ## [0.0.18]
 
 - Updated readme with configuration section
+- Refactor to meet new interface from detector package
 
 ## [0.0.17]
 

@@ -1,16 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import { SmellDetector } from '../src/index';
+import { CONSOLE, FOR, FOR_IN, FOR_OF, IF_STATEMENT, JAVASCRIPT, MOCKERY, TIMEOUT, TYPESCRIPT } from './smells-detector-builder';
 
-const IF_STATEMENT = 'if-statement';
-const FOR_OF = 'for-of-statement';
-const FOR_IN = 'for-in-statement';
-const FOR = 'for-statement';
-const TIMEOUT = 'timeout';
-const CONSOLE = 'console-statement';
-const MOCKERY = 'excessive-jest-mock';
-
-const JAVASCRIPT = 'javascript';
-const TYPESCRIPT = 'typescript';
 
 describe('Smelly Test Smell Detection Suite', () => {
   test.each([[{
@@ -382,17 +373,5 @@ jest.mock("../");`,
     expect(result[index].endsAt).toEqual(endsAt);
     expect(result[index].description).toEqual(description);
     expect(result[index].diagnostic).toEqual(diagnostic);
-  });
-
-  test.each([{
-    code: `
-jest.mock("../");`,
-    language: TYPESCRIPT,
-  }
-  ])(`detect code without smells`, ({ code, language }) => {
-    const smellDetector = new SmellDetector(code, language);
-    const result = smellDetector.findAll();
-
-    expect(result.length).toEqual(0);
   });
 });

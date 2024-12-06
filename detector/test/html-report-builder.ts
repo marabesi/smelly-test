@@ -9,6 +9,16 @@ export async function buildEmptyHtmlReportForTestSmells(exportsOptions: ExportOp
   const reporter = new HtmlOutput();
   await reporter.writeTo(aggregatedData, exportsOptions);
 
-  const generatedHtml = readFileSync(filePath, { encoding: 'utf8', flag: 'r' });
-  return generatedHtml;
+  return readFileSync(filePath, { encoding: 'utf8', flag: 'r' });
+}
+
+export async function buildHtmlReportForTestSmellsFor(
+  exportsOptions: ExportOptions,
+  filePath: string,
+  aggregatedData: AggregatedData
+) {
+  const reporter = new HtmlOutput();
+  await reporter.writeTo(aggregatedData, exportsOptions);
+
+  return readFileSync(filePath, { encoding: 'utf8', flag: 'r' });
 }

@@ -3,19 +3,20 @@ import { AgreggatorSmellls, ExportOptions, SmellsList } from './types';
 
 export class SmellsAggreagtor implements AgreggatorSmellls {
   constructor(
-    private smellLists: SmellsList[],
+    private totalTestFiles: SmellsList[],
     private exportOptions: ExportOptions
   ) { }
 
   async build(): Promise<void> {
     try {
-      const totalSmells = this.smellLists.reduce((previous, current) => previous + current.smells.length, 0);
+      const totalFiles = this.totalTestFiles.length;
+      const totalSmells = this.totalTestFiles.reduce((previous, current) => previous + current.smells.length, 0);
 
       const output = new HtmlOutput();
       await output.writeTo({
-        data: this.smellLists,
         totalSmells,
-        averageSmellsPerTestFile: 5
+        data: this.totalTestFiles,
+        averageSmellsPerTestFile: totalSmells / totalFiles
       }, this.exportOptions);
     } catch (err) {
       console.log(err);

@@ -80,7 +80,7 @@ describe('smells aggregator', () => {
     expect(write.mock.calls[0][0].totalSmells).toEqual(1);
   });
 
-  test('two test file with 10 smells detected has average of 5 smells per test file', async () => {
+  test('two test file with 5 smells each, should have average of 5 smells per test file', async () => {
     const smell: Smell = SmellsBuilder.console(0, 1, 10, 20);
     const smellsFound: SmellsList[] = [
       {
@@ -103,5 +103,30 @@ describe('smells aggregator', () => {
     await reporter.build();
 
     expect(write.mock.calls[0][0].averageSmellsPerTestFile).toEqual(5);
+  });
+  
+  test('two test file with 4 smells in one of them, should have average of 2 smells per test file', async () => {
+    const smell: Smell = SmellsBuilder.console(0, 1, 10, 20);
+    const smellsFound: SmellsList[] = [
+      {
+        smells: [smell, smell, smell, smell],
+        language: SupportedLanguages.javascript,
+        fileName: 'first_test.js'
+      },
+      {
+        smells: [],
+        language: SupportedLanguages.javascript,
+        fileName: 'second_test.js'
+      },
+    ];
+    const exportsOptions: ExportOptions = { to: '.' };
+
+    const write = vi.mocked(HtmlOutput.prototype.writeTo = vi.fn());
+
+    const reporter = new SmellsAggreagtor(smellsFound, exportsOptions);
+
+    await reporter.build();
+
+    expect(write.mock.calls[0][0].averageSmellsPerTestFile).toEqual(2);
   });
 });

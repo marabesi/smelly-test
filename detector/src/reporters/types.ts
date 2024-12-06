@@ -12,7 +12,8 @@ export interface AgreggatorSmellls {
 
 export interface AggregatedData {
   data: SmellsList[],
-  totalSmells: number
+  totalSmells: number,
+  averageSmellsPerTestFile: number,
 }
 
 export interface ExportOptions {

@@ -12,7 +12,11 @@ export class SmellsAggreagtor implements AgreggatorSmellls {
       const totalSmells = this.smellLists.reduce((previous, current) => previous + current.smells.length, 0);
 
       const output = new HtmlOutput();
-      await output.writeTo({ data: this.smellLists, totalSmells}, this.exportOptions);
+      await output.writeTo({
+        data: this.smellLists,
+        totalSmells,
+        averageSmellsPerTestFile: 5
+      }, this.exportOptions);
     } catch (err) {
       console.log(err);
     }

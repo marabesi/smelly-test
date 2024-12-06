@@ -28,8 +28,14 @@ async function execute() {
     if (isFile && isFile.isFile()) {
       const fileContents = await fs.readFile(fileName, { encoding: 'utf8' });
       const smellDetector = new SmellDetector(fileContents, language);
-      console.info(`Detecting for language ${language}`);
-      console.info(smellDetector.findAll());
+
+      const aggregator = [{ fileName, smells: smellDetector.findAll().smells, language }];
+      
+      const to = path.resolve(reportOutput.replace('--report-output=', ''));
+      const report = new SmellsAggreagtor(aggregator, { to });
+      await report.build();
+
+      console.info('Report HTML generated');
       return;
     }
 
@@ -46,9 +52,9 @@ async function execute() {
         aggregator.push({ fileName: file, smells, language });
       }
 
-      const to = path.resolve(reportOutput);
+      const to = path.resolve(reportOutput.replace('--report-output=', ''));
       const report = new SmellsAggreagtor(aggregator, { to });
-      report.build();
+      await report.build();
 
       console.info('Report HTML generated');
       return;

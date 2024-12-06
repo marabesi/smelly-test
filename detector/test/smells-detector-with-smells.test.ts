@@ -4,7 +4,7 @@ import { CONSOLE, FOR, FOR_IN, FOR_OF, IF_STATEMENT, JAVASCRIPT, MOCKERY, TIMEOU
 
 
 describe('Smelly Test Smell Detection Suite', () => {
-  test.each([[{
+  describe.each([[{
     code: `const a = 1;
 if (a === 1) {}`,
     language: JAVASCRIPT,
@@ -362,16 +362,61 @@ jest.mock("../");`,
     diagnostic: `Smelly: Avoid mocking too many dependencies in the test file. Split the test cases to distribute the mocking load.`,
   }]
   ])(`detect test smell for %s %s: type %s %s at index %s`, ({ code, language, index, type, lineStart, lineEnd, startAt, endsAt, total, description, diagnostic }) => {
-    const smellDetector = new SmellDetector(code, language);
-    const result = smellDetector.findAll();
+    
+    test(`should find ${total} test smells`, () => {
+      const smellDetector = new SmellDetector(code, language);
+      const result = smellDetector.findAll();
+  
+      expect(result.length).toEqual(total);
+    });
 
-    expect(result.length).toEqual(total);
-    expect(result[index].type).toEqual(type);
-    expect(result[index].lineStart).toEqual(lineStart);
-    expect(result[index].lineEnd).toEqual(lineEnd);
-    expect(result[index].startAt).toEqual(startAt);
-    expect(result[index].endsAt).toEqual(endsAt);
-    expect(result[index].description).toEqual(description);
-    expect(result[index].diagnostic).toEqual(diagnostic);
+    test(`at ${index} should match ${type}`, () => {
+      const smellDetector = new SmellDetector(code, language);
+      const result = smellDetector.findAll();
+  
+      expect(result[index].type).toEqual(type);
+    });
+
+    test(`at ${index} should find line start`, () => {
+      const smellDetector = new SmellDetector(code, language);
+      const result = smellDetector.findAll();
+  
+      expect(result[index].lineStart).toEqual(lineStart);
+    });
+
+    test(`at ${index} should find line end`, () => {
+      const smellDetector = new SmellDetector(code, language);
+      const result = smellDetector.findAll();
+  
+      expect(result[index].lineEnd).toEqual(lineEnd);
+    });
+    
+    test(`at ${index} should find column start at`, () => {
+      const smellDetector = new SmellDetector(code, language);
+      const result = smellDetector.findAll();
+  
+      expect(result[index].startAt).toEqual(startAt);
+    });
+
+    test(`at ${index} should find column ends at`, () => {
+      const smellDetector = new SmellDetector(code, language);
+      const result = smellDetector.findAll();
+  
+      expect(result[index].endsAt).toEqual(endsAt);
+    });
+
+    test(`at ${index} should find description`, () => {
+      const smellDetector = new SmellDetector(code, language);
+      const result = smellDetector.findAll();
+      
+      expect(result[index].description).toEqual(description);
+    });
+ 
+    test(`at ${index} should find diagnostic`, () => {
+      const smellDetector = new SmellDetector(code, language);
+      const result = smellDetector.findAll();
+      
+      expect(result[index].diagnostic).toEqual(diagnostic);
+    });
   });
 });

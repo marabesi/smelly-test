@@ -1,3 +1,10 @@
+export type TestCase = {
+  lineStart: number;
+  lineEnd: number;
+  startAt: number;
+  endsAt: number;
+};
+
 export type Smell = {
   type: string;
   lineStart: number;

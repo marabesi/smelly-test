@@ -25,7 +25,7 @@
   <div class="container mx-auto p-5">
 
     <div class="flex justify-between items-center py-5">
-      <h1 class="text-3xl text-gray-700 dark:text-gray-400">Test smells report</h1>
+      <h1 class="text-3xl text-gray-700 dark:text-gray-400" data-testid="report-title">Test smells report</h1>
 
       <button id="theme-toggle" type="button"
         class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
@@ -45,14 +45,14 @@
       <div
         class="mb-5 max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700">
 
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ totalSmells }}</h5>
-        <p class="font-normal text-gray-700 dark:text-gray-400">Test smells</p>
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white" data-testid="total-smells-found">{{ totalSmells }}</h5>
+        <p class="font-normal text-gray-700 dark:text-gray-400" data-testid="title-smells-found">Test smells</p>
       </div>
       <div
         class="mb-5 max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700">
     
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ data.length }}</h5>
-        <p class="font-normal text-gray-700 dark:text-gray-400">Test cases</p>
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white" data-testid="total-test-files">{{ data.length }}</h5>
+        <p class="font-normal text-gray-700 dark:text-gray-400" data-testid="title-test-files">Test files</p>
       </div>
     </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">

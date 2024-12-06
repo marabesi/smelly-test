@@ -45,6 +45,10 @@ a curated list here goes:
 - [jnose for java](https://github.com/arieslab/jnose)
 - [tsDetect](https://github.com/TestSmells/TSDetect)
 
+## Related research
+
+- [Evaluating Large Language Models in Detecting Test Smells](https://www.researchgate.net/publication/385118360_Evaluating_Large_Language_Models_in_Detecting_Test_Smells)
+
 ## Want to keep up to date with the latest research?
 
 [Papers of the Week](https://www.linkedin.com/newsletters/papers-of-the-week-6956357330917564416) is a newsletter that publishes weekly papers about software engineering favoring TDD, software testing and DevOps.

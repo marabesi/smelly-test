@@ -19,6 +19,15 @@ export interface SmellsFinder {
   searchSmells(): Smell[];
 }
 
+export type SmellDetectorRunnerResult = {
+  smells: Smell[];
+  testCases: TestCase[];
+};
+
+export interface SmellDetectorRunner {
+  findAll(): SmellDetectorRunnerResult;
+}
+
 export enum SupportedLanguages {
   javascript = 'javascript',
   typescript = 'typescript'

@@ -10,7 +10,7 @@ jest.mock("../");`,
   }
   ])(`detect code without smells`, ({ code, language }) => {
     const smellDetector = new SmellDetector(code, language);
-    const result = smellDetector.findAll();
+    const result = smellDetector.findAll().smells;
 
     expect(result.length).toEqual(0);
   });

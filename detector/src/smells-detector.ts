@@ -1,17 +1,17 @@
 import { JavascriptSmells } from './languages/JavascriptSmells';
 import { TypescriptSmells } from './languages/TypescriptSmells';
-import { Smell, SupportedLanguages } from './types';
+import { SmellDetectorRunnerResult, SupportedLanguages } from './types';
 
 export class SmellDetector {
 
   constructor(private code: string, private language: string) { }
 
-  findAll(): Smell[] {
+  findAll(): SmellDetectorRunnerResult {
     if (this.language === SupportedLanguages.javascript) {
       const finder = new JavascriptSmells(this.code);
-      return finder.searchSmells();
+      return { smells: finder.searchSmells(), testCases: [] };
     }
 
-    return new TypescriptSmells(this.code).searchSmells();
+    return { smells: new TypescriptSmells(this.code).searchSmells(), testCases: [] };
   }
 }

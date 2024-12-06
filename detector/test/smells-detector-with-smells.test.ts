@@ -365,56 +365,56 @@ jest.mock("../");`,
     
     test(`should find ${total} test smells`, () => {
       const smellDetector = new SmellDetector(code, language);
-      const result = smellDetector.findAll();
+      const result = smellDetector.findAll().smells;
   
       expect(result.length).toEqual(total);
     });
 
     test(`at ${index} should match ${type}`, () => {
       const smellDetector = new SmellDetector(code, language);
-      const result = smellDetector.findAll();
+      const result = smellDetector.findAll().smells;
   
       expect(result[index].type).toEqual(type);
     });
 
     test(`at ${index} should find line start`, () => {
       const smellDetector = new SmellDetector(code, language);
-      const result = smellDetector.findAll();
+      const result = smellDetector.findAll().smells;
   
       expect(result[index].lineStart).toEqual(lineStart);
     });
 
     test(`at ${index} should find line end`, () => {
       const smellDetector = new SmellDetector(code, language);
-      const result = smellDetector.findAll();
+      const result = smellDetector.findAll().smells;
   
       expect(result[index].lineEnd).toEqual(lineEnd);
     });
     
     test(`at ${index} should find column start at`, () => {
       const smellDetector = new SmellDetector(code, language);
-      const result = smellDetector.findAll();
+      const result = smellDetector.findAll().smells;
   
       expect(result[index].startAt).toEqual(startAt);
     });
 
     test(`at ${index} should find column ends at`, () => {
       const smellDetector = new SmellDetector(code, language);
-      const result = smellDetector.findAll();
+      const result = smellDetector.findAll().smells;
   
       expect(result[index].endsAt).toEqual(endsAt);
     });
 
     test(`at ${index} should find description`, () => {
       const smellDetector = new SmellDetector(code, language);
-      const result = smellDetector.findAll();
+      const result = smellDetector.findAll().smells;
       
       expect(result[index].description).toEqual(description);
     });
  
     test(`at ${index} should find diagnostic`, () => {
       const smellDetector = new SmellDetector(code, language);
-      const result = smellDetector.findAll();
+      const result = smellDetector.findAll().smells;
       
       expect(result[index].diagnostic).toEqual(diagnostic);
     });

@@ -5,11 +5,10 @@ import { SmellsBuilder } from '../smells-builder';
 
 export class TypescriptSmells implements SmellsFinder {
 
-  constructor(private code: string) { }
+  constructor(private readonly ast: ts.SourceFile) { }
 
   searchSmells(): Smell[] {
-    // wondering why createSource? https://stackoverflow.com/a/60462133/2258921
-    const ast = ts.createSourceFile('temp.ts', this.code, ts.ScriptTarget.ES2020, true);
+    const ast = this.ast;
     const nodes = this.findIfStatements(ast);
 
     const forOfs = this.findForOfStatements(ast).map(forStmt => {

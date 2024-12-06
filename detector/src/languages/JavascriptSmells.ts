@@ -1,15 +1,15 @@
-import { Syntax, parseScript } from "esprima";
-import { Smell, SmellsFinder } from "../types";
-import { SmellsBuilder } from "../smells-builder";
+import { Program, Syntax } from 'esprima';
+import { Smell, SmellsFinder } from '../types';
+import { SmellsBuilder } from '../smells-builder';
 
 export class JavascriptSmells implements SmellsFinder {
   
-  constructor(private code: string) {}
+  constructor(private readonly ast: Program) {}
 
   searchSmells(): Smell[] {
     const smells: Smell[] = [];
 
-    const ast = parseScript(this.code, { loc: true });
+    const ast = this.ast;
 
     const ifs: any[] = [];
     const forOfs: any[] = [];

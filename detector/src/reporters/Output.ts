@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
-import { AggregatedData, ExportOptions } from "./Html";
 import { ReadHtml } from './Input';
+import { AggregatedData, ExportOptions } from './types';
+import Handlebars from 'handlebars';
 
 export interface Output {
   writeTo: (content: AggregatedData, exportOptions: ExportOptions) => Promise<void>

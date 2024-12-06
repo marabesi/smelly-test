@@ -1,25 +1,5 @@
-import Handlebars from "handlebars";
-import { Smell, SupportedLanguages } from "..";
 import { HtmlOutput } from './Output';
-
-export interface SmellsList {
-  language: SupportedLanguages;
-  fileName: string;
-  smells: Smell[];
-}
-
-interface AgreggatorSmellls {
-  build: () => Promise<void>
-}
-
-export interface AggregatedData {
-  data: SmellsList[],
-  totalSmells: number
-}
-
-export interface ExportOptions {
-  to: string
-}
+import { AgreggatorSmellls, ExportOptions, SmellsList } from "./types";
 
 export class SmellsAggreagtor implements AgreggatorSmellls {
   constructor(

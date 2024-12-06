@@ -1,6 +1,7 @@
-import { vi,test, describe, expect, Mock } from 'vitest';
-import { AggregatedData, ExportOptions, SmellsAggreagtor, SmellsList } from '../src/reporters/Html';
+import { vi,test, describe, expect } from 'vitest';
 import { HtmlOutput } from '../src/reporters/Output';
+import { SmellsAggreagtor } from '../src/reporters/Html';
+import { AggregatedData, ExportOptions, SmellsList } from '../src/reporters/types';
 
 vi.mock('../src/reporters/Input');
 vi.mock('../src/reporters/Output');

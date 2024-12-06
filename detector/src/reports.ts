@@ -1,1 +1,2 @@
-export { SmellsList, SmellsAggreagtor } from './reporters/Html';
+export { SmellsAggreagtor } from './reporters/Html';
+export { SmellsList } from './reporters/types';

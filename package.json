@@ -10,7 +10,8 @@
     "typescript": "^5.2.0",
     "vitest": "^2.1.6",
     "webpack": "^5.93.0",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "@vitest/coverage-v8": "^2.1.6"
   },
   "scripts": {
     "clean": "npm exec --workspaces -- rimraf node_modules && rimraf node_modules"

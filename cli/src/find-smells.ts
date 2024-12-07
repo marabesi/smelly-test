@@ -1,8 +1,10 @@
 import path from 'path';
 import fs, { readdir } from 'node:fs/promises';
+import { glob, globSync, globStream, globStreamSync, Glob } from 'glob';
 import { join } from 'node:path';
 import { Smell, SmellDetector, SupportedLanguages } from 'smelly-detector';
 import { SmellsAggreagtor, SmellsList } from 'smelly-detector/reports';
+import { statSync } from 'fs';
 
 const args = process.argv;
 const fileName = args[2];
@@ -11,7 +13,7 @@ const report = args[4];
 const reportOutput = args[5];
 
 if (!fileName) {
-  console.error('[SMELLY] please provide a test file');
+  console.error('[SMELLY] please provide a test file or a regex to search for test files');
   process.exit();
 }
 
@@ -22,24 +24,23 @@ const walk: any = async (dirPath: string) => Promise.all(
   }))
 );
 
+function isDirectorySync(path: string): boolean {
+  try {
+    const stats = statSync(path);
+    return stats.isDirectory();
+  } catch (error) {
+    return false;
+  }
+}
+
 async function execute() {
   try {
-    const isFile = await fs.stat(fileName);
-    if (isFile && isFile.isFile()) {
-      const fileContents = await fs.readFile(fileName, { encoding: 'utf8' });
-      const smellDetector = new SmellDetector(fileContents, language);
-
-      const aggregator = [{ fileName, smells: smellDetector.findAll().smells, language }];
-      
-      const to = path.resolve(reportOutput.replace('--report-output=', ''));
-      const report = new SmellsAggreagtor(aggregator, { to });
-      await report.build();
-
-      console.info('Report HTML generated');
+    if (isDirectorySync(fileName)) {
+      console.info('[SMELLY] please use a regex or a file');
       return;
     }
 
-    const allFiles = await walk(fileName);
+    const allFiles = await glob(fileName);
     const pathWithAllFilesFound = allFiles.flat(Number.POSITIVE_INFINITY);
 
     if (report) {

@@ -5,8 +5,9 @@
   "description": "Find out the smells in your tests, suggestions for correction and the theory behind them",
   "bin": "build/index.js",
   "dependencies": {
-    "smelly-detector": "*",
-    "commander": "^12.1.0"
+    "commander": "^12.1.0",
+    "glob": "^11.0.0",
+    "smelly-detector": "*"
   },
   "repository": {
     "url": "https://github.com/marabesi/smelly-test/tree/main/cli"
@@ -24,9 +25,9 @@
     "nyc": "^15.1.0",
     "sinon": "^19.0.2",
     "ts-loader": "*",
-    "vitest": "*",
     "ts-mocha": "^10.0.0",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "vitest": "*"
   },
   "scripts": {
     "compile": "npm run clean && tsc && cp index.js build/",

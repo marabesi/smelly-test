@@ -1,7 +1,6 @@
 import path from 'path';
-import fs, { readdir } from 'node:fs/promises';
-import { glob, globSync, globStream, globStreamSync, Glob } from 'glob';
-import { join } from 'node:path';
+import fs from 'node:fs/promises';
+import { glob } from 'glob';
 import { Smell, SmellDetector, SupportedLanguages } from 'smelly-detector';
 import { SmellsAggreagtor, SmellsList } from 'smelly-detector/reports';
 import { statSync } from 'fs';
@@ -16,13 +15,6 @@ if (!fileName) {
   console.error('[SMELLY] please provide a test file or a regex to search for test files');
   process.exit();
 }
-
-const walk: any = async (dirPath: string) => Promise.all(
-  await readdir(dirPath, { withFileTypes: true }).then((entries: any) => entries.map((entry: any) => {
-    const childPath = join(dirPath, entry.name);
-    return entry.isDirectory() ? walk(childPath) : childPath;
-  }))
-);
 
 function isDirectorySync(path: string): boolean {
   try {

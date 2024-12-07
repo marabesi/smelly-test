@@ -58,7 +58,8 @@ describe('html report', () => {
         {
           smells: [smell, smell, smell, smell],
           language: SupportedLanguages.javascript,
-          fileName: 'first_test.js'
+          fileName: 'first_test.js',
+          fileContent: 'console.log("Hello world")',
         },
       ];
 
@@ -77,6 +78,14 @@ describe('html report', () => {
       const root = parse(generatedHtml);
 
       expect(root.querySelector('table tbody tr')?.textContent).toContain('first_test.js');
+    });
+
+    test('renders test file code', async () => {
+      const aggregatedData = buildAggregatedData();
+      const generatedHtml = await buildHtmlReportForTestSmellsFor(exportsOptions, filePath, aggregatedData);
+      const root = parse(generatedHtml);
+
+      expect(root.querySelector('[data-testid="0-code"]')?.textContent).toContain('console.log("Hello world")');
     });
 
     test('renders language', async () => {

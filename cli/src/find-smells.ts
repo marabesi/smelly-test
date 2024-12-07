@@ -39,10 +39,10 @@ async function execute() {
       const aggregator: SmellsList[] = [];
 
       for (const file of pathWithAllFilesFound) {
-        const fileContents = await fs.readFile(file, { encoding: 'utf8' });
-        const smellDetector = new SmellDetector(fileContents, language);
+        const fileContent = await fs.readFile(file, { encoding: 'utf8' });
+        const smellDetector = new SmellDetector(fileContent, language);
         const smells = smellDetector.findAll().smells;
-        aggregator.push({ fileName: file, smells, language });
+        aggregator.push({ fileName: file, smells, language, fileContent });
       }
 
       const to = path.resolve(reportOutput.replace('--report-output=', ''));

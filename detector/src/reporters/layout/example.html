@@ -5,6 +5,9 @@
   <title>Test smells report</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" />
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -84,12 +87,20 @@
               {{this.smells.length}}
             </td>
           </tr>
+          <tr class="hidden">
+            <td colspan="3" class="p-4" data-testid="{{@index}}-code">
+              <pre><code>{{this.fileContent}}</code></pre>
+            </td>
+          </tr>
           {{/each}}
         </tbody>
       </table>
     </div>
 
   </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
 
   <script>
     var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');

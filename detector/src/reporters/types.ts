@@ -4,6 +4,7 @@ export interface SmellsList {
   language: SupportedLanguages;
   fileName: string;
   smells: Smell[];
+  fileContent: string;
 }
 
 export interface AgreggatorSmellls {

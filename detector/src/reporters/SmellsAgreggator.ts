@@ -16,7 +16,7 @@ export class SmellsAggreagtor implements AgreggatorSmellls {
       await output.writeTo({
         totalSmells,
         data: this.totalTestFiles,
-        averageSmellsPerTestFile: totalSmells / totalFiles
+        averageSmellsPerTestFile: totalSmells / totalFiles,
       }, this.exportOptions);
     } catch (err) {
       console.log(err);

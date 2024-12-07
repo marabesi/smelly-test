@@ -7,6 +7,29 @@ import { Smell, SmellType, SupportedLanguages } from '../src/types';
 
 vi.mock('../src/reporters/Output');
 
+function buildListWithSingleSmell(smells: Smell[]): SmellsList[] {
+  return [
+    {
+      smells,
+      language: SupportedLanguages.javascript,
+      fileName: 'random',
+      fileContent: 'console.log("Hello world")',
+    },
+  ];
+}
+
+function createSingleSmell(): Smell {
+  return {
+    type: SmellType.consoleStatement,
+    lineStart: 0,
+    lineEnd: 1,
+    startAt: 10,
+    endsAt: 20,
+    description: '',
+    diagnostic: ''
+  };
+}
+
 describe('smells aggregator', () => {
   test('no smells for a single file', async () => {
     const smellsFound: SmellsList[] = [];
@@ -22,24 +45,21 @@ describe('smells aggregator', () => {
     expect(write.mock.calls[0][1]).toEqual(exportsOptions);
   });
 
-  test('match detected smells found to write in the output', async () => {
-    const smell: Smell = {
-      type: SmellType.consoleStatement,
-      lineStart: 0,
-      lineEnd: 1,
-      startAt: 10,
-      endsAt: 20,
-      description: '',
-      diagnostic: ''
-    };
+  test('should send file contents to the output', async () => {
+    const smellsFound: SmellsList[] = buildListWithSingleSmell([createSingleSmell()]);
+    const exportsOptions: ExportOptions = { to: '.' };
 
-    const smellsFound: SmellsList[] = [
-      {
-        smells: [smell],
-        language: SupportedLanguages.javascript,
-        fileName: 'random'
-      },
-    ];
+    const write = vi.mocked(HtmlOutput.prototype.writeTo = vi.fn());
+
+    const reporter = new SmellsAggreagtor(smellsFound, exportsOptions);
+
+    await reporter.build();
+
+    expect(write.mock.calls[0][0].data[0].fileContent).toEqual('console.log("Hello world")');
+  });
+
+  test('match detected smells found to write in the output', async () => {
+    const smellsFound: SmellsList[] = buildListWithSingleSmell([createSingleSmell()]);
     const exportsOptions: ExportOptions = { to: '.' };
 
     const write = vi.mocked(HtmlOutput.prototype.writeTo = vi.fn());
@@ -62,13 +82,7 @@ describe('smells aggregator', () => {
       diagnostic: ''
     };
 
-    const smellsFound: SmellsList[] = [
-      {
-        smells: [smell],
-        language: SupportedLanguages.javascript,
-        fileName: 'random'
-      },
-    ];
+    const smellsFound: SmellsList[] = buildListWithSingleSmell([createSingleSmell()]);
     const exportsOptions: ExportOptions = { to: '.' };
 
     const write = vi.mocked(HtmlOutput.prototype.writeTo = vi.fn());
@@ -86,12 +100,14 @@ describe('smells aggregator', () => {
       {
         smells: [smell, smell, smell, smell, smell],
         language: SupportedLanguages.javascript,
-        fileName: 'first_test.js'
+        fileName: 'first_test.js',
+        fileContent: 'console.log("Hello world")',
       },
       {
         smells: [smell, smell, smell, smell, smell],
         language: SupportedLanguages.javascript,
-        fileName: 'second_test.js'
+        fileName: 'second_test.js',
+        fileContent: 'var content = 0',
       },
     ];
     const exportsOptions: ExportOptions = { to: '.' };
@@ -111,12 +127,14 @@ describe('smells aggregator', () => {
       {
         smells: [smell, smell, smell, smell],
         language: SupportedLanguages.javascript,
-        fileName: 'first_test.js'
+        fileName: 'first_test.js',
+        fileContent: 'console.log("Hello world")',
       },
       {
         smells: [],
         language: SupportedLanguages.javascript,
-        fileName: 'second_test.js'
+        fileName: 'second_test.js',
+        fileContent: 'console.log("Hello world")',
       },
     ];
     const exportsOptions: ExportOptions = { to: '.' };

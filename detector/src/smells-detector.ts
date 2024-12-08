@@ -6,7 +6,11 @@ import { SmellDetectorRunnerResult, SupportedLanguages } from './types';
 
 export class SmellDetector {
 
-  constructor(private readonly code: string, private readonly language: string) { }
+  constructor(
+    private fileName: string,
+    private readonly code: string,
+    private readonly language: string
+  ) { }
 
   findAll(): SmellDetectorRunnerResult {
     if (this.language === SupportedLanguages.javascript) {

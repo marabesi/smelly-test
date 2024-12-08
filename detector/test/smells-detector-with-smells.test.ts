@@ -364,56 +364,56 @@ jest.mock("../");`,
   ])(`detect test smell for %s %s: type %s %s at index %s`, ({ code, language, index, type, lineStart, lineEnd, startAt, endsAt, total, description, diagnostic }) => {
     
     test(`should find ${total} test smells`, () => {
-      const smellDetector = new SmellDetector(code, language);
+      const smellDetector = new SmellDetector('my-file', code, language);
       const result = smellDetector.findAll().smells;
   
       expect(result.length).toEqual(total);
     });
 
     test(`at ${index} should match ${type}`, () => {
-      const smellDetector = new SmellDetector(code, language);
+      const smellDetector = new SmellDetector('my-file', code, language);
       const result = smellDetector.findAll().smells;
   
       expect(result[index].type).toEqual(type);
     });
 
     test(`at ${index} should find line start`, () => {
-      const smellDetector = new SmellDetector(code, language);
+      const smellDetector = new SmellDetector('my-file', code, language);
       const result = smellDetector.findAll().smells;
   
       expect(result[index].lineStart).toEqual(lineStart);
     });
 
     test(`at ${index} should find line end`, () => {
-      const smellDetector = new SmellDetector(code, language);
+      const smellDetector = new SmellDetector('my-file', code, language);
       const result = smellDetector.findAll().smells;
   
       expect(result[index].lineEnd).toEqual(lineEnd);
     });
     
     test(`at ${index} should find column start at`, () => {
-      const smellDetector = new SmellDetector(code, language);
+      const smellDetector = new SmellDetector('my-file', code, language);
       const result = smellDetector.findAll().smells;
   
       expect(result[index].startAt).toEqual(startAt);
     });
 
     test(`at ${index} should find column ends at`, () => {
-      const smellDetector = new SmellDetector(code, language);
+      const smellDetector = new SmellDetector('my-file', code, language);
       const result = smellDetector.findAll().smells;
   
       expect(result[index].endsAt).toEqual(endsAt);
     });
 
     test(`at ${index} should find description`, () => {
-      const smellDetector = new SmellDetector(code, language);
+      const smellDetector = new SmellDetector('my-file', code, language);
       const result = smellDetector.findAll().smells;
       
       expect(result[index].description).toEqual(description);
     });
  
     test(`at ${index} should find diagnostic`, () => {
-      const smellDetector = new SmellDetector(code, language);
+      const smellDetector = new SmellDetector('my-file', code, language);
       const result = smellDetector.findAll().smells;
       
       expect(result[index].diagnostic).toEqual(diagnostic);
@@ -422,7 +422,7 @@ jest.mock("../");`,
 
   test('should identify the test cases that exists in the file', () => {
     const code = 'it("a", () => {});';
-    const smellDetector = new SmellDetector(code, TYPESCRIPT);
+    const smellDetector = new SmellDetector('my-file.ts', code, TYPESCRIPT);
     const result = smellDetector.findAll().testCases;
 
     expect(result).toHaveLength(1);
@@ -473,28 +473,28 @@ test("b", () => {});`,
    }],
    ])('testCases', ({ index, code, language, testCases }) => {
     test(`should line start for test case at index ${index}`, () => {
-      const smellDetector = new SmellDetector(code, language);
+      const smellDetector = new SmellDetector('my-file', code, language);
       const result = smellDetector.findAll().testCases;
  
       expect(result[index].lineStart).toEqual(testCases[index].lineStart);
     });
 
     test(`should  column start for test case at index ${index}`, () => {
-      const smellDetector = new SmellDetector(code, language);
+      const smellDetector = new SmellDetector('my-file', code, language);
       const result = smellDetector.findAll().testCases;
  
       expect(result[index].startAt).toEqual(testCases[index].startAt);
     });
     
     test(`should line end for test case at index ${index}`, () => {
-      const smellDetector = new SmellDetector(code, language);
+      const smellDetector = new SmellDetector('my-file', code, language);
       const result = smellDetector.findAll().testCases;
  
       expect(result[index].lineEnd).toEqual(testCases[index].lineEnd);
     });
 
     test(`should  column end for test case at index ${index}`, () => {
-      const smellDetector = new SmellDetector(code, language);
+      const smellDetector = new SmellDetector('my-file', code, language);
       const result = smellDetector.findAll().testCases;
  
       expect(result[index].endsAt).toEqual(testCases[index].endsAt);

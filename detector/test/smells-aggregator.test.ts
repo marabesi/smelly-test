@@ -58,6 +58,19 @@ describe('smells aggregator', () => {
     expect(write.mock.calls[0][0].data[0].fileContent).toEqual('console.log("Hello world")');
   });
 
+  test.skip('should send total of test cases to the output', async () => {
+    const smellsFound: SmellsList[] = buildListWithSingleSmell([createSingleSmell()]);
+    const exportsOptions: ExportOptions = { to: '.' };
+
+    const write = vi.mocked(HtmlOutput.prototype.writeTo = vi.fn());
+
+    const reporter = new SmellsAggreagtor(smellsFound, exportsOptions);
+
+    await reporter.build();
+
+    expect(write.mock.calls[0][0].data[0].fileContent).toEqual('console.log("Hello world")');
+  });
+
   test('match detected smells found to write in the output', async () => {
     const smellsFound: SmellsList[] = buildListWithSingleSmell([createSingleSmell()]);
     const exportsOptions: ExportOptions = { to: '.' };

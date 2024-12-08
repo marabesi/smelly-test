@@ -40,7 +40,7 @@ async function execute() {
 
       for (const file of pathWithAllFilesFound) {
         const fileContent = await fs.readFile(file, { encoding: 'utf8' });
-        const smellDetector = new SmellDetector(fileContent, language);
+        const smellDetector = new SmellDetector(file, fileContent, language);
         const smells = smellDetector.findAll().smells;
         aggregator.push({ fileName: file, smells, language, fileContent });
       }
@@ -56,7 +56,7 @@ async function execute() {
     const output: any[] = [];
     for (const file of pathWithAllFilesFound) {
       const fileContents = await fs.readFile(file, { encoding: 'utf8' });
-      const smellDetector = new SmellDetector(fileContents, language);
+      const smellDetector = new SmellDetector(file, fileContents, language);
       const result = smellDetector.findAll().smells;
 
       if (result.length) {

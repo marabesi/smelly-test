@@ -178,7 +178,7 @@ function generateHighlighting(context: vscode.ExtensionContext) {
   disposeHovers();
 
   logger.debug(`finding match for ${language}`);
-  findMatch(text, language);
+  findMatch(fileName, text, language);
   logger.debug(`finding match for ${language} done`);
 
   logger.debug(`highlight selection match`);
@@ -190,14 +190,14 @@ function generateHighlighting(context: vscode.ExtensionContext) {
   populateStatusBar();
 }
 
-const findSmells = (text: string, language: string): Smell[] => {
-  const detect = new SmellDetector(text, language);
+const findSmells = (fileName: string, text: string, language: string): Smell[] => {
+  const detect = new SmellDetector(fileName, text, language);
   return detect.findAll().smells;
 };
 
-export function findMatch(text: string, language: string): void {
+export function findMatch(fileName: string, text: string, language: string): void {
   const types: string[] = [];
-  findSmells(text, language).forEach(element => {
+  findSmells(fileName, text, language).forEach(element => {
     const range = new vscode.Range(element.lineStart - 1, element.startAt, element.lineEnd - 1, element.endsAt);
     ranges.push({
       smell: element,

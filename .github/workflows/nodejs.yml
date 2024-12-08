@@ -39,7 +39,7 @@ jobs:
         npm i
         npm run clean
         npm i --workspaces
-        npm run compile --workspaces
+        npm run build
 
     - name: npm build
       run: |
@@ -48,20 +48,17 @@ jobs:
     - name: npm test
       if: github.ref != 'refs/heads/main'
       run: |
-        npm run build
-        npm run test --workspaces
+        npm run test
 
     - name: npm coverage
       if: github.ref == 'refs/heads/main'
       #npm run coveralls --workspace=vscode
       run: |
-        npm run build
-        npm run test --workspaces
+        npm run test
 
     - name: npm package standalone extension
       if: github.ref == 'refs/heads/main'
       run: |
-        npm run build
         npm i -g vsce
         npm run generate:vsix --workspace=vscode
 

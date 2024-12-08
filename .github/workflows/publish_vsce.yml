@@ -24,6 +24,7 @@ jobs:
 
     - name: Publish
       run: |
+          npm i
           npm i --workspaces
           npm run compile --workspaces
           npm install -g vsce

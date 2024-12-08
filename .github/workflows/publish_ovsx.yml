@@ -21,8 +21,9 @@ jobs:
 
     - name: Build
       run: |
-          npm i --workspaces
-          npm run compile --workspaces
+        npm i
+        npm i --workspaces
+        npm run compile --workspaces
     
     - name: Publish to Open VSX Registry
       uses: HaaLeo/publish-vscode-extension@v1

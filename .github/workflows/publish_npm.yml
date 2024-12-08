@@ -33,6 +33,7 @@ jobs:
     - name: Publish CLI to npm
       if: ${{ github.event.inputs.workspace_name == 'cli' }}
       run: |
+        npm i
         npm i --workspaces
         npm run compile --workspaces
         npm publish --workspace=cli --provenance --access public

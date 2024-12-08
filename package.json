@@ -17,7 +17,8 @@
   "scripts": {
     "build": "npm exec --workspaces -- npm run compile",
     "test": "npm exec --workspaces -- npm run test",
-    "clean": "npm exec --workspaces -- rimraf node_modules && rimraf node_modules"
+    "clean:node_modules": "npm exec --workspaces -- rimraf node_modules/",
+    "clean": "npm run clean:node_modules && npm exec --workspaces -- npm run clean"
   },
   "author": "",
   "license": "ISC",

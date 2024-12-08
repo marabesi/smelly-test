@@ -15,6 +15,7 @@ export interface AggregatedData {
   data: SmellsList[],
   totalSmells: number,
   averageSmellsPerTestFile: number,
+  totalTestCases: number,
 }
 
 export interface ExportOptions {

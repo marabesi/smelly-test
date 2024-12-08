@@ -4,7 +4,12 @@ import { readFileSync } from 'fs';
 
 export async function buildEmptyHtmlReportForTestSmells(exportsOptions: ExportOptions, filePath: string) {
   const smellsFound: SmellsList[] = [];
-  const aggregatedData: AggregatedData = { data: smellsFound, totalSmells: 0, averageSmellsPerTestFile: 0 };
+  const aggregatedData: AggregatedData = {
+    data: smellsFound,
+    totalSmells: 0,
+    averageSmellsPerTestFile: 0,
+    totalTestCases: 0,
+  };
 
   const reporter = new HtmlOutput();
   await reporter.writeTo(aggregatedData, exportsOptions);

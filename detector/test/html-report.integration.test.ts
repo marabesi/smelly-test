@@ -49,6 +49,14 @@ describe('html report', () => {
       expect(root.querySelector('[data-testid="total-test-files"]')?.textContent).toEqual('0');
       expect(root.querySelector('[data-testid="title-test-files"]')?.textContent).toEqual('Test files');
     });
+
+    test('renders the number of test cases', async () => {
+      const generatedHtml = await buildEmptyHtmlReportForTestSmells(exportsOptions, filePath);
+      const root = parse(generatedHtml);
+  
+      expect(root.querySelector('[data-testid="total-test-cases"]')?.textContent).toEqual('0');
+      expect(root.querySelector('[data-testid="title-test-cases"]')?.textContent).toEqual('Test cases');
+    });
   });
 
   describe('when there are test smells', () => {

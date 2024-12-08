@@ -422,10 +422,16 @@ jest.mock("../");`,
   [{ code: `describe("my test", () => {
   it.each([[1],[2]])("a", () => {});
 });`, expected: 2 }],
-[{ code: `describe("my test", () => {
+  [{ code: `describe("my test", () => {
   test.each([[1],[2],[3]])("a", () => {});
-});`, expected: 3 }]
-  ])('should identify the test cases that exists in the file', ({ code, expected }) => {
+});`, expected: 3 }],
+  [{ code: `it.skip("a", () => {});`, expected: 1 }],
+  [{ code: `test.skip("a", () => {});`, expected: 1 }],
+  [{ code: `describe("my test", () => {
+    it.skip("a", () => {});
+    test.skip("b", () => {});
+  });`, expected: 2 }],
+  ])('should identify the test cases that exists in the file with .each and with .skip', ({ code, expected }) => {
     const result = totalTestCaseDetectorInstance(code, TYPESCRIPT);
 
     expect(result).toHaveLength(expected);

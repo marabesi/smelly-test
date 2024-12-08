@@ -38,6 +38,7 @@ export class SmellDetector {
 
     const foundItEachCalls = findItEachCalls(ast);
     testCases.push(...foundItEachCalls);
+    testCases.push(...findItSkipCalls(ast));
 
     const smellsList = {
       fileName: this.fileName,
@@ -98,6 +99,34 @@ function findItEachCalls(sourceFile: ts.SourceFile): TestCase[] {
             });
           });
         }
+      }
+    }
+
+    ts.forEachChild(node, traverse);
+  }
+
+  traverse(sourceFile);
+  return testCases;
+}
+
+function findItSkipCalls(sourceFile: ts.SourceFile): TestCase[] {
+  const testCases: TestCase[] = [];
+
+  function traverse(node: ts.Node) {
+    if (ts.isCallExpression(node)) {
+      const expression = node.expression;
+      const isItSkipExpression = ts.isPropertyAccessExpression(expression) && ts.isIdentifier(expression.expression) && expression.expression.text === 'it' && expression.name.text === 'skip';
+      const isTestSkipExpression = ts.isPropertyAccessExpression(expression) && ts.isIdentifier(expression.expression) && expression.expression.text === 'test' && expression.name.text === 'skip';
+
+      if (isItSkipExpression || isTestSkipExpression) {
+        const { line: startLine, character: startCharacter } = sourceFile.getLineAndCharacterOfPosition(node.getStart());
+        const { line: endLine, character: endCharacter } = sourceFile.getLineAndCharacterOfPosition(node.getEnd());
+        testCases.push({
+          lineStart: startLine + 1,
+          startAt: startCharacter,
+          lineEnd: endLine + 1,
+          endsAt: endCharacter,
+        });
       }
     }
 

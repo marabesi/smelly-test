@@ -97,24 +97,24 @@
           <tr class="hidden" id="details-{{@index}}">
             <td colspan="3" class="p-0" data-testid="{{@index}}-code">
               {{#if smells.length}}
-                <table>
+                <table class="w-full text-left table-auto min-w-max">
                   <thead>
                     <tr>
-                      <th data-testid="smells-table-type">Smell type</th>
-                      <th data-testid="smells-table-description">Smell description</th>
-                      <th data-testid="smells-table-start-line">Smell line</th>
+                      <th data-testid="smells-table-type" class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">Smell type</th>
+                      <th data-testid="smells-table-description" class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">Smell description</th>
+                      <th data-testid="smells-table-start-line" class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">Smell line</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       {{#each smells}}
-                        <td>
+                        <td class="p-4 border-b border-blue-gray-50">
                           <div data-testid="{{@../index}}-smell-name-{{@index}}">{{this.type}}</div>
                         </td>
-                        <td>
+                        <td class="p-4 border-b border-blue-gray-50">
                           <div data-testid="{{@../index}}-smell-description-{{@index}}">{{this.description}}</div>
                         </td>
-                        <td>
+                        <td class="p-4 border-b border-blue-gray-50">
                           <div data-testid="{{@../index}}-smell-start-line-{{@index}}">{{this.lineStart}}</div>
                         </td>
                       {{/each }}

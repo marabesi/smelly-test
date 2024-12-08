@@ -2,7 +2,7 @@ import { parseScript } from 'esprima';
 import * as ts from 'typescript';
 import { JavascriptSmells } from './languages/JavascriptSmells';
 import { TypescriptSmells } from './languages/TypescriptSmells';
-import { SmellDetectorRunnerResult, SupportedLanguages } from './types';
+import { SmellDetectorRunnerResult, SupportedLanguages, TestCase } from './types';
 
 export class SmellDetector {
 
@@ -17,7 +17,13 @@ export class SmellDetector {
       const ast = parseScript(this.code, { loc: true });
 
       const finder = new JavascriptSmells(ast);
-      return { smellsList: { fileName: this.fileName, fileContent: this.code, smells: finder.searchSmells(), language: this.language }, testCases: [] };
+      const smellsList = {
+        fileName: this.fileName,
+        fileContent: this.code,
+        smells: finder.searchSmells(),
+        language: this.language
+      };
+      return { smellsList, testCases: [] };
     }
 
     // wondering why createSource? https://stackoverflow.com/a/60462133/2258921
@@ -30,7 +36,15 @@ export class SmellDetector {
       endsAt: columnEnd,
     }));
 
-    return { smellsList: { fileName: this.fileName, fileContent: this.code, smells: new TypescriptSmells(ast).searchSmells(), language: SupportedLanguages.typescript }, testCases };
+    const foundItEachCalls = findItEachCalls(ast);
+    testCases.push(...foundItEachCalls);
+
+    const smellsList = {
+      fileName: this.fileName,
+      fileContent: this.code,
+      smells: new TypescriptSmells(ast).searchSmells(), language: SupportedLanguages.typescript
+    };
+    return { smellsList, testCases };
   }
 }
 
@@ -59,4 +73,37 @@ function findItCalls(sourceFile: ts.SourceFile): { lineStart: number, columnStar
 
   traverse(sourceFile);
   return itCalls;
+}
+
+function findItEachCalls(sourceFile: ts.SourceFile): TestCase[] {
+  const testCases: TestCase[] = [];
+
+  function traverse(node: ts.Node) {
+    if (ts.isCallExpression(node)) {
+      const expression = node.expression;
+      const isItEachExpression = ts.isPropertyAccessExpression(expression) && ts.isIdentifier(expression.expression) && expression.expression.text === 'it' && expression.name.text === 'each';
+      const isTestEachExpression = ts.isPropertyAccessExpression(expression) && ts.isIdentifier(expression.expression) && expression.expression.text === 'test' && expression.name.text === 'each';
+
+      if (isItEachExpression || isTestEachExpression) {
+        const { line: startLine, character: startCharacter } = sourceFile.getLineAndCharacterOfPosition(node.getStart());
+        const { line: endLine, character: endCharacter } = sourceFile.getLineAndCharacterOfPosition(node.getEnd());
+        const arrayArgument = node.arguments[0];
+        if (ts.isArrayLiteralExpression(arrayArgument)) {
+          arrayArgument.elements.forEach(() => {
+            testCases.push({
+              lineStart: startLine + 1,
+              startAt: startCharacter,
+              lineEnd: endLine + 1,
+              endsAt: endCharacter,
+            });
+          });
+        }
+      }
+    }
+
+    ts.forEachChild(node, traverse);
+  }
+
+  traverse(sourceFile);
+  return testCases;
 }

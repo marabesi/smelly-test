@@ -15,6 +15,13 @@ export type Smell = {
   diagnostic: string; //no support for markdown
 };
 
+export interface SmellsList {
+  language: SupportedLanguages;
+  fileName: string;
+  smells: Smell[];
+  fileContent: string;
+}
+
 export interface SmellsFinder {
   searchSmells(): Smell[];
 }

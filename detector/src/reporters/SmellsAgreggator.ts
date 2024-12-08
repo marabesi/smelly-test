@@ -1,5 +1,6 @@
+import { SmellsList } from '../types';
 import { HtmlOutput } from './Output';
-import { AgreggatorSmellls, ExportOptions, SmellsList } from './types';
+import { AgreggatorSmellls, ExportOptions } from './types';
 
 export class SmellsAggreagtor implements AgreggatorSmellls {
   constructor(

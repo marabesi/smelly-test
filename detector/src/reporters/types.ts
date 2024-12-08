@@ -1,11 +1,4 @@
-import { Smell, SupportedLanguages } from "../types";
-
-export interface SmellsList {
-  language: SupportedLanguages;
-  fileName: string;
-  smells: Smell[];
-  fileContent: string;
-}
+import { SmellsList } from '../types';
 
 export interface AgreggatorSmellls {
   build: () => Promise<void>

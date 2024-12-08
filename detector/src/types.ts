@@ -27,7 +27,7 @@ export interface SmellsFinder {
 }
 
 export type SmellDetectorRunnerResult = {
-  smells: Smell[];
+  smellsList: SmellsList;
   testCases: TestCase[];
 };
 

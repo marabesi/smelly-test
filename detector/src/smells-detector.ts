@@ -17,7 +17,7 @@ export class SmellDetector {
       const ast = parseScript(this.code, { loc: true });
 
       const finder = new JavascriptSmells(ast);
-      return { smells: finder.searchSmells(), testCases: [] };
+      return { smellsList: { fileName: this.fileName, fileContent: this.code, smells: finder.searchSmells(), language: this.language }, testCases: [] };
     }
 
     // wondering why createSource? https://stackoverflow.com/a/60462133/2258921
@@ -30,7 +30,7 @@ export class SmellDetector {
       endsAt: columnEnd,
     }));
 
-    return { smells: new TypescriptSmells(ast).searchSmells(), testCases };
+    return { smellsList: { fileName: this.fileName, fileContent: this.code, smells: new TypescriptSmells(ast).searchSmells(), language: SupportedLanguages.typescript }, testCases };
   }
 }
 

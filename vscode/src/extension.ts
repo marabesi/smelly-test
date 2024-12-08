@@ -192,7 +192,7 @@ function generateHighlighting(context: vscode.ExtensionContext) {
 
 const findSmells = (fileName: string, text: string, language: string): Smell[] => {
   const detect = new SmellDetector(fileName, text, language);
-  return detect.findAll().smells;
+  return detect.findAll().smellsList.smells;
 };
 
 export function findMatch(fileName: string, text: string, language: string): void {

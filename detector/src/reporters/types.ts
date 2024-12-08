@@ -14,4 +14,3 @@ export interface AggregatedData {
 export interface ExportOptions {
   to: string
 }
-

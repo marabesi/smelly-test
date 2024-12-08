@@ -36,7 +36,7 @@
     "ts-node": "^10.9.2"
   },
   "scripts": {
-    "compile": "rm -rf build/ types/ && tsc && cp -R ./src/reporters/ ./build/src/reporters/",
+    "compile": "rm -rf build/ types/ && tsc && cp -R ./src/reporters/layout ./build/src/reporters/",
     "watch": "webpack --watch",
     "clean": "rm -rf out/ dist/ types/",
     "compile-tests": "npm run clean && tsc -p . --outDir out",

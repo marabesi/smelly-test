@@ -41,6 +41,7 @@ jobs:
     - name: Publish Detector to npm
       if: ${{ github.event.inputs.workspace_name  == 'detector'}}
       run: |
+        npm i
         npm i --workspaces
         npm run compile --workspaces
         npm publish --workspace=detector --provenance --access public

@@ -2,13 +2,14 @@ import { test, describe, expect, beforeEach, afterEach } from 'vitest';
 import { exec } from "child_process";
 import { promisify } from "util";
 import { rmSync } from 'fs';
+import * as path from 'path';
 
 const execPromise = promisify(exec);
 
 describe('cli', () => {
   
   describe('html report', () => {
-    const filePath = `./smelly-report.html`;
+    const filePath = path.resolve(__dirname, 'smelly-report.html');
   
     beforeEach(() => {
       rmSync(filePath, { force: true });

@@ -88,7 +88,7 @@ describe('html report', () => {
       expect(root.querySelector('table tbody tr')?.textContent).toContain('first_test.js');
     });
 
-    test('renders smell for file', async () => {
+    test('renders smell for file for one smell', async () => {
       const oneFileWithOneConsoleSmells = (): AggregatedData => {
         const smell: Smell = SmellsBuilder.console(0, 1, 10, 20);
         const smellsFound: SmellsList[] = [

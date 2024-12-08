@@ -52,4 +52,3 @@ a curated list here goes:
 ## Want to keep up to date with the latest research?
 
 [Papers of the Week](https://www.linkedin.com/newsletters/papers-of-the-week-6956357330917564416) is a newsletter that publishes weekly papers about software engineering favoring TDD, software testing and DevOps.
-

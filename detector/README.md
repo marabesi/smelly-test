@@ -24,3 +24,7 @@ const detector = new SmellDetector("my source code", "javascript");
 
 console.log(detector.findAll());
 ```
+
+## Resources
+
+- [Nested loops with handlebars](https://stackoverflow.com/questions/44805977/nested-each-loops-with-handlebars-template)

@@ -82,7 +82,8 @@
         <tbody>
           {{#each data}}
           <tr
-            class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+            onclick="toggleDetails({{@index}})"
+            class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 cursor-pointer">
             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               {{this.fileName}}
             </th>
@@ -93,8 +94,8 @@
               {{this.smells.length}}
             </td>
           </tr>
-          <tr class="hidden">
-            <td colspan="3" class="p-4" data-testid="{{@index}}-code">
+          <tr class="hidden" id="details-{{@index}}">
+            <td colspan="3" class="p-0" data-testid="{{@index}}-code">
               {{#each smells}}
                 <div data-testid="{{@../index}}-smell-name-{{@index}}">{{this.type}}</div>
               {{/each }}
@@ -105,12 +106,7 @@
         </tbody>
       </table>
     </div>
-
   </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-  <script>hljs.highlightAll();</script>
-
   <script>
     var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
     var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
@@ -153,6 +149,17 @@
 
     });
   </script>
+
+  <script>
+    function toggleDetails(index) {
+      var details = document.getElementById('details-' + index);
+      details.classList.toggle('hidden');
+    }
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+
 </body>
 
 </html>

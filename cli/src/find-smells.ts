@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'node:fs/promises';
 import { glob } from 'glob';
-import { Smell, SmellDetector, SupportedLanguages } from 'smelly-detector';
+import { Smell, SmellDetector, SupportedLanguages, TestCase } from 'smelly-detector';
 import { SmellsAggreagtor, SmellsList } from 'smelly-detector/reports';
 import { statSync } from 'fs';
 
@@ -37,16 +37,18 @@ async function execute() {
 
     if (report) {
       const aggregator: SmellsList[] = [];
+      const testCases: TestCase[] = [];
 
       for (const file of pathWithAllFilesFound) {
         const fileContent = await fs.readFile(file, { encoding: 'utf8' });
         const smellDetector = new SmellDetector(file, fileContent, language);
-        const smells = smellDetector.findAll().smellsList.smells;
-        aggregator.push({ fileName: file, smells, language, fileContent });
+        const smells = smellDetector.findAll();
+        aggregator.push(smells.smellsList);
+        testCases.push(...smells.testCases);
       }
 
       const to = path.resolve(reportOutput.replace('--report-output=', ''));
-      const report = new SmellsAggreagtor(aggregator, { to });
+      const report = new SmellsAggreagtor(testCases, aggregator, { to });
       await report.build();
 
       console.info('Report HTML generated');

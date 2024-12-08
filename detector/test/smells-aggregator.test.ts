@@ -2,8 +2,8 @@ import { vi,test, describe, expect } from 'vitest';
 import { HtmlOutput } from '../src/reporters/Output';
 import { SmellsBuilder } from '../src/smells-builder';
 import { SmellsAggreagtor } from '../src/reporters/SmellsAgreggator';
-import { ExportOptions, SmellsList } from '../src/reporters/types';
-import { Smell, SmellType, SupportedLanguages } from '../src/types';
+import { ExportOptions } from '../src/reporters/types';
+import { Smell, SmellsList, SmellType, SupportedLanguages, TestCase } from '../src/types';
 
 vi.mock('../src/reporters/Output');
 
@@ -37,7 +37,7 @@ describe('smells aggregator', () => {
 
     const write = vi.mocked(HtmlOutput.prototype.writeTo = vi.fn());
 
-    const reporter = new SmellsAggreagtor(smellsFound, exportsOptions);
+    const reporter = new SmellsAggreagtor([], smellsFound, exportsOptions);
 
     await reporter.build();
 
@@ -51,20 +51,20 @@ describe('smells aggregator', () => {
 
     const write = vi.mocked(HtmlOutput.prototype.writeTo = vi.fn());
 
-    const reporter = new SmellsAggreagtor(smellsFound, exportsOptions);
+    const reporter = new SmellsAggreagtor([], smellsFound, exportsOptions);
 
     await reporter.build();
 
     expect(write.mock.calls[0][0].data[0].fileContent).toEqual('console.log("Hello world")');
   });
 
-  test.skip('should send total of test cases to the output', async () => {
+  test('should send total of test cases to the output', async () => {
     const smellsFound: SmellsList[] = buildListWithSingleSmell([createSingleSmell()]);
     const exportsOptions: ExportOptions = { to: '.' };
 
     const write = vi.mocked(HtmlOutput.prototype.writeTo = vi.fn());
 
-    const reporter = new SmellsAggreagtor(smellsFound, exportsOptions);
+    const reporter = new SmellsAggreagtor([], smellsFound, exportsOptions);
 
     await reporter.build();
 
@@ -77,7 +77,7 @@ describe('smells aggregator', () => {
 
     const write = vi.mocked(HtmlOutput.prototype.writeTo = vi.fn());
 
-    const reporter = new SmellsAggreagtor(smellsFound, exportsOptions);
+    const reporter = new SmellsAggreagtor([], smellsFound, exportsOptions);
 
     await reporter.build();
 
@@ -85,26 +85,37 @@ describe('smells aggregator', () => {
   });
 
   test('compute smells for a single file', async () => {
-    const smell: Smell = {
-      type: SmellType.consoleStatement,
-      lineStart: 0,
-      lineEnd: 1,
-      startAt: 10,
-      endsAt: 20,
-      description: '',
-      diagnostic: ''
-    };
-
     const smellsFound: SmellsList[] = buildListWithSingleSmell([createSingleSmell()]);
     const exportsOptions: ExportOptions = { to: '.' };
 
     const write = vi.mocked(HtmlOutput.prototype.writeTo = vi.fn());
 
-    const reporter = new SmellsAggreagtor(smellsFound, exportsOptions);
+    const reporter = new SmellsAggreagtor([], smellsFound, exportsOptions);
 
     await reporter.build();
 
     expect(write.mock.calls[0][0].totalSmells).toEqual(1);
+  });
+
+  test('compute test cases for a single file', async () => {
+    const smellsFound: SmellsList[] = buildListWithSingleSmell([createSingleSmell()]);
+    const testCases: TestCase[] = [
+      {
+        lineStart: 0,
+        lineEnd: 0,
+        startAt: 0,
+        endsAt: 0
+      }
+    ];
+    const exportsOptions: ExportOptions = { to: '.' };
+
+    const write = vi.mocked(HtmlOutput.prototype.writeTo = vi.fn());
+
+    const reporter = new SmellsAggreagtor(testCases, smellsFound, exportsOptions);
+
+    await reporter.build();
+
+    expect(write.mock.calls[0][0].totalTestCases).toEqual(1);
   });
 
   test('two test file with 5 smells each, should have average of 5 smells per test file', async () => {
@@ -127,7 +138,7 @@ describe('smells aggregator', () => {
 
     const write = vi.mocked(HtmlOutput.prototype.writeTo = vi.fn());
 
-    const reporter = new SmellsAggreagtor(smellsFound, exportsOptions);
+    const reporter = new SmellsAggreagtor([], smellsFound, exportsOptions);
 
     await reporter.build();
 
@@ -154,7 +165,7 @@ describe('smells aggregator', () => {
 
     const write = vi.mocked(HtmlOutput.prototype.writeTo = vi.fn());
 
-    const reporter = new SmellsAggreagtor(smellsFound, exportsOptions);
+    const reporter = new SmellsAggreagtor([], smellsFound, exportsOptions);
 
     await reporter.build();
 

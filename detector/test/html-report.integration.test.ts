@@ -1,10 +1,10 @@
 import { test, describe, expect, afterEach, beforeEach } from 'vitest';
 import { parse } from 'node-html-parser';
-import { AggregatedData, ExportOptions, SmellsList } from '../src/reporters/types';
+import { AggregatedData, ExportOptions } from '../src/reporters/types';
 import { rmSync } from 'fs';
 import { buildEmptyHtmlReportForTestSmells, buildHtmlReportForTestSmellsFor } from './html-report-builder';
 import { SmellsBuilder } from '../src/smells-builder';
-import { Smell, SupportedLanguages } from '../src/types';
+import { Smell, SmellsList, SupportedLanguages } from '../src/types';
 
 describe('html report', () => {
   const exportsOptions: ExportOptions = { to: '.' };
@@ -71,7 +71,7 @@ describe('html report', () => {
         },
       ];
 
-      return { data: smellsFound, totalSmells: 0, averageSmellsPerTestFile: 0 };
+      return { data: smellsFound, totalSmells: 0, averageSmellsPerTestFile: 0, totalTestCases: 0 };
     };
 
     test('renders number of test smell for a given file', async () => {

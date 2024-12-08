@@ -1,4 +1,5 @@
-import { AggregatedData, ExportOptions, SmellsList } from '../src/reporters/types';
+import { AggregatedData, ExportOptions } from '../src/reporters/types';
+import { SmellsList } from '../src/types';
 import { HtmlOutput } from '../src/reporters/Output';
 import { readFileSync } from 'fs';
 

@@ -106,8 +106,8 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      {{#each smells}}
+                    {{#each smells}}
+                      <tr>
                         <td class="p-4 border-b border-blue-gray-50">
                           <div data-testid="{{@../index}}-smell-name-{{@index}}">{{this.type}}</div>
                         </td>
@@ -117,8 +117,8 @@
                         <td class="p-4 border-b border-blue-gray-50">
                           <div data-testid="{{@../index}}-smell-start-line-{{@index}}">{{this.lineStart}}</div>
                         </td>
-                      {{/each }}
-                    </tr>
+                      </tr>
+                    {{/each }}
                   </tbody>
                 </table>
               {{/if}}

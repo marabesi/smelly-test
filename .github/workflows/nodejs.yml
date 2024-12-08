@@ -48,17 +48,20 @@ jobs:
     - name: npm test
       if: github.ref != 'refs/heads/main'
       run: |
+        npm run build
         npm run test --workspaces
 
     - name: npm coverage
       if: github.ref == 'refs/heads/main'
       #npm run coveralls --workspace=vscode
       run: |
+        npm run build
         npm run test --workspaces
 
     - name: npm package standalone extension
       if: github.ref == 'refs/heads/main'
       run: |
+        npm run build
         npm i -g vsce
         npm run generate:vsix --workspace=vscode
 

@@ -419,4 +419,85 @@ jest.mock("../");`,
       expect(result[index].diagnostic).toEqual(diagnostic);
     });
   });
+
+  test('should identify the test cases that exists in the file', () => {
+    const code = 'it("a", () => {});';
+    const smellDetector = new SmellDetector(code, TYPESCRIPT);
+    const result = smellDetector.findAll().testCases;
+
+    expect(result).toHaveLength(1);
+  });
+
+   describe.each([
+   [{
+      index: 0,
+     code: `it("a", () => {
+});`,
+     language: TYPESCRIPT,
+     testCases: [{
+       lineStart: 1,
+       lineEnd: 2,
+       startAt: 0,
+       endsAt: 2,
+     }]
+   }],
+   [{
+      index: 0,
+     code: `test("a", () => {
+});`,
+     language: TYPESCRIPT,
+     testCases: [{
+       lineStart: 1,
+       lineEnd: 2,
+       startAt: 0,
+       endsAt: 2,
+     }]
+   }],
+   [{
+      index: 1,
+     code: `test("a", () => {
+});
+test("b", () => {});`,
+     language: TYPESCRIPT,
+     testCases: [{
+       lineStart: 1,
+       lineEnd: 2,
+       startAt: 0,
+       endsAt: 2,
+     }, {
+       lineStart: 3,
+       lineEnd: 3,
+       startAt: 0,
+       endsAt: 19,
+     }]
+   }],
+   ])('testCases', ({ index, code, language, testCases }) => {
+    test(`should line start for test case at index ${index}`, () => {
+      const smellDetector = new SmellDetector(code, language);
+      const result = smellDetector.findAll().testCases;
+ 
+      expect(result[index].lineStart).toEqual(testCases[index].lineStart);
+    });
+
+    test(`should  column start for test case at index ${index}`, () => {
+      const smellDetector = new SmellDetector(code, language);
+      const result = smellDetector.findAll().testCases;
+ 
+      expect(result[index].startAt).toEqual(testCases[index].startAt);
+    });
+    
+    test(`should line end for test case at index ${index}`, () => {
+      const smellDetector = new SmellDetector(code, language);
+      const result = smellDetector.findAll().testCases;
+ 
+      expect(result[index].lineEnd).toEqual(testCases[index].lineEnd);
+    });
+
+    test(`should  column end for test case at index ${index}`, () => {
+      const smellDetector = new SmellDetector(code, language);
+      const result = smellDetector.findAll().testCases;
+ 
+      expect(result[index].endsAt).toEqual(testCases[index].endsAt);
+    });
+   });
 });

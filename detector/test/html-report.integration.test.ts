@@ -6,6 +6,49 @@ import { buildEmptyHtmlReportForTestSmells, buildHtmlReportForTestSmellsFor } fr
 import { SmellsBuilder } from '../src/smells-builder';
 import { Smell, SmellsList, SupportedLanguages } from '../src/types';
 
+const oneFileWithFourConsoleSmells = (): AggregatedData => {
+  const smell: Smell = SmellsBuilder.console(0, 1, 10, 20);
+  const smellsFound: SmellsList[] = [
+    {
+      smells: [smell, smell, smell, smell],
+      language: SupportedLanguages.javascript,
+      fileName: 'first_test.js',
+      fileContent: 'console.log("Hello world")',
+    },
+  ];
+
+  return { data: smellsFound, totalSmells: 0, averageSmellsPerTestFile: 0, totalTestCases: 0 };
+};
+
+const oneFileWithOneConsoleSmells = (): AggregatedData => {
+  const smellsFound: SmellsList[] = [
+    {
+      smells: [
+        SmellsBuilder.console(0, 1, 10, 20),
+        SmellsBuilder.forOfStatement(0, 2, 11, 22),
+      ],
+      language: SupportedLanguages.javascript,
+      fileName: 'first_test.js',
+      fileContent: 'console.log("Hello world")',
+    },
+  ];
+
+  return { data: smellsFound, totalSmells: 0, averageSmellsPerTestFile: 0, totalTestCases: 0 };
+};
+
+const emptySmellsListForSingleFile = (): AggregatedData => {
+  const smellsFound: SmellsList[] = [
+    {
+      smells: [],
+      language: SupportedLanguages.javascript,
+      fileName: 'first_test.js',
+      fileContent: 'console.log("Hello world")',
+    },
+  ];
+
+  return { data: smellsFound, totalSmells: 0, averageSmellsPerTestFile: 0, totalTestCases: 0 };
+};
+
 describe('html report', () => {
   const exportsOptions: ExportOptions = { to: '.' };
   const filePath = `${exportsOptions.to}/smelly-report.html`;
@@ -19,14 +62,6 @@ describe('html report', () => {
   });
 
   describe('when no smells are found', () => {
-
-    test('renders empty table when no tests are found', async () => {
-      const generatedHtml = await buildEmptyHtmlReportForTestSmells(exportsOptions, filePath);
-      const root = parse(generatedHtml);
-  
-      expect(root.querySelectorAll('table tbody tr').length).toEqual(0);
-    });
-  
     test('renders report title', async () => {
       const generatedHtml = await buildEmptyHtmlReportForTestSmells(exportsOptions, filePath);
       const root = parse(generatedHtml);
@@ -60,91 +95,99 @@ describe('html report', () => {
   });
 
   describe('when there are test smells', () => {
-    const oneFileWithFourConsoleSmells = (): AggregatedData => {
-      const smell: Smell = SmellsBuilder.console(0, 1, 10, 20);
-      const smellsFound: SmellsList[] = [
-        {
-          smells: [smell, smell, smell, smell],
-          language: SupportedLanguages.javascript,
-          fileName: 'first_test.js',
-          fileContent: 'console.log("Hello world")',
-        },
-      ];
-
-      return { data: smellsFound, totalSmells: 0, averageSmellsPerTestFile: 0, totalTestCases: 0 };
-    };
-
     test('renders number of test smell for a given file', async () => {
       const generatedHtml = await buildHtmlReportForTestSmellsFor(exportsOptions, filePath, oneFileWithFourConsoleSmells());
       const root = parse(generatedHtml);
 
-      expect(root.querySelector('table tbody tr')?.textContent).toContain('4');
+      expect(root.querySelector('[data-testid="file-list"] tbody tr')?.textContent).toContain('4');
     });
     
     test('renders file name', async () => {
       const generatedHtml = await buildHtmlReportForTestSmellsFor(exportsOptions, filePath, oneFileWithFourConsoleSmells());
       const root = parse(generatedHtml);
 
-      expect(root.querySelector('table tbody tr')?.textContent).toContain('first_test.js');
-    });
-
-    test('renders smell for file for one smell', async () => {
-      const oneFileWithOneConsoleSmells = (): AggregatedData => {
-        const smell: Smell = SmellsBuilder.console(0, 1, 10, 20);
-        const smellsFound: SmellsList[] = [
-          {
-            smells: [smell],
-            language: SupportedLanguages.javascript,
-            fileName: 'first_test.js',
-            fileContent: 'console.log("Hello world")',
-          },
-        ];
-
-        return { data: smellsFound, totalSmells: 0, averageSmellsPerTestFile: 0, totalTestCases: 0 };
-      };
-      const aggregatedData = oneFileWithOneConsoleSmells();
-      const generatedHtml = await buildHtmlReportForTestSmellsFor(exportsOptions, filePath, aggregatedData);
-      const root = parse(generatedHtml);
-
-      expect(root.querySelector('[data-testid="0-smell-name-0"]')?.textContent).toContain('console-statement');
-    });
-    
-    test('renders smell for file with two smells', async () => {
-      const oneFileWithOneConsoleSmells = (): AggregatedData => {
-        const smellsFound: SmellsList[] = [
-          {
-            smells: [
-              SmellsBuilder.console(0, 1, 10, 20),
-              SmellsBuilder.forOfStatement(0, 2, 11, 22),
-            ],
-            language: SupportedLanguages.javascript,
-            fileName: 'first_test.js',
-            fileContent: 'console.log("Hello world")',
-          },
-        ];
-
-        return { data: smellsFound, totalSmells: 0, averageSmellsPerTestFile: 0, totalTestCases: 0 };
-      };
-      const aggregatedData = oneFileWithOneConsoleSmells();
-      const generatedHtml = await buildHtmlReportForTestSmellsFor(exportsOptions, filePath, aggregatedData);
-      const root = parse(generatedHtml);
-
-      expect(root.querySelector('[data-testid="0-smell-name-1"]')?.textContent).toContain('for-of-statement');
-    });
-
-    test('renders test file code', async () => {
-      const aggregatedData = oneFileWithFourConsoleSmells();
-      const generatedHtml = await buildHtmlReportForTestSmellsFor(exportsOptions, filePath, aggregatedData);
-      const root = parse(generatedHtml);
-
-      expect(root.querySelector('[data-testid="0-code"]')?.textContent).toContain('console.log("Hello world")');
+      expect(root.querySelector('[data-testid="file-list"] tbody tr')?.textContent).toContain('first_test.js');
     });
 
     test('renders language', async () => {
       const generatedHtml = await buildHtmlReportForTestSmellsFor(exportsOptions, filePath, oneFileWithFourConsoleSmells());
       const root = parse(generatedHtml);
 
-      expect(root.querySelector('table tbody tr')?.textContent).toContain('javascript');
+      expect(root.querySelector('[data-testid="file-list"] tbody tr')?.textContent).toContain('javascript');
+    });
+
+    describe('smells table with smells', () => {
+      test('renders info about no smells', async () => {
+        const generatedHtml = await buildHtmlReportForTestSmellsFor(exportsOptions, filePath, emptySmellsListForSingleFile());
+        const root = parse(generatedHtml);
+
+        expect(root.querySelectorAll('[data-testid="smells-table-type"]')).toHaveLength(0);
+      });
+    });
+
+    describe('smells table with smells', () => {
+      test('renders smells type', async () => {
+        const generatedHtml = await buildHtmlReportForTestSmellsFor(exportsOptions, filePath, oneFileWithFourConsoleSmells());
+        const root = parse(generatedHtml);
+
+        expect(root.querySelector('[data-testid="smells-table-type"]')?.textContent).toContain('Smell type');
+      });
+
+      test('renders smells description', async () => {
+        const generatedHtml = await buildHtmlReportForTestSmellsFor(exportsOptions, filePath, oneFileWithFourConsoleSmells());
+        const root = parse(generatedHtml);
+
+        expect(root.querySelector('[data-testid="smells-table-description"]')?.textContent).toContain('Smell description');
+      });
+
+      test('renders smells start line', async () => {
+        const generatedHtml = await buildHtmlReportForTestSmellsFor(exportsOptions, filePath, oneFileWithFourConsoleSmells());
+        const root = parse(generatedHtml);
+
+        expect(root.querySelector('[data-testid="smells-table-start-line"]')?.textContent).toContain('Smell line');
+      });
+
+      describe('smells detail', () => {
+        test('renders smell for file for one smell', async () => {
+          const aggregatedData = oneFileWithOneConsoleSmells();
+          const generatedHtml = await buildHtmlReportForTestSmellsFor(exportsOptions, filePath, aggregatedData);
+          const root = parse(generatedHtml);
+
+          expect(root.querySelector('[data-testid="0-smell-name-0"]')?.textContent).toContain('console-statement');
+        });
+
+        test('renders smell description', async () => {
+          const aggregatedData = oneFileWithOneConsoleSmells();
+          const generatedHtml = await buildHtmlReportForTestSmellsFor(exportsOptions, filePath, aggregatedData);
+          const root = parse(generatedHtml);
+
+          expect(root.querySelector('[data-testid="0-smell-description-0"]')?.textContent).toContain('Smelly: Avoid poluting the test output. It is known as the loudmouth');
+        });
+
+        test('renders smell start line', async () => {
+          const aggregatedData = oneFileWithOneConsoleSmells();
+          const generatedHtml = await buildHtmlReportForTestSmellsFor(exportsOptions, filePath, aggregatedData);
+          const root = parse(generatedHtml);
+
+          expect(root.querySelector('[data-testid="0-smell-start-line-0"]')?.textContent).toContain('0');
+        });
+
+        test('renders smell for file with two smells', async () => {
+          const aggregatedData = oneFileWithOneConsoleSmells();
+          const generatedHtml = await buildHtmlReportForTestSmellsFor(exportsOptions, filePath, aggregatedData);
+          const root = parse(generatedHtml);
+
+          expect(root.querySelector('[data-testid="0-smell-name-1"]')?.textContent).toContain('for-of-statement');
+        });
+
+        test('renders test file code', async () => {
+          const aggregatedData = oneFileWithFourConsoleSmells();
+          const generatedHtml = await buildHtmlReportForTestSmellsFor(exportsOptions, filePath, aggregatedData);
+          const root = parse(generatedHtml);
+
+          expect(root.querySelector('[data-testid="0-code"]')?.textContent).toContain('console.log("Hello world")');
+        });
+      });
     });
   });
 });

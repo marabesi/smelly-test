@@ -65,7 +65,7 @@
       </div>
     </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-      <table data-testid="file-list" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <table data-testid="file-list" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 table-auto min-w-max">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" class="px-6 py-3">
@@ -97,7 +97,7 @@
           <tr class="hidden" id="details-{{@index}}">
             <td colspan="3" class="p-0" data-testid="{{@index}}-code">
               {{#if smells.length}}
-                <table class="w-full text-left table-auto min-w-max">
+                <table class="w-full text-left table-auto">
                   <thead>
                     <tr>
                       <th data-testid="smells-table-type" class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">Smell type</th>

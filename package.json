@@ -18,6 +18,7 @@
   "scripts": {
     "build": "npm exec --workspaces -- npm run compile",
     "test": "npm exec --workspaces -- npm run test",
+    "lint": "npm exec --workspaces -- npm run lint",
     "clean:node_modules": "npm exec --workspaces -- rimraf node_modules/",
     "clean": "npm run clean:node_modules && npm exec --workspaces -- npm run clean"
   },

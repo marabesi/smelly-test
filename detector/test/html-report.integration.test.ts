@@ -116,6 +116,22 @@ describe('html report', () => {
       expect(root.querySelector('[data-testid="file-list"] tbody tr')?.textContent).toContain('javascript');
     });
 
+    test('renders yellow line when smells exists', async () => {
+      const generatedHtml = await buildHtmlReportForTestSmellsFor(exportsOptions, filePath, oneFileWithOneConsoleSmells());
+      const root = parse(generatedHtml);
+
+      expect(root.querySelector('[data-testid="file-list"] tbody tr')?.classList.value).toContain('odd:bg-yellow-400');
+      expect(root.querySelector('[data-testid="file-list"] tbody tr')?.classList.value).toContain('even:bg-yellow-400');
+    });
+
+    test('should not render yellow for file without smells', async () => {
+      const generatedHtml = await buildHtmlReportForTestSmellsFor(exportsOptions, filePath, emptySmellsListForSingleFile());
+      const root = parse(generatedHtml);
+
+      expect(root.querySelector('[data-testid="file-list"] tbody tr')?.classList.value).not.toContain('odd:bg-yellow-400');
+      expect(root.querySelector('[data-testid="file-list"] tbody tr')?.classList.value).not.toContain('even:bg-yellow-400');
+    });
+
     describe('smells table with smells', () => {
       test('renders info about no smells', async () => {
         const generatedHtml = await buildHtmlReportForTestSmellsFor(exportsOptions, filePath, emptySmellsListForSingleFile());

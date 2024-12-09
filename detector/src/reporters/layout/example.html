@@ -83,7 +83,13 @@
           {{#each data}}
           <tr
             onclick="toggleDetails({{@index}})"
-            class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 cursor-pointer">
+
+            {{#if smells.length}}
+              class="odd:bg-white odd:bg-yellow-400 even:bg-yellow-400 border-b even:dark:bg-yellow-800 odd:dark:bg-yellow-800 cursor-pointer"
+            {{else}}
+              class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 cursor-pointer"
+            {{/if}}
+          >
             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
               {{this.fileName}}
             </th>

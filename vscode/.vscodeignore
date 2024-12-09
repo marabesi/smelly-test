@@ -29,3 +29,4 @@ coverage
 ../.DS_Store
 ../smelly-report.html
 ../run-report.sh
+../CONTRIBUTING.md

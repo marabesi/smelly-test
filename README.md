@@ -48,6 +48,8 @@ a curated list here goes:
 ## Related research
 
 - [Evaluating Large Language Models in Detecting Test Smells](https://www.researchgate.net/publication/385118360_Evaluating_Large_Language_Models_in_Detecting_Test_Smells)
+- [What we know about smells in software test code](What we know about smells in software test code)
+- [Smells in software test code: A survey of knowledge in industry and academia](https://pureadmin.qub.ac.uk/ws/portalfiles/portal/178889150/MLR_Smells_in_test_code_Dec_9.pdf)
 - [TERTS: Um tutor de ensino para refatoraç̃ao de test smells](https://www.researchgate.net/profile/Ivan-Machado-2/publication/382613188_TERTS_Um_tutor_de_ensino_para_refatoracao_de_test_smells/links/66e4044bb1606e24c2267715/TERTS-Um-tutor-de-ensino-para-refatoracao-de-test-smells.pdf)
 
 ## Want to keep up to date with the latest research?

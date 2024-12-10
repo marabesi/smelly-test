@@ -7,9 +7,8 @@ import { statSync } from 'fs';
 
 const args = process.argv;
 const fileName = args[2];
-const language = args[3] as SupportedLanguages || SupportedLanguages.javascript;
-const report = args[4];
-const reportOutput = args[5];
+const report = args[3];
+const reportOutput = args[4];
 
 if (!fileName) {
   console.error('[SMELLY] please provide a test file or a regex to search for test files');
@@ -41,7 +40,7 @@ async function execute() {
 
       for (const file of pathWithAllFilesFound) {
         const fileContent = await fs.readFile(file, { encoding: 'utf8' });
-        const smellDetector = new SmellDetector(file, fileContent, language);
+        const smellDetector = new SmellDetector(file, fileContent);
         const smells = smellDetector.findAll();
         aggregator.push(smells.smellsList);
         testCases.push(...smells.testCases);
@@ -58,7 +57,7 @@ async function execute() {
     const output: any[] = [];
     for (const file of pathWithAllFilesFound) {
       const fileContents = await fs.readFile(file, { encoding: 'utf8' });
-      const smellDetector = new SmellDetector(file, fileContents, language);
+      const smellDetector = new SmellDetector(file, fileContents);
       const result = smellDetector.findAll().smellsList.smells;
 
       if (result.length) {

@@ -1,6 +1,4 @@
-import { parseScript } from 'esprima';
 import * as ts from 'typescript';
-import { JavascriptSmells } from './languages/JavascriptSmells';
 import { TypescriptSmells } from './languages/TypescriptSmells';
 import { SmellDetectorRunnerResult, SupportedLanguages, TestCase } from './types';
 
@@ -8,24 +6,10 @@ export class SmellDetector {
 
   constructor(
     private readonly fileName: string,
-    private readonly code: string,
-    private readonly language: string
+    private readonly code: string
   ) { }
 
   findAll(): SmellDetectorRunnerResult {
-    if (this.language === SupportedLanguages.javascript) {
-      const ast = parseScript(this.code, { loc: true });
-
-      const finder = new JavascriptSmells(ast);
-      const smellsList = {
-        fileName: this.fileName,
-        fileContent: this.code,
-        smells: finder.searchSmells(),
-        language: this.language
-      };
-      return { smellsList, testCases: [] };
-    }
-
     // wondering why createSource? https://stackoverflow.com/a/60462133/2258921
     const ast = ts.createSourceFile('temp.ts', this.code, ts.ScriptTarget.ES2020, true);
 
@@ -36,6 +20,8 @@ export class SmellDetector {
       endsAt: endsAt,
     }));
 
+    const language = this.isJavascriptFile() ? SupportedLanguages.javascript : SupportedLanguages.typescript;
+
     const foundItEachCalls = this.findItEachCalls(ast);
     testCases.push(...foundItEachCalls);
     testCases.push(...this.findItSkipCalls(ast));
@@ -43,9 +29,13 @@ export class SmellDetector {
     const smellsList = {
       fileName: this.fileName,
       fileContent: this.code,
-      smells: new TypescriptSmells(ast).searchSmells(), language: SupportedLanguages.typescript
+      smells: new TypescriptSmells(ast).searchSmells(), language 
     };
     return { smellsList, testCases };
+  }
+
+  private isJavascriptFile() {
+    return this.fileName.endsWith('.js') || this.fileName.endsWith('.jsx');
   }
 
   private findItCalls(sourceFile: ts.SourceFile): { lineStart: number, startAt: number, lineEnd: number, endsAt: number }[] {

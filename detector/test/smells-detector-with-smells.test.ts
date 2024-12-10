@@ -1,11 +1,11 @@
 import { describe, expect, test } from 'vitest';
-import { CONSOLE, FOR, FOR_IN, FOR_OF, IF_STATEMENT, JAVASCRIPT, MOCKERY, smellDetectorInstance, TIMEOUT, totalTestCaseDetectorInstance, TYPESCRIPT } from './smells-detector-builder';
+import { CONSOLE, FOR, FOR_IN, FOR_OF, IF_STATEMENT, MOCKERY, smellDetectorInstance, TIMEOUT, totalTestCaseDetectorInstance, JAVASCRIPT_FILE, TYPESCRIPT_FILE } from './smells-detector-builder';
 
 describe('Smelly Test Smell Detection Suite', () => {
   describe.each([[{
     code: `const a = 1;
 if (a === 1) {}`,
-    language: JAVASCRIPT,
+    fileName: JAVASCRIPT_FILE,
     index: 0,
     type: IF_STATEMENT,
     lineStart: 2,
@@ -22,7 +22,7 @@ if (a === 1) {}`,
 for (const i of lists) {
 
 }`,
-    language: JAVASCRIPT,
+    fileName: JAVASCRIPT_FILE,
     type: FOR_OF,
     index: 0,
     lineStart: 3,
@@ -39,7 +39,7 @@ for (const i of lists) {
 for (const i in lists) {
 
 }`,
-    language: JAVASCRIPT,
+    fileName: JAVASCRIPT_FILE,
     type: FOR_IN,
     index: 0,
     lineStart: 3,
@@ -56,7 +56,7 @@ for (const i in lists) {
 for (let i = 0; i < 1; i++) {
 
 }`,
-    language: JAVASCRIPT,
+    fileName: JAVASCRIPT_FILE,
     type: FOR,
     index: 0,
     lineStart: 3,
@@ -71,7 +71,7 @@ for (let i = 0; i < 1; i++) {
     code: `setTimeout(() => {
   done();
 });`,
-    language: JAVASCRIPT,
+    fileName: JAVASCRIPT_FILE,
     index: 0,
     type: TIMEOUT,
     lineStart: 1,
@@ -87,7 +87,7 @@ for (let i = 0; i < 1; i++) {
 setTimeout(() => {
   done();
 });`,
-    language: JAVASCRIPT,
+    fileName: JAVASCRIPT_FILE,
     index: 0,
     type: TIMEOUT,
     lineStart: 2,
@@ -101,7 +101,7 @@ setTimeout(() => {
   [{
     code: `const a: number = 1;
 if (a === 1) { }`,
-    language: TYPESCRIPT,
+    fileName: TYPESCRIPT_FILE,
     index: 0,
     type: IF_STATEMENT,
     lineStart: 2,
@@ -119,7 +119,7 @@ if (a === 1) { }
 if (a === 2) {
   console.log('this is a test');
 }`,
-    language: TYPESCRIPT,
+    fileName: TYPESCRIPT_FILE,
     index: 1,
     type: IF_STATEMENT,
     lineStart: 3,
@@ -136,7 +136,7 @@ if (a === 2) {
 for (const i of lists) {
 
 }`,
-    language: TYPESCRIPT,
+    fileName: TYPESCRIPT_FILE,
     index: 0,
     type: FOR_OF,
     lineStart: 3,
@@ -153,7 +153,7 @@ for (const i of lists) {
 for (const i in lists) {
 
 }`,
-    language: TYPESCRIPT,
+    fileName: TYPESCRIPT_FILE,
     index: 0,
     type: FOR_IN,
     lineStart: 3,
@@ -170,7 +170,7 @@ for (const i in lists) {
 for (let i =0; i < 2; i++) {
 
 }`,
-    language: TYPESCRIPT,
+    fileName: TYPESCRIPT_FILE,
     index: 0,
     type: FOR,
     lineStart: 3,
@@ -185,7 +185,7 @@ for (let i =0; i < 2; i++) {
     code: `setTimeout(() => {
   done();
 });`,
-    language: TYPESCRIPT,
+    fileName: TYPESCRIPT_FILE,
     index: 0,
     type: TIMEOUT,
     lineStart: 1,
@@ -201,7 +201,7 @@ for (let i =0; i < 2; i++) {
 setTimeout(() => {
   done();
 });`,
-    language: TYPESCRIPT,
+    fileName: TYPESCRIPT_FILE,
     index: 0,
     type: TIMEOUT,
     lineStart: 2,
@@ -218,7 +218,7 @@ setTimeout(() => {
 console.log(1);
   });
 })`,
-    language: JAVASCRIPT,
+    fileName: JAVASCRIPT_FILE,
     index: 0,
     type: CONSOLE,
     lineStart: 3,
@@ -235,7 +235,7 @@ console.log(1);
 console.log(1);
   });
 })`,
-    language: TYPESCRIPT,
+    fileName: TYPESCRIPT_FILE,
     index: 0,
     type: CONSOLE,
     lineStart: 3,
@@ -252,7 +252,7 @@ console.log(1);
 console.error(1);
   });
 })`,
-    language: JAVASCRIPT,
+    fileName: JAVASCRIPT_FILE,
     index: 0,
     type: CONSOLE,
     lineStart: 3,
@@ -269,7 +269,7 @@ console.error(1);
 console.info(1);
   });
 })`,
-    language: JAVASCRIPT,
+    fileName: JAVASCRIPT_FILE,
     index: 0,
     type: CONSOLE,
     lineStart: 3,
@@ -286,7 +286,7 @@ console.info(1);
 console.info(1);
   });
 })`,
-    language: TYPESCRIPT,
+    fileName: TYPESCRIPT_FILE,
     index: 0,
     type: CONSOLE,
     lineStart: 3,
@@ -303,7 +303,7 @@ console.info(1);
 console.error(1);
   });
 })`,
-    language: TYPESCRIPT,
+    fileName: TYPESCRIPT_FILE,
     index: 0,
     type: CONSOLE,
     lineStart: 3,
@@ -325,7 +325,7 @@ jest.mock("../");
 jest.mock("../");
 jest.mock("../");
 jest.mock("../");`,
-    language: TYPESCRIPT,
+    fileName: TYPESCRIPT_FILE,
     index: 0,
     type: MOCKERY,
     lineStart: 1,
@@ -348,7 +348,7 @@ jest.mock("../");
 jest.mock("../");
 jest.mock("../");
 jest.mock("../");`,
-    language: TYPESCRIPT,
+    fileName: TYPESCRIPT_FILE,
     index: 0,
     type: MOCKERY,
     lineStart: 1,
@@ -359,52 +359,52 @@ jest.mock("../");`,
     description: `Smelly: Avoid mocking too many dependencies in the test file. Split the test cases to distribute the mocking load.`,
     diagnostic: `Smelly: Avoid mocking too many dependencies in the test file. Split the test cases to distribute the mocking load.`,
   }]
-  ])(`detect test smell for %s %s: type %s %s at index %s`, ({ code, language, index, type, lineStart, lineEnd, startAt, endsAt, total, description, diagnostic }) => {
+  ])(`detect test smell for %s %s: type %s %s at index %s`, ({ code, fileName, index, type, lineStart, lineEnd, startAt, endsAt, total, description, diagnostic }) => {
     
     test(`should find ${total} test smells`, () => {
-      const result = smellDetectorInstance(code, language);
+      const result = smellDetectorInstance(code, fileName);
   
       expect(result.length).toEqual(total);
     });
 
     test(`at ${index} should match ${type}`, () => {
-      const result = smellDetectorInstance(code, language);
+      const result = smellDetectorInstance(code, fileName);
   
       expect(result[index].type).toEqual(type);
     });
 
     test(`at ${index} should find line start`, () => {
-      const result = smellDetectorInstance(code, language);
+      const result = smellDetectorInstance(code, fileName);
   
       expect(result[index].lineStart).toEqual(lineStart);
     });
 
     test(`at ${index} should find line end`, () => {
-      const result = smellDetectorInstance(code, language);
+      const result = smellDetectorInstance(code, fileName);
   
       expect(result[index].lineEnd).toEqual(lineEnd);
     });
     
     test(`at ${index} should find column start at`, () => {
-      const result = smellDetectorInstance(code, language);
+      const result = smellDetectorInstance(code, fileName);
   
       expect(result[index].startAt).toEqual(startAt);
     });
 
     test(`at ${index} should find column ends at`, () => {
-      const result = smellDetectorInstance(code, language);
+      const result = smellDetectorInstance(code, fileName);
   
       expect(result[index].endsAt).toEqual(endsAt);
     });
 
     test(`at ${index} should find description`, () => {
-      const result = smellDetectorInstance(code, language);
+      const result = smellDetectorInstance(code, fileName);
       
       expect(result[index].description).toEqual(description);
     });
  
     test(`at ${index} should find diagnostic`, () => {
-      const result = smellDetectorInstance(code, language);
+      const result = smellDetectorInstance(code, fileName);
       
       expect(result[index].diagnostic).toEqual(diagnostic);
     });
@@ -432,7 +432,7 @@ jest.mock("../");`,
     test.skip("b", () => {});
   });`, expected: 2 }],
   ])('should identify the test cases that exists in the file with .each and with .skip', ({ code, expected }) => {
-    const result = totalTestCaseDetectorInstance(code, TYPESCRIPT);
+    const result = totalTestCaseDetectorInstance(code, TYPESCRIPT_FILE);
 
     expect(result).toHaveLength(expected);
   });
@@ -442,7 +442,7 @@ jest.mock("../");`,
       index: 0,
      code: `it("a", () => {
 });`,
-     language: TYPESCRIPT,
+     fileName: TYPESCRIPT_FILE,
      testCases: [{
        lineStart: 1,
        lineEnd: 2,
@@ -454,7 +454,7 @@ jest.mock("../");`,
       index: 0,
      code: `test("a", () => {
 });`,
-     language: TYPESCRIPT,
+     fileName: TYPESCRIPT_FILE,
      testCases: [{
        lineStart: 1,
        lineEnd: 2,
@@ -467,7 +467,7 @@ jest.mock("../");`,
      code: `test("a", () => {
 });
 test("b", () => {});`,
-     language: TYPESCRIPT,
+     fileName: TYPESCRIPT_FILE,
      testCases: [{
        lineStart: 1,
        lineEnd: 2,
@@ -480,27 +480,27 @@ test("b", () => {});`,
        endsAt: 19,
      }]
    }],
-   ])('testCases', ({ index, code, language, testCases }) => {
+   ])('testCases', ({ index, code, fileName, testCases }) => {
     test(`should line start for test case at index ${index}`, () => {
-      const result = totalTestCaseDetectorInstance(code, language);
+      const result = totalTestCaseDetectorInstance(code, fileName);
  
       expect(result[index].lineStart).toEqual(testCases[index].lineStart);
     });
 
     test(`should  column start for test case at index ${index}`, () => {
-      const result = totalTestCaseDetectorInstance(code, language);
+      const result = totalTestCaseDetectorInstance(code, fileName);
  
       expect(result[index].startAt).toEqual(testCases[index].startAt);
     });
     
     test(`should line end for test case at index ${index}`, () => {
-      const result = totalTestCaseDetectorInstance(code, language);
+      const result = totalTestCaseDetectorInstance(code, fileName);
  
       expect(result[index].lineEnd).toEqual(testCases[index].lineEnd);
     });
 
     test(`should  column end for test case at index ${index}`, () => {
-      const result = totalTestCaseDetectorInstance(code, language);
+      const result = totalTestCaseDetectorInstance(code, fileName);
  
       expect(result[index].endsAt).toEqual(testCases[index].endsAt);
     });

@@ -1,14 +1,14 @@
 import { describe, expect, test } from 'vitest';
-import { smellDetectorInstance, TYPESCRIPT } from './smells-detector-builder';
+import { smellDetectorInstance, TYPESCRIPT_FILE } from './smells-detector-builder';
 
 describe('Smelly Test Smell Detection Suite', () => {
   test.each([{
     code: `
 jest.mock("../");`,
-    language: TYPESCRIPT,
+    fileName: TYPESCRIPT_FILE,
   }
-  ])(`detect code without smells`, ({ code, language }) => {
-    const result = smellDetectorInstance(code, language);
+  ])(`detect code without smells`, ({ code, fileName }) => {
+    const result = smellDetectorInstance(code, fileName);
     expect(result.length).toEqual(0);
   });
 });

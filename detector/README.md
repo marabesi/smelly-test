@@ -20,7 +20,7 @@ The detector package can be used as a standalone package.
 ```typescript
 import { SmellDetector } from 'smelly-detector';
 
-const detector = new SmellDetector("my source code", "javascript");
+const detector = new SmellDetector("my-file.js", "my source code");
 
 console.log(detector.findAll());
 ```

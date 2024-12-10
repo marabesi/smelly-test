@@ -28,13 +28,13 @@ docker run --rm smelly-cli
 Single file
 
 ```sh
-npx smelly-cli /smells/my-test.ts typescript 
+npx smelly-cli /smells/my-test.ts
 ```
 
 Report (must be a path with tests in it)
 
 ```sh
-npx smelly-cli /smells/ javascript --report=html $(pwd)
+npx smelly-cli /smells/ --report=html $(pwd)
 ```
 
 ## Resources

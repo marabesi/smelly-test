@@ -20,20 +20,20 @@ describe('cli', () => {
     });
 
     test('find no smells for a single file', async () => {
-      const { stdout } = await execPromise(`npm run cli -- fake-data/no-smells/no-smells.test.js javascript --report=html --report-output=.`);
+      const { stdout } = await execPromise(`npm run cli -- fake-data/no-smells/no-smells.test.js --report=html --report-output=.`);
 
       expect(stdout).toContain("Report HTML generated");
       expect(stdout).not.toContain("Error:");
     });
 
     test('find no smells for a given path', async () => {
-      const { stdout } = await execPromise(`npm run cli -- fake-data/no-smells/ javascript --report=html --report-output=$(pwd)`);
+      const { stdout } = await execPromise(`npm run cli -- fake-data/no-smells/ --report=html --report-output=$(pwd)`);
 
       expect(stdout).toContain("[SMELLY] please use a regex or a file");
     });
     
     test('find no smells for a path with regex', async () => {
-      const { stdout } = await execPromise(`npm run cli -- fake-data/no-smells/**/*test.js javascript --report=html --report-output=$(pwd)`);
+      const { stdout } = await execPromise(`npm run cli -- fake-data/no-smells/**/*test.js --report=html --report-output=$(pwd)`);
 
       expect(stdout).toContain("Report HTML generated");
       expect(stdout).not.toContain("Error:");
@@ -41,7 +41,7 @@ describe('cli', () => {
 
     describe('validations', () => {
       test('generate empty report if path does not exists', async () => {
-        const { stdout } = await execPromise(`npm run cli -- /bla/foo/whatever/ javascript --report=html --report-output=$(pwd)`);
+        const { stdout } = await execPromise(`npm run cli -- /bla/foo/whatever/ --report=html --report-output=$(pwd)`);
   
         expect(stdout).toContain("Report HTML generated");
       });

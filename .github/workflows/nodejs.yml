@@ -104,5 +104,6 @@ jobs:
       if: github.ref == 'refs/heads/main'
       #npm run coveralls --workspace=vscode
       run: |
+        npm run build
         npm run test
 

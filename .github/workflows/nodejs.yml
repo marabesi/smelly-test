@@ -83,7 +83,7 @@ jobs:
         docker login -u $username -p $password 
     - name: Build Docker Image
       run: |
-        cd cli && docker build -t smelly-test .
+        cd cli && docker build -t docker.io/library/${{secrets.DOCKERHUB_USERNAME}}/smelly-test .
     - name: Push Docker Image
       run: |
-        docker push ${{secrets.DOCKERHUB_USERNAME}}/smelly-test:latest
+        docker push docker.io/library/${{secrets.DOCKERHUB_USERNAME}}/smelly-test:latest

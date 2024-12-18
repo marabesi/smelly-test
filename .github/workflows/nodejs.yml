@@ -13,6 +13,26 @@ env:
   COVERALLS_GIT_BRANCH: master
 
 jobs:
+  send_docker_image_to_hub:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - uses: actions/checkout@v4
+    - name: login to docker hub
+      id: docker-hub
+      env:
+        username: ${{secrets.DOCKERHUB_USERNAME}}
+        password: ${{secrets.DOCKERHUB_TOKEN}}
+      run: |
+        docker logout
+        docker login -u $username -p $password docker.io
+    - name: Build Docker Image
+      run: |
+        cd cli && docker build -t docker.io/library/${{secrets.DOCKERHUB_USERNAME}}/smelly-test .
+    - name: Push Docker Image
+      run: |
+        docker push docker.io/library/${{secrets.DOCKERHUB_USERNAME}}/smelly-test:latest
+
   build:
 
     runs-on: ubuntu-latest
@@ -69,21 +89,3 @@ jobs:
         name: smelly-test-vscode-extension
         path: ./vscode/*.vsix
 
-  send_docker_image_to_hub:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-    - uses: actions/checkout@v4
-    - name: login to docker hub
-      id: docker-hub
-      env:
-        username: ${{secrets.DOCKERHUB_USERNAME}}
-        password: ${{secrets.DOCKERHUB_TOKEN}}
-      run: |
-        docker login -u $username -p $password docker.io
-    - name: Build Docker Image
-      run: |
-        cd cli && docker build -t docker.io/library/${{secrets.DOCKERHUB_USERNAME}}/smelly-test .
-    - name: Push Docker Image
-      run: |
-        docker push docker.io/library/${{secrets.DOCKERHUB_USERNAME}}/smelly-test:latest

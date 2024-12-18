@@ -15,7 +15,6 @@ env:
 jobs:
   send_docker_image_to_hub:
     runs-on: ubuntu-latest
-    needs: build
     steps:
     - uses: actions/checkout@v4
     - name: login to docker hub
@@ -28,15 +27,13 @@ jobs:
         docker login -u $username -p $password docker.io
     - name: Build Docker Image
       run: |
-        cd cli && docker build -t docker.io/library/${{secrets.DOCKERHUB_USERNAME}}/smelly-test .
+        cd cli && docker build -t ${{secrets.DOCKERHUB_USERNAME}}/smelly-test .
     - name: Push Docker Image
       run: |
-        docker push docker.io/library/${{secrets.DOCKERHUB_USERNAME}}/smelly-test:latest
+        docker push ${{secrets.DOCKERHUB_USERNAME}}/smelly-test:latest
 
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: Set Environment Variables

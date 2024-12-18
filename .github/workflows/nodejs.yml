@@ -57,6 +57,10 @@ jobs:
 
     - name: npm build
       run: |
+        npm run build
+
+    - name: npm build vscode
+      run: |
         npm run vscode:prepublish --workspace=vscode
 
     - name: npm test

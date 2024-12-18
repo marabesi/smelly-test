@@ -97,6 +97,7 @@ jobs:
     - name: npm test
       if: github.ref != 'refs/heads/main'
       run: |
+        npm run build
         npm run test
 
     - name: npm coverage

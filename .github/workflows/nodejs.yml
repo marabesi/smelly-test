@@ -80,7 +80,7 @@ jobs:
         username: ${{secrets.DOCKERHUB_USERNAME}}
         password: ${{secrets.DOCKERHUB_TOKEN}}
       run: |
-        docker login -u $username -p $password 
+        docker login -u $username -p $password docker.io
     - name: Build Docker Image
       run: |
         cd cli && docker build -t docker.io/library/${{secrets.DOCKERHUB_USERNAME}}/smelly-test .

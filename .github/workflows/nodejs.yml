@@ -15,7 +15,7 @@ env:
 jobs:
   send_docker_image_to_hub:
     needs: [build, test]
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v4
     - name: login to docker hub
@@ -34,7 +34,7 @@ jobs:
         docker push ${{secrets.DOCKERHUB_USERNAME}}/smelly-test:latest
 
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v4
     - name: Set Environment Variables
@@ -72,7 +72,7 @@ jobs:
         path: ./vscode/*.vsix
 
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: [build]
     steps:
     - uses: actions/checkout@v4

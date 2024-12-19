@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'node:fs/promises';
 import { glob } from 'glob';
-import { Smell, SmellDetector, SupportedLanguages, TestCase } from 'smelly-detector';
+import { Smell, SmellDetector, TestCase } from 'smelly-detector';
 import { SmellsAggreagtor, SmellsList } from 'smelly-detector/reports';
 import { statSync } from 'fs';
 

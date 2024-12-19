@@ -1,6 +1,6 @@
 import * as path from 'path';
 import Mocha from 'mocha';
-import glob from 'glob';
+import { glob } from 'glob';
 import * as vscode from 'vscode';
 import { EXTENSION_IDENTIFIER } from '../../extension.types';
 
@@ -15,11 +15,8 @@ export function run(): Promise<void> {
 	const testsRoot = path.resolve(__dirname, '..');
 
 	return new Promise((c, e) => {
-		glob('**/**.test.js', { cwd: testsRoot }, (err: null | Error, files: any[]) => {
-			if (err) {
-				return e(err);
-			}
-
+		glob('**/**.test.js', { cwd: testsRoot })
+			.then((files: any[]) => {
 			// Add files to the test suite
 			files.forEach(f => mocha.addFile(path.resolve(testsRoot, f)));
 
@@ -36,6 +33,9 @@ export function run(): Promise<void> {
 				console.error(err);
 				e(err);
 			}
+		}).catch((err: Error) => {
+				console.error(err);
+			return e(err);
 		});
 	});
 }

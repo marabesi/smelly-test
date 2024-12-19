@@ -13,7 +13,8 @@
     "typescript": "^5.2.0",
     "vitest": "^2.1.6",
     "webpack": "^5.93.0",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "glob": "^11.0.0"
   },
   "scripts": {
     "build": "npm exec --workspaces -- npm run compile",

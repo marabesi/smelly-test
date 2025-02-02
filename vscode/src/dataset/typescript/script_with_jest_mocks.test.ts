@@ -13,4 +13,8 @@ jest.mock('../src/middleware/nuxt');
 jest.mock('../src/middleware/error');
 jest.mock('../src/middleware/timing');
 
-describe('server: server', () => {});
+describe('server: server', () => {
+  it('fake test', () => {
+    expect(true).toBe(true);
+  });
+});

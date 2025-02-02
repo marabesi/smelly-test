@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { CONSOLE, FOR, FOR_IN, FOR_OF, IF_STATEMENT, MOCKERY, smellDetectorInstance, TIMEOUT, totalTestCaseDetectorInstance, JAVASCRIPT_FILE, TYPESCRIPT_FILE } from './smells-detector-builder';
+import { CONSOLE, FOR, FOR_IN, FOR_OF, IF_STATEMENT, MOCKERY, smellDetectorInstance, TIMEOUT, totalTestCaseDetectorInstance, JAVASCRIPT_FILE, TYPESCRIPT_FILE, EMPTY_DESCRIBE } from './smells-detector-builder';
 
 describe('Smelly Test Smell Detection Suite', () => {
   describe.each([[{
@@ -358,9 +358,21 @@ jest.mock("../");`,
     total: 1,
     description: `Smelly: Avoid mocking too many dependencies in the test file. Split the test cases to distribute the mocking load.`,
     diagnostic: `Smelly: Avoid mocking too many dependencies in the test file. Split the test cases to distribute the mocking load.`,
+  }],
+  [{
+    code: `describe('test', () => {})`,
+    fileName: JAVASCRIPT_FILE,
+    index: 0,
+    type: EMPTY_DESCRIBE,
+    lineStart: 1,
+    lineEnd: 1,
+    startAt: 0,
+    endsAt: 26,
+    total: 1,
+    description: `Smelly: avoid empty test cases.`,
+    diagnostic: `Smelly: avoid empty test cases.`,
   }]
   ])(`detect test smell for %s %s: type %s %s at index %s`, ({ code, fileName, index, type, lineStart, lineEnd, startAt, endsAt, total, description, diagnostic }) => {
-    
     test(`should find ${total} test smells`, () => {
       const result = smellDetectorInstance(code, fileName);
   

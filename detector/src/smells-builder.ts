@@ -118,6 +118,23 @@ export class SmellsBuilder {
       description: `Smelly: Avoid mocking too many dependencies in the test file. Split the test cases to distribute the mocking load.`,
       diagnostic: `Smelly: Avoid mocking too many dependencies in the test file. Split the test cases to distribute the mocking load.`,
     };
+  }
+
+  public static emptyDescribe(
+    lineStart: number,
+    lineEnd: number,
+    startAt: number,
+    endsAt: number
+  ): Smell {
+    return {
+      type: SmellType.emptyDescribe,
+      lineStart,
+      lineEnd,
+      startAt,
+      endsAt,
+      description: 'Smelly: avoid empty test cases.',
+      diagnostic: 'Smelly: avoid empty test cases.',
+    };
 
   }
 }

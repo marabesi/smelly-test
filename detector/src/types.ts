@@ -48,4 +48,5 @@ export enum SmellType {
   timeOut = 'timeout',
   consoleStatement = "console-statement",
   jestMock = "excessive-jest-mock",
+  emptyDescribe = "empty-describe",
 }

@@ -13,7 +13,7 @@ let currentDecoration: vscode.TextEditorDecorationType = warningDecorationType;
 let ranges: ComposedSmell[] = [];
 let hovers: vscode.Disposable[] = [];
 let collection: vscode.DiagnosticCollection;
-let smellyStatusBar: vscode.StatusBarItem;
+export let smellyStatusBar: vscode.StatusBarItem;
 
 function fetchConfiguration(): SmellyConfiguration {
   return vscode.workspace.getConfiguration().get<SmellyConfiguration>(EXTENSION_IDENTIFIER) || {};

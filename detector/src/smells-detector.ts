@@ -26,11 +26,15 @@ export class SmellDetector {
     testCases.push(...foundItEachCalls);
     testCases.push(...this.findItSkipCalls(ast));
 
+    const smells = new TypescriptSmells(ast).searchSmells();
+
     const smellsList = {
       fileName: this.fileName,
       fileContent: this.code,
-      smells: new TypescriptSmells(ast).searchSmells(), language 
+      smells,
+      language 
     };
+
     return { smellsList, testCases };
   }
 

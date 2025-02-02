@@ -8,6 +8,7 @@ export const FOR = 'for-statement';
 export const TIMEOUT = 'timeout';
 export const CONSOLE = 'console-statement';
 export const MOCKERY = 'excessive-jest-mock';
+export const EMPTY_DESCRIBE = 'empty-describe';
 
 export const JAVASCRIPT_FILE = 'javascript.js';
 export const TYPESCRIPT_FILE = 'javascript.ts';

@@ -3,6 +3,7 @@ import * as ts from 'typescript';
 import { Smell, SmellsFinder } from "../types";
 import { SmellsBuilder } from '../smells-builder';
 
+
 export class TypescriptSmells implements SmellsFinder {
 
   constructor(private readonly ast: ts.SourceFile) { }
@@ -110,12 +111,15 @@ export class TypescriptSmells implements SmellsFinder {
       );
     }
 
+    const emptyDescribe = this.findEmptyDescribes(ast);
+
     const result = ifs.concat(forOfs)
       .concat(forIns)
       .concat(fors)
       .concat(timeouts)
       .concat(consoles)
-      .concat(jestMockSmells);
+      .concat(jestMockSmells)
+      .concat(emptyDescribe);
     return result;
   }
 
@@ -214,5 +218,37 @@ export class TypescriptSmells implements SmellsFinder {
       this.findJestMocks(child, functionCalls);
     });
     return functionCalls;
+  }
+
+  private findEmptyDescribes(sourceFile: ts.SourceFile): Smell[] {
+    const emptyDescribes: Smell[] = [];
+
+    function traverse(node: ts.Node) {
+      if (ts.isCallExpression(node)) {
+        const expression = node.expression;
+        const isDescribeCall = ts.isIdentifier(expression) && expression.text === 'describe';
+        if (isDescribeCall && node.arguments.length === 2) {
+          const secondArg = node.arguments[1];
+          if (ts.isArrowFunction(secondArg) || ts.isFunctionExpression(secondArg)) {
+            const body = secondArg.body;
+            if (ts.isBlock(body) && body.statements.length === 0) {
+              const { line, character: startAt } = sourceFile.getLineAndCharacterOfPosition(node.getStart());
+              const { line: lineEnd, character: endsAt } = sourceFile.getLineAndCharacterOfPosition(node.getEnd());
+              emptyDescribes.push(SmellsBuilder.emptyDescribe(
+                line + 1,
+                lineEnd + 1,
+                startAt,
+                endsAt,
+              ));
+            }
+          }
+        }
+      }
+
+      ts.forEachChild(node, traverse);
+    }
+
+    traverse(sourceFile);
+    return emptyDescribes;
   }
 }

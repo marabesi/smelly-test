@@ -51,6 +51,7 @@ a curated list here goes:
 - [What we know about smells in software test code](https://pureadmin.qub.ac.uk/ws/portalfiles/portal/178657249/What_we_know_testing_embedded_SW_Nov_24.pdf)
 - [Smells in software test code: A survey of knowledge in industry and academia](https://pureadmin.qub.ac.uk/ws/portalfiles/portal/178889150/MLR_Smells_in_test_code_Dec_9.pdf)
 - [TERTS: Um tutor de ensino para refatoraç̃ao de test smells](https://www.researchgate.net/profile/Ivan-Machado-2/publication/382613188_TERTS_Um_tutor_de_ensino_para_refatoracao_de_test_smells/links/66e4044bb1606e24c2267715/TERTS-Um-tutor-de-ensino-para-refatoracao-de-test-smells.pdf)
+- [Process smells in practice: an evaluative case study](https://link.springer.com/article/10.1007/s10664-025-10664-8)
 
 ## Want to keep up to date with the latest research?
 

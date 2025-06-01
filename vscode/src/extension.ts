@@ -8,7 +8,6 @@ import { Logger } from './trace/logger';
 import { setupConfiguration } from './configuration';
 
 let logger: Logger;
-let reporter: TelemetryReporter;
 let currentDecoration: vscode.TextEditorDecorationType = warningDecorationType;
 let ranges: ComposedSmell[] = [];
 let hovers: vscode.Disposable[] = [];
@@ -50,7 +49,6 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand(smellyCommandSignature, () => {
       generateHighlighting(context);
     }));
-  context.subscriptions.push(reporter);
 
   smellyStatusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
   smellyStatusBar.command = smellyCommandSignature;

@@ -44,6 +44,7 @@ a curated list here goes:
 
 - [jnose for java](https://github.com/arieslab/jnose)
 - [tsDetect](https://github.com/TestSmells/TSDetect)
+- [PyNose for python](https://github.com/JetBrains-Research/PyNose)
 
 ## Related research
 

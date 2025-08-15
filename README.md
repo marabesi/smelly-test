@@ -46,6 +46,7 @@ a curated list here goes:
 - [tsDetect](https://github.com/TestSmells/TSDetect)
 - [PyNose for python](https://github.com/JetBrains-Research/PyNose)
 - [SNUTS.js](https://github.com/Jhonatanmizu/SNUTS.js)
+- [xNose: A Test Smell Detector for C#](https://arxiv.org/pdf/2405.04063)
 
 ## Related research
 

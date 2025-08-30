@@ -1,4 +1,4 @@
-import TelemetryReporter from "@vscode/extension-telemetry";
+import { TelemetryReporter } from "@vscode/extension-telemetry";
 import { SmellyConfiguration } from "../extension.types";
 
 export class Logger {

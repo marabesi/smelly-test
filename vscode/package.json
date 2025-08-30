@@ -109,7 +109,7 @@
     "webpack-cli": "*"
   },
   "dependencies": {
-    "@vscode/extension-telemetry": "^0.9.6",
+    "@vscode/extension-telemetry": "^1.0.0",
     "dotenv": "^16.4.5",
     "esprima": "^4.0.1",
     "hex-rgb": "^5.0.0",

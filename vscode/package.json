@@ -11,7 +11,7 @@
   "publisher": "marabesi",
   "browser": "./dist/extension.js",
   "engines": {
-    "vscode": "^1.90.0"
+    "vscode": "^1.103.0"
   },
   "categories": [
     "Testing",
@@ -93,7 +93,7 @@
     "@types/esprima": "^4.0.6",
     "@types/mocha": "^10.0.1",
     "@types/node": "*",
-    "@types/vscode": "^1.90.0",
+    "@types/vscode": "^1.103.0",
     "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@typescript-eslint/parser": "^5.53.0",
     "@vscode/test-cli": "^0.0.9",

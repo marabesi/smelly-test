@@ -3,7 +3,7 @@ import { SmellyConfiguration } from "../extension.types";
 
 export class Logger {
 
-  private telemetry?: TelemetryReporter | undefined;
+  private readonly telemetry?: TelemetryReporter | undefined;
   
   constructor(
     private configuration: SmellyConfiguration

@@ -33,7 +33,7 @@
     "node-html-parser": "^6.1.13",
     "nodemon": "^3.1.4",
     "ts-loader": "*",
-    "ts-node": "^10.9.2"
+    "ts-node": "*"
   },
   "scripts": {
     "compile": "rm -rf build/ types/ && tsc && cpy 'src/reporters/layout/**/*' 'build/src/reporters/layout/'",

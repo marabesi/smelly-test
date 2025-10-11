@@ -114,7 +114,7 @@
     "esprima": "^4.0.1",
     "hex-rgb": "^5.0.0",
     "smelly-detector": "*",
-    "ts-node": "^10.9.2"
+    "ts-node": "*"
   },
   "pricing": "Free",
   "sponsor": {

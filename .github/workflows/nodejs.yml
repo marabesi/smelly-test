@@ -17,7 +17,7 @@ jobs:
     needs: [build, test]
     runs-on: ubuntu-24.04
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: login to docker hub
       id: docker-hub
       env:
@@ -36,7 +36,7 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: Set Environment Variables
       uses: tw3lveparsecs/github-actions-setvars@v0.1
       with:
@@ -75,7 +75,7 @@ jobs:
     runs-on: ubuntu-24.04
     needs: [build]
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: Set Environment Variables
       uses: tw3lveparsecs/github-actions-setvars@v0.2
       with:

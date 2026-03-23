@@ -18,7 +18,7 @@ jobs:
       id-token: write
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: Set Environment Variables
       uses: tw3lveparsecs/github-actions-setvars@v0.1
       with:

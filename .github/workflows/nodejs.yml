@@ -43,7 +43,7 @@ jobs:
         envFilePath: ./envvars.for.actions
 
     - name: Use Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v6
       with:
         node-version: ${{ env.NODE_VERSION }}
 
@@ -77,12 +77,12 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set Environment Variables
-      uses: tw3lveparsecs/github-actions-setvars@v0.1
+      uses: tw3lveparsecs/github-actions-setvars@v0.2
       with:
         envFilePath: ./envvars.for.actions
 
     - name: Use Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v6
       with:
         node-version: ${{ env.NODE_VERSION }}
 

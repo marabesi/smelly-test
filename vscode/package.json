@@ -11,7 +11,7 @@
   "publisher": "marabesi",
   "browser": "./dist/extension.js",
   "engines": {
-    "vscode": "^1.103.0"
+    "vscode": "^1.136.0"
   },
   "categories": [
     "Testing",

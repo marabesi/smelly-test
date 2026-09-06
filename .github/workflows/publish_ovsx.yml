@@ -26,7 +26,7 @@ jobs:
         npm run compile --workspaces
     
     - name: Publish to Open VSX Registry
-      uses: HaaLeo/publish-vscode-extension@v1
+      uses: HaaLeo/publish-vscode-extension@v2
       with:
         packagePath: ./vscode
         pat: ${{ secrets.VSX_TOKEN }}

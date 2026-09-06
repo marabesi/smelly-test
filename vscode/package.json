@@ -105,6 +105,7 @@
     "nyc": "^18.0.0",
     "glob": "*",
     "ts-loader": "*",
+    "typescript": "^6.0.3",
     "webpack": "*",
     "webpack-cli": "*"
   },

@@ -28,5 +28,5 @@ jobs:
     - name: Publish to Open VSX Registry
       uses: HaaLeo/publish-vscode-extension@v2
       with:
-        packagePath: ./vscode
         pat: ${{ secrets.VSX_TOKEN }}
+        packagePath: ./vscode

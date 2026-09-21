@@ -13,7 +13,7 @@
     "url": "https://github.com/marabesi/smelly-test/tree/main/cli"
   },
   "devDependencies": {
-    "@vitest/coverage-v8": "^5.0.0",
+    "@vitest/coverage-v8": "^5.0.1",
     "@types/expect": "^24.3.2",
     "@types/mocha": "^10.0.10",
     "@types/node": "*",

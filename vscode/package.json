@@ -111,7 +111,7 @@
   },
   "dependencies": {
     "@vscode/extension-telemetry": "^1.5.2",
-    "dotenv": "^18.0.1",
+    "dotenv": "^18.0.2",
     "esprima": "^4.0.1",
     "hex-rgb": "^5.0.0",
     "smelly-detector": "*",

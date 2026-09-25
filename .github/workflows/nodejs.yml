@@ -19,6 +19,7 @@ env:
 jobs:
   send_docker_image_to_hub:
     needs: [build, test]
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v6

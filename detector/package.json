@@ -17,7 +17,7 @@
   "dependencies": {
     "esprima": "^4.0.1",
     "handlebars": "^4.7.9",
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.2"
   },
   "repository": {
     "url": "git+https://github.com/marabesi/smelly-test.git#main"

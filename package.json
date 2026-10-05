@@ -4,7 +4,7 @@
   "description": "Smelly test is an extension that helps developers mitigate test smells in their test suites. Smelly test is focused on the javascript/typescript ecosystem, for the backend and frontend.",
   "devDependencies": {
     "@types/mocha": "^10.0.10",
-    "@types/node": "^26.6.3",
+    "@types/node": "^26.6.4",
     "@vitest/coverage-v8": "^5.0.3",
     "cpy-cli": "^7.0.0",
     "dotenv": "^18.0.4",

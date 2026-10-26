@@ -7,7 +7,7 @@
     "@types/node": "^26.6.5",
     "@vitest/coverage-v8": "^5.0.5",
     "cpy-cli": "^7.0.0",
-    "dotenv": "^18.0.8",
+    "dotenv": "^18.0.9",
     "eslint": "8.57.1",
     "glob": "^13.0.6",
     "rimraf": "^6.1.3",

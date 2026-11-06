@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "esprima": "^4.0.1",
-    "handlebars": "^4.7.9",
+    "handlebars": "^4.7.10",
     "typescript": "^6.0.3"
   },
   "repository": {

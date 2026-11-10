@@ -5,7 +5,7 @@
   "description": "Find out the smells in your tests, suggestions for correction and the theory behind them",
   "bin": "build/index.js",
   "dependencies": {
-    "commander": "^15.0.0",
+    "commander": "^15.1.0",
     "glob": "*",
     "smelly-detector": "*"
   },

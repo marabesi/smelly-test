@@ -27,7 +27,7 @@
     "@stryker-mutator/typescript-checker": "^10.1.1",
     "@types/esprima": "^4.0.6",
     "@types/node": "*",
-    "@typescript-eslint/eslint-plugin": "^8.72.1",
+    "@typescript-eslint/eslint-plugin": "^8.72.2",
     "@typescript-eslint/parser": "^8.72.2",
     "eslint": "^8.57.1",
     "node-html-parser": "^9.0.5",
